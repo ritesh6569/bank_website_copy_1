@@ -1,0 +1,270 @@
+<?php
+/**
+ * Admin Dashboard
+ * Main admin panel with overview and navigation
+ */
+
+// Start session FIRST
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Load configuration and dependencies
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/helpers.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/db.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
+$page_title = 'Admin Dashboard - ' . SITE_NAME;
+$meta_description = 'Admin dashboard for managing content';
+
+// Get stats
+$totalNotices = 0;
+$totalDownloads = 0;
+$totalGalleryItems = 0;
+$activeNotices = 0;
+
+try {
+    $totalNotices = fetchOne("SELECT COUNT(*) as count FROM notices")['count'] ?? 0;
+    $totalDownloads = fetchOne("SELECT COUNT(*) as count FROM downloads")['count'] ?? 0;
+    $totalGalleryItems = fetchOne("SELECT COUNT(*) as count FROM gallery")['count'] ?? 0;
+    $activeNotices = fetchOne("SELECT COUNT(*) as count FROM notices WHERE status = 'active'")['count'] ?? 0;
+} catch (Exception $e) {
+    // Database might not be set up yet
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/admin.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="d-flex" style="min-height: 100vh;">
+        <nav class="sidebar" style="width: 250px; background: linear-gradient(135deg, #1e3a8a 0%, #2d5a8c 100%); padding: 2rem 0; position: fixed; height: 100vh; overflow-y: auto;">
+            <div class="sidebar-header mb-4 px-3">
+                <a href="<?php echo SITE_URL; ?>" class="text-white text-decoration-none">
+                    <i class="fas fa-arrow-left me-2"></i> Back to Site
+                </a>
+            </div>
+            <ul class="nav flex-column px-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="index.php" style="padding: 1rem 1.5rem;">
+                        <i class="fas fa-chart-line me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="notices.php" style="padding: 1rem 1.5rem;">
+                        <i class="fas fa-bullhorn me-2"></i> Manage Notices
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="downloads.php" style="padding: 1rem 1.5rem;">
+                        <i class="fas fa-download me-2"></i> Manage Downloads
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="gallery.php" style="padding: 1rem 1.5rem;">
+                        <i class="fas fa-images me-2"></i> Manage Gallery
+                    </a>
+                </li>
+                <hr class="bg-secondary my-3">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="logout.php" style="padding: 1rem 1.5rem;">
+                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main style="margin-left: 250px; width: calc(100% - 250px); padding: 2rem;">
+            <div class="container-fluid">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1 class="mb-1">Dashboard</h1>
+                        <p class="text-muted">Welcome back, <?php echo $_SESSION['admin_name'] ?? 'Admin'; ?>!</p>
+                    </div>
+                    <div class="text-end">
+                        <p class="text-muted mb-0" id="currentDateTime"></p>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #3b82f6;">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2"><i class="fas fa-bullhorn"></i> Notices</h6>
+                                <h3 class="mb-0"><?php echo $totalNotices; ?></h3>
+                                <small class="text-success"><i class="fas fa-check-circle"></i> <?php echo $activeNotices; ?> Active</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #10b981; animation-delay: 0.1s;">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2"><i class="fas fa-download"></i> Downloads</h6>
+                                <h3 class="mb-0"><?php echo $totalDownloads; ?></h3>
+                                <small class="text-info"><i class="fas fa-folder"></i> File Management</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #f59e0b; animation-delay: 0.2s;">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2"><i class="fas fa-images"></i> Gallery Items</h6>
+                                <h3 class="mb-0"><?php echo $totalGalleryItems; ?></h3>
+                                <small class="text-warning"><i class="fas fa-images"></i> Image Gallery</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #ef4444; animation-delay: 0.3s;">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2"><i class="fas fa-cogs"></i> System</h6>
+                                <h3 class="mb-0" id="dbStatus">OK</h3>
+                                <small class="text-info"><i class="fas fa-database"></i> Database Connected</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4 animate__animated animate__fadeInUp">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fas fa-zap"></i> Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="notices.php?action=add" class="btn btn-primary btn-sm me-2 mb-2">
+                                    <i class="fas fa-plus"></i> Add Notice
+                                </a>
+                                <a href="downloads.php?action=add" class="btn btn-success btn-sm me-2 mb-2">
+                                    <i class="fas fa-plus"></i> Add Download
+                                </a>
+                                <a href="gallery.php?action=add" class="btn btn-warning btn-sm mb-2">
+                                    <i class="fas fa-plus"></i> Add Gallery Item
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0"><i class="fas fa-info-circle"></i> System Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Site Name:</strong> <?php echo SITE_NAME; ?></p>
+                                <p class="mb-2"><strong>Site URL:</strong> <?php echo SITE_URL; ?></p>
+                                <p class="mb-2"><strong>PHP Version:</strong> <?php echo phpversion(); ?></p>
+                                <p class="mb-0"><strong>Login Time:</strong> <?php echo formatDate($_SESSION['login_time'] ?? date('Y-m-d H:i:s')); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-IN', options);
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+    </script>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --primary-light: #2d5a8c;
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .sidebar {
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            main {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+
+            .d-flex {
+                flex-direction: column !important;
+            }
+        }
+    </style>
+</body>
+</html>
