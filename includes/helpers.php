@@ -26,16 +26,6 @@ function escape($str) {
 }
 
 /**
- * Redirect to a page
- * @param string $url URL to redirect to
- * @param int $code HTTP redirect code
- */
-function redirect($url, $code = 302) {
-    header('Location: ' . $url, true, $code);
-    exit;
-}
-
-/**
  * Format date in readable format
  * @param string $date Date string
  * @param string $format Format string

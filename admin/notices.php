@@ -89,7 +89,7 @@ if ($action === 'list') {
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/admin.css">
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.2/tinymce.min.js"></script>
 </head>
 <body>
     <div class="d-flex" style="min-height: 100vh;">
@@ -253,7 +253,17 @@ if ($action === 'list') {
                             plugins: 'lists link image table',
                             toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image table',
                             menubar: false,
-                            height: 300
+                            height: 300,
+                            setup: function(editor) {
+                                editor.on('change', function() {
+                                    tinymce.triggerSave();
+                                });
+                            }
+                        });
+                        
+                        // Handle form submission with TinyMCE
+                        document.querySelector('form')?.addEventListener('submit', function(e) {
+                            tinymce.triggerSave();
                         });
                     </script>
                 <?php endif; ?>

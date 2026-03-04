@@ -30,6 +30,10 @@ define('SUPPORT_EMAIL', 'support@bank.com');
 // Timezone
 date_default_timezone_set('Asia/Kolkata');
 
+// Upload directories
+define('DOWNLOAD_UPLOAD_DIR', __DIR__ . '/uploads/downloads/');
+define('GALLERY_UPLOAD_DIR', __DIR__ . '/uploads/gallery/');
+
 // Set error reporting for development
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

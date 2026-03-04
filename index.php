@@ -232,6 +232,78 @@ $branches = $data_fetcher->getBranches();
         </div>
     </section>
 
+    <!-- Downloads Section -->
+    <?php 
+    $downloads = $data_fetcher->getDownloads(6);
+    if (!empty($downloads)): 
+    ?>
+    <section class="section">
+        <div class="container-lg">
+            <div class="section-title">
+                <h2>Downloads & Resources</h2>
+                <p class="section-subtitle">Download important forms, documents, and resources</p>
+            </div>
+            
+            <div class="row g-4">
+                <?php foreach ($downloads as $download): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="fas fa-file-pdf" style="font-size: 2rem; color: #dc3545; margin-bottom: 1rem;"></i>
+                                <h5 class="card-title"><?php echo htmlspecialchars($download['title']); ?></h5>
+                                <p class="card-text text-muted"><?php echo htmlspecialchars($download['description'] ?? 'Download this resource'); ?></p>
+                                <?php if (!empty($download['category'])): ?>
+                                    <span class="badge bg-secondary"><?php echo htmlspecialchars($download['category']); ?></span>
+                                <?php endif; ?>
+                                <a href="/bank-website-grok/admin/downloads.php?action=download&id=<?php echo $download['id']; ?>" class="btn btn-sm btn-outline-primary mt-3">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- Gallery Section -->
+    <?php 
+    $gallery = $data_fetcher->getGallery(6);
+    if (!empty($gallery)): 
+    ?>
+    <section class="section bg-light">
+        <div class="container-lg">
+            <div class="section-title">
+                <h2>Gallery</h2>
+                <p class="section-subtitle">View photos from our events and facilities</p>
+            </div>
+            
+            <div class="row g-4">
+                <?php foreach ($gallery as $image): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 overflow-hidden">
+                            <div style="background: #f0f0f0; height: 250px; display: flex; align-items: center; justify-content: center;">
+                                <?php if (!empty($image['image_path']) && file_exists($_SERVER['DOCUMENT_ROOT'] . $image['image_path'])): ?>
+                                    <img src="<?php echo htmlspecialchars($image['image_path']); ?>" alt="<?php echo htmlspecialchars($image['alt_text'] ?? $image['title']); ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                <?php else: ?>
+                                    <i class="fas fa-image" style="font-size: 3rem; color: #ccc;"></i>
+                                <?php endif; ?>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($image['title']); ?></h5>
+                                <?php if (!empty($image['category'])): ?>
+                                    <span class="badge bg-info"><?php echo htmlspecialchars($image['category']); ?></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <!-- Contact Summary Section -->
     <section class="section bg-light">
         <div class="container-lg">

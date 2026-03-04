@@ -220,6 +220,48 @@ class DataFetcher {
             ]
         ];
     }
+
+    /**
+     * Get downloads from database
+     */
+    public function getDownloads($limit = 6) {
+        require_once __DIR__ . '/db.php';
+        
+        try {
+            $query = "SELECT id, title, description, category FROM downloads WHERE status = 'active' ORDER BY created_at DESC LIMIT ?";
+            return fetchAll($query, [$limit]);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+
+    /**
+     * Get gallery images from database
+     */
+    public function getGallery($limit = 6) {
+        require_once __DIR__ . '/db.php';
+        
+        try {
+            $query = "SELECT id, title, image_path, alt_text, category FROM gallery WHERE status = 'active' ORDER BY display_order ASC, created_at DESC LIMIT ?";
+            return fetchAll($query, [$limit]);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+
+    /**
+     * Get notices/news from database
+     */
+    public function getNotices($limit = 5) {
+        require_once __DIR__ . '/db.php';
+        
+        try {
+            $query = "SELECT id, title, content, date_published FROM notices WHERE status = 'active' ORDER BY date_published DESC LIMIT ?";
+            return fetchAll($query, [$limit]);
+        } catch (Exception $e) {
+            return [];
+        }
+    }
 }
 
 // Initialize fetcher globally

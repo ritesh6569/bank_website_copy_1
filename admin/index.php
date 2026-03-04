@@ -105,6 +105,16 @@ try {
                     </div>
                 </div>
 
+                <!-- Login Success Alert -->
+                <?php if (isset($_SESSION['login_success'])): ?>
+                    <div class="alert alert-success alert-dismissible fade show animate__animated animate__slideInDown" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Success!</strong> <?php echo htmlspecialchars($_SESSION['login_success']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    <?php unset($_SESSION['login_success']); ?>
+                <?php endif; ?>
+
                 <!-- Stats Cards -->
                 <div class="row mb-4">
                     <div class="col-md-3 mb-3">
