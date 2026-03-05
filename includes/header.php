@@ -29,15 +29,13 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Professional Banking Theme -->
     <link href="/bank-website-grok/css/professional-theme.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/bank-website-grok/assets/css/style.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-lg">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold text-white" href="/bank-website-grok/index.php">
+            <a class="navbar-brand fw-bold text-white" href="/bank-website-grok/index.php" style="color:#ffffff !important;">
                 <i class="fas fa-university me-2"></i>Professional Bank
             </a>
             
