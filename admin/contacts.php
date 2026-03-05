@@ -14,6 +14,7 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/mailer.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -44,26 +45,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 if (!$contact) {
                     $error_message = 'Contact submission not found.';
                 } else {
-                    // Send email reply
-                    $to = $contact['email'];
-                    $subject = 'RE: Your Contact Inquiry - ' . SITE_NAME;
-                    $headers = "MIME-Version: 1.0" . "\r\n";
-                    $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-                    $headers .= "From: " . SITE_EMAIL . "\r\n";
-                    
-                    $body = '<html><body>';
-                    $body .= '<p>Dear ' . escape($contact['name']) . ',</p>';
-                    $body .= '<p>Thank you for contacting us. Here is our response:</p>';
-                    $body .= '<div style="background: #f0f0f0; padding: 15px; margin: 15px 0; border-left: 4px solid #3b82f6;">';
-                    $body .= nl2br(escape($reply_message));
-                    $body .= '</div>';
-                    $body .= '<p>Best regards,<br>' . SITE_NAME . ' Team</p>';
-                    $body .= '</body></html>';
-                    
-                    // Send email
-                    $mail_sent = mail($to, $subject, $body, $headers);
-                    
-                    if ($mail_sent) {
+                    // Build branded HTML email body
+                    $emailContent = '
+                        <p>Thank you for contacting us. Here is our response to your inquiry:</p>
+                        <div class="content-box">' . nl2br(htmlspecialchars($reply_message, ENT_QUOTES, 'UTF-8')) . '</div>
+                        <p>If you have any further questions, please do not hesitate to contact us.</p>
+                    ';
+                    $emailBody = buildEmailTemplate(
+                        htmlspecialchars($contact['name']),
+                        $emailContent,
+                        '<p>This is a reply to your inquiry submitted at <a href="' . SITE_URL . '">' . SITE_WEBSITE . '</a></p>'
+                    );
+
+                    // Send via PHPMailer SMTP
+                    $result = sendMail(
+                        $contact['email'],
+                        'RE: Your Contact Inquiry — ' . SITE_NAME_SHORT,
+                        $emailBody,
+                        SITE_EMAIL,        // Reply-To
+                        $contact['name']   // Recipient display name
+                    );
+
+                    if ($result['success']) {
                         // Update contact submission status
                         $current_admin = getCurrentAdmin();
                         $query = "UPDATE contact_submissions 
@@ -76,11 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         $pdo = getDBConnection();
                         $stmt = $pdo->prepare($query);
                         $stmt->execute([$reply_message, $current_admin['id'], $contact_id]);
-                        
+
                         $success_message = 'Reply sent successfully to ' . $contact['email'];
-                        $contact_id = null; // Clear contact_id to show list
+                        $contact_id = null; // Return to list view
                     } else {
-                        $error_message = 'Failed to send email. Please try again.';
+                        $error_message = 'Failed to send email: ' . $result['error'];
                     }
                 }
             } catch (Exception $e) {

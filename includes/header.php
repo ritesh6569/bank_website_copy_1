@@ -13,13 +13,13 @@ $current_page = isset($current_page) ? $current_page : 'home';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your trusted banking partner offering deposits, loans, and modern banking services.">
-    <meta name="keywords" content="bank, deposits, loans, savings, financial services">
-    <meta name="author" content="Professional Bank">
+    <meta name="description" content="Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi - 65 Years of Banking. A bank that understands you!">
+    <meta name="keywords" content="Miraji Bank, Chikodi, Urban Co-operative Bank, deposits, loans, savings, Belagavi Karnataka">
+    <meta name="author" content="Shri Shantappanna Miraji Urban Co-op. Bank Ltd.">
     <meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">
-    <meta property="og:description" content="Your trusted banking partner">
+    <meta property="og:description" content="Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi - 65 Years of Banking">
     <meta property="og:image" content="/bank-website-grok/assets/images/og-image.jpg">
-    <title><?php echo htmlspecialchars($page_title); ?> - Professional Bank</title>
+    <title><?php echo htmlspecialchars($page_title); ?> - Miraji Bank</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -31,12 +31,28 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <link href="/bank-website-grok/css/professional-theme.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Info Bar -->
+    <div class="top-info-bar" style="background: #0f2c5e; color: rgba(255,255,255,0.85); font-size: 0.8rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div class="container-lg d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <span>
+                <i class="fas fa-map-marker-alt me-1"></i>944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201
+            </span>
+            <span class="d-flex gap-3">
+                <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none" style="color:rgba(255,255,255,0.85);">
+                    <i class="fas fa-envelope me-1"></i>shantappanna@mirajibank.com
+                </a>
+                <a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none" style="color:rgba(255,255,255,0.85);">
+                    <i class="fas fa-globe me-1"></i>www.shantappannamirajibank.com
+                </a>
+            </span>
+        </div>
+    </div>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-lg">
             <!-- Brand -->
             <a class="navbar-brand fw-bold text-white" href="/bank-website-grok/index.php" style="color:#ffffff !important;">
-                <i class="fas fa-university me-2"></i>Professional Bank
+                <i class="fas fa-university me-2"></i>Miraji Bank
             </a>
             
             <!-- Toggle Button for Mobile -->
@@ -57,10 +73,15 @@ $current_page = isset($current_page) ? $current_page : 'home';
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?php echo $current_page === 'about' ? 'active' : ''; ?>" 
                            href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            About
+                            About Us
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php">About Us</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#the-bank">The Bank</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#our-founder">Our Founder</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#chairman">Chairman</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#board-of-directors">Board of Directors</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#board-of-management">Board of Management</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#general-manager">General Manager</a></li>
                         </ul>
                     </li>
                     
@@ -68,11 +89,24 @@ $current_page = isset($current_page) ? $current_page : 'home';
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?php echo $current_page === 'deposits' || $current_page === 'loans' ? 'active' : ''; ?>" 
                            href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Products
+                            Deposits
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/deposits.php">Deposits</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php">Loans</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/deposits.php#cumulative">Cumulative Deposit</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/deposits.php#fixed">Fixed Deposit</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Loans Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <?php echo $current_page === 'loans' ? 'active' : ''; ?>" 
+                           href="#" id="loansDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Loans
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="loansDropdown">
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#cash-credit">Cash Credit</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#overdraft">Over Draft</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#personal">Personal Loan</a></li>
                         </ul>
                     </li>
                     
@@ -95,12 +129,21 @@ $current_page = isset($current_page) ? $current_page : 'home';
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
                             <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php">Media Center</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#deaf-accounts">DEAF Accounts</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#statutory-auditor">Appointment - Statutory Auditor</a></li>
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#agm-reports">AGM Notice and Annual Reports</a></li>
                         </ul>
                     </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo $current_page === 'contact' ? 'active' : ''; ?>" 
-                           href="/bank-website-grok/pages/contact.php">Contact</a>
+                    <!-- Contact Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <?php echo $current_page === 'contact' ? 'active' : ''; ?>" 
+                           href="#" id="contactDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Contact Us
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="contactDropdown">
+                            <li><a class="dropdown-item" href="/bank-website-grok/pages/contact.php">Contact Us</a></li>
+                        </ul>
                     </li>
                 </ul>
                 

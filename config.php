@@ -5,12 +5,16 @@
  */
 
 // Define site constants
-define('SITE_NAME', 'Professional Bank');
+define('SITE_NAME', 'Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi');
+define('SITE_NAME_SHORT', 'Miraji Bank');
 define('SITE_URL', 'http://localhost/bank-website-grok/');
-define('SITE_EMAIL', 'support@bank.com');
-define('ADMIN_EMAIL', 'admin@bank.com');
-define('SITE_PHONE', '+1 (234) 567-890');
-define('SUPPORT_EMAIL', 'support@bank.com');
+define('SITE_EMAIL', 'shantappanna@mirajibank.com');
+define('ADMIN_EMAIL', 'shantappanna@mirajibank.com');
+define('SITE_PHONE', '+918338273169');
+define('SITE_PHONE2', '+918494903886');
+define('SUPPORT_EMAIL', 'shantappanna@mirajibank.com');
+define('SITE_ADDRESS', '944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201');
+define('SITE_WEBSITE', 'www.shantappannamirajibank.com');
 
 // Database Configuration (future use)
 // define('DB_HOST', 'localhost');
@@ -18,11 +22,14 @@ define('SUPPORT_EMAIL', 'support@bank.com');
 // define('DB_PASS', '');
 // define('DB_NAME', 'bank_db');
 
-// Email Configuration (future use)
-// define('MAIL_HOST', 'smtp.gmail.com');
-// define('MAIL_PORT', 587);
-// define('MAIL_USER', 'your-email@gmail.com');
-// define('MAIL_PASS', 'your-password');
+// Email / SMTP Configuration (PHPMailer)
+// Use Gmail App Password: https://myaccount.google.com/apppasswords
+define('MAIL_HOST',       'smtp.gmail.com');
+define('MAIL_PORT',       587);                               // 587 = TLS, 465 = SSL
+define('MAIL_ENCRYPTION', 'tls');                             // 'tls' or 'ssl'
+define('MAIL_USER',       'shantappanna@mirajibank.com');     // Gmail / SMTP username
+define('MAIL_PASS',       '');                                // App Password (16 chars, no spaces)
+define('MAIL_FROM_NAME',  SITE_NAME_SHORT);                   // Sender display name
 
 // reCAPTCHA Configuration (for production)
 // define('RECAPTCHA_SITE_KEY', 'your-site-key');

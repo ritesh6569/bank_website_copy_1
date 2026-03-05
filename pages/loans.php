@@ -1,604 +1,538 @@
 <?php
 /**
- * Loans Page - Professional Bank Website
+ * Loans Page - Shri Shantappanna Miraji Urban Co-op. Bank Ltd.
  */
 
-$page_title = 'Loans - Professional Bank';
+$page_title = 'Loans - Miraji Bank';
 $current_page = 'loans';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/notices-fetcher.php';
 
-$interest_rates = $data_fetcher->getInterestRates();
 $notices = getActiveNotices();
 ?>
 
     <!-- Notices Alert Banner -->
-    <?php if (!empty($notices)): 
-        $latest_notice = $notices[0];
-    ?>
-    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius: 0; border-left: 5px solid #f59e0b;">
-        <div class="container-lg">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-bell me-3" style="font-size: 1.25rem; color: #d97706;"></i>
-                <div style="flex: 1;">
-                    <strong style="color: #92400e;">Important Notice:</strong>
-                    <span class="ms-2" style="color: #b45309;">
-                        <?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </span>
-                    <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color: #1e40af; font-weight: 600;">
-                        Read More →
-                    </a>
-                </div>
+    <?php if (!empty($notices)): $latest_notice = $notices[0]; ?>
+    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius:0;border-left:5px solid #f59e0b;">
+        <div class="container-lg d-flex align-items-center">
+            <i class="fas fa-bell me-3" style="font-size:1.25rem;color:#d97706;"></i>
+            <div style="flex:1;">
+                <strong style="color:#92400e;">Important Notice:</strong>
+                <span class="ms-2" style="color:#b45309;"><?php echo htmlspecialchars($latest_notice['title']); ?></span>
+                <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color:#1e40af;font-weight:600;">Read More</a>
             </div>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <!-- Latest Notice Modal -->
-    <div class="modal fade" id="noticeModalLatest" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; border: none;">
-                    <h5 class="modal-title">
-                        <i class="fas fa-bell me-2"></i><?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <small class="text-muted d-block mb-3">
-                        <i class="fas fa-calendar-alt me-1"></i>Published on <?php echo formatNoticeDate($latest_notice['date_published']); ?>
-                    </small>
-                    <div class="notice-content">
-                        <?php echo $latest_notice['content']; ?>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <?php endif; ?>
 
     <!-- Page Header -->
     <div class="page-header">
+        <i class="fas fa-hand-holding-usd page-header-icon"></i>
         <div class="container-lg">
-            <h1 class="mb-2">Loan Products</h1>
-            <p class="lead">Get the financial support you need with our flexible loan options</p>
+            <span class="page-header-eyebrow"><i class="fas fa-circle-dot"></i> Banking Products</span>
+            <h1>Loan Products</h1>
+            <p>Fulfil your dreams with our wide range of loan products — Shri Shantappanna Miraji Urban Co-op. Bank Ltd.</p>
         </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <section class="bg-light py-4 sticky-top" style="z-index: 99;">
-        <div class="container-lg">
-            <ul class="nav nav-pills" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab">Personal Loan</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">Home Loan</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="vehicle-tab" data-bs-toggle="tab" data-bs-target="#vehicle" type="button" role="tab">Vehicle Loan</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab">Business Loan</button>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Tab Content -->
-    <div class="tab-content" id="loanTabContent">
-        <!-- Personal Loan -->
-        <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Personal Loan</h2>
-                            <p class="lead">Get instant financial support for your personal needs without collateral.</p>
-                            
-                            <h4 class="mt-4 mb-3">Quick Facts</h4>
-                            <div class="row g-3 mb-4">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Interest Rate</h6>
-                                            <p class="h5 text-primary">8.5% - 12.5% p.a.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Loan Amount</h6>
-                                            <p class="h5 text-primary">₹50,000 - ₹25,00,000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Tenure</h6>
-                                            <p class="h5 text-primary">12 - 60 months</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Processing Time</h6>
-                                            <p class="h5 text-primary">24 - 48 hours</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h4 class="mb-3">Key Features</h4>
-                            <ul class="list-unstyled">
-                                <li class="py-2"><i class="fas fa-check-circle text-success me-2"></i>No collateral required</li>
-                                <li class="py-2"><i class="fas fa-check-circle text-success me-2"></i>Quick approval and disbursement</li>
-                                <li class="py-2"><i class="fas fa-check-circle text-success me-2"></i>Flexible repayment tenure</li>
-                                <li class="py-2"><i class="fas fa-check-circle text-success me-2"></i>Minimal documentation</li>
-                                <li class="py-2"><i class="fas fa-check-circle text-success me-2"></i>Option to pre-close without penalty</li>
-                            </ul>
-                            
-                            <h4 class="mt-4 mb-3">Eligibility Criteria</h4>
-                            <ul>
-                                <li>Age: 21 - 60 years</li>
-                                <li>Employment: Salaried professional or self-employed</li>
-                                <li>Income: Minimum ₹3,00,000 p.a.</li>
-                                <li>Credit Score: 750+ (preferred)</li>
-                                <li>Employment History: Minimum 2 years</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">EMI Calculator</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="loanAmount" class="form-label">Loan Amount (₹)</label>
-                                        <input type="number" class="form-control" id="loanAmount" placeholder="500000" min="50000">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="interestRate" class="form-label">Interest Rate (%)</label>
-                                        <input type="number" class="form-control" id="interestRate" placeholder="10" min="8.5" max="12.5" step="0.1" value="10">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="loanTenure" class="form-label">Tenure (Months)</label>
-                                        <input type="number" class="form-control" id="loanTenure" placeholder="60" min="12" max="60" step="6" value="60">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Loan Tenure</label>
-                                        <input type="range" class="form-range" id="tenureSlider" min="12" max="60" step="6" value="60" style="cursor: pointer;">
-                                        <small class="text-muted"><span id="tenureDisplay">60</span> months</small>
-                                    </div>
-                                    <button type="button" class="btn btn-primary w-100" onclick="calculateEMI()">
-                                        Calculate EMI
-                                    </button>
-                                    <div id="emiResult" class="mt-3" style="display:none;">
-                                        <hr>
-                                        <p class="mb-1"><strong>Monthly EMI:</strong></p>
-                                        <h5 id="monthlyEMI" class="text-success">₹0</h5>
-                                        <p class="small text-muted mb-2">Total Amount Payable: <span id="totalPayable">₹0</span></p>
-                                        <p class="small text-muted mb-0">Total Interest: <span id="totalInterest">₹0</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Home Loan -->
-        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Home Loan</h2>
-                            <p class="lead">Fulfill your dream of owning a home with our comprehensive home loan solutions.</p>
-                            
-                            <h4 class="mt-4 mb-3">Quick Facts</h4>
-                            <div class="row g-3 mb-4">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Interest Rate</h6>
-                                            <p class="h5 text-primary">7.0% - 8.5% p.a.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Loan Amount</h6>
-                                            <p class="h5 text-primary">₹5,00,000 - ₹2 Cr</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">LTV Ratio</h6>
-                                            <p class="h5 text-primary">Up to 90%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Tenure</h6>
-                                            <p class="h5 text-primary">Up to 20 years</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h4 class="mb-3">What We Finance</h4>
-                            <ul class="list-unstyled">
-                                <li class="py-2"><i class="fas fa-home text-success me-2"></i>Purchase of new residential property</li>
-                                <li class="py-2"><i class="fas fa-home text-success me-2"></i>Construction of house on own land</li>
-                                <li class="py-2"><i class="fas fa-home text-success me-2"></i>Purchase of land for residential purpose</li>
-                                <li class="py-2"><i class="fas fa-home text-success me-2"></i>Renovation and repair of existing property</li>
-                                <li class="py-2"><i class="fas fa-home text-success me-2"></i>Balance transfer from other bank</li>
-                            </ul>
-                            
-                            <h4 class="mt-4 mb-3">Documents Required</h4>
-                            <ul>
-                                <li>Identity proof (Passport, Aadhaar, PAN)</li>
-                                <li>Address proof (Latest utility bill, rent agreement)</li>
-                                <li>Income proof (Salary slips, IT returns)</li>
-                                <li>Property documents (Title deed, sale agreement)</li>
-                                <li>Bank statements (Last 6 months)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Apply for Home Loan</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="homeLoanForm" novalidate>
-                                        <div class="mb-3">
-                                            <label for="hlName" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" id="hlName" name="name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="hlEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="hlEmail" name="email" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="hlPhone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="hlPhone" name="phone" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="hlAmount" class="form-label">Loan Amount (₹)</label>
-                                            <input type="number" class="form-control" id="hlAmount" name="amount" min="500000" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Vehicle Loan -->
-        <div class="tab-pane fade" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Vehicle Loan</h2>
-                            <p class="lead">Drive home your dream car with our hassle-free vehicle financing options.</p>
-                            
-                            <h4 class="mt-4 mb-3">Quick Facts</h4>
-                            <div class="row g-3 mb-4">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Interest Rate</h6>
-                                            <p class="h5 text-primary">7.5% - 9.5% p.a.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Finance Up To</h6>
-                                            <p class="h5 text-primary">80% value</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Tenure</h6>
-                                            <p class="h5 text-primary">12 - 84 months</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Processing Fee</h6>
-                                            <p class="h5 text-primary">1% - 2%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h4 class="mb-3">Vehicle Types We Finance</h4>
-                            <ul class="list-unstyled">
-                                <li class="py-2"><i class="fas fa-car text-success me-2"></i>New & used cars (sedan, SUV, MUV)</li>
-                                <li class="py-2"><i class="fas fa-car text-success me-2"></i>Motorcycles and scooters</li>
-                                <li class="py-2"><i class="fas fa-car text-success me-2"></i>Commercial vehicles</li>
-                                <li class="py-2"><i class="fas fa-car text-success me-2"></i>Farm equipment</li>
-                                <li class="py-2"><i class="fas fa-car text-success me-2"></i>Balance transfer from other lenders</li>
-                            </ul>
-                            
-                            <h4 class="mt-4 mb-3">Benefits</h4>
-                            <ul>
-                                <li>Instant approval and quick disbursement</li>
-                                <li>No hidden charges</li>
-                                <li>Flexible repayment options</li>
-                                <li>Loan against registration of vehicle</li>
-                                <li>Extended warranty coverage available</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Quick Vehicle Loan</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="vehicleLoanForm" novalidate>
-                                        <div class="mb-3">
-                                            <label for="vlName" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" id="vlName" name="name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="vlEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="vlEmail" name="email" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="vlPhone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="vlPhone" name="phone" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="vlVehicle" class="form-label">Vehicle Type</label>
-                                            <select class="form-select" id="vlVehicle" name="vehicle" required>
-                                                <option value="">Select...</option>
-                                                <option value="car">Car</option>
-                                                <option value="bike">Motorcycle</option>
-                                                <option value="commercial">Commercial Vehicle</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Business Loan -->
-        <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Business Loan</h2>
-                            <p class="lead">Fuel your business growth with our flexible and customized business loan solutions.</p>
-                            
-                            <h4 class="mt-4 mb-3">Quick Facts</h4>
-                            <div class="row g-3 mb-4">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Interest Rate</h6>
-                                            <p class="h5 text-primary">9.0% - 14.0% p.a.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Loan Amount</h6>
-                                            <p class="h5 text-primary">₹1,00,000 - ₹1 Cr</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Tenure</h6>
-                                            <p class="h5 text-primary">12 - 84 months</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h6 class="card-title">Approval Time</h6>
-                                            <p class="h5 text-primary">7-10 days</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h4 class="mb-3">Suitable For</h4>
-                            <ul class="list-unstyled">
-                                <li class="py-2"><i class="fas fa-briefcase text-success me-2"></i>Purchase of equipment & machinery</li>
-                                <li class="py-2"><i class="fas fa-briefcase text-success me-2"></i>Working capital requirements</li>
-                                <li class="py-2"><i class="fas fa-briefcase text-success me-2"></i>Business expansion</li>
-                                <li class="py-2"><i class="fas fa-briefcase text-success me-2"></i>Renovation of business premises</li>
-                                <li class="py-2"><i class="fas fa-briefcase text-success me-2"></i>Inventory financing</li>
-                            </ul>
-                            
-                            <h4 class="mt-4 mb-3">Eligibility</h4>
-                            <ul>
-                                <li>Business should be operational for minimum 2 years</li>
-                                <li>Annual turnover: Minimum ₹10 lakhs</li>
-                                <li>Age: 21-65 years</li>
-                                <li>Valid business registration & tax clearance</li>
-                                <li>Good credit history</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Apply for Business Loan</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="businessLoanForm" novalidate>
-                                        <div class="mb-3">
-                                            <label for="blOwner" class="form-label">Owner Name</label>
-                                            <input type="text" class="form-control" id="blOwner" name="owner" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="blBusiness" class="form-label">Business Name</label>
-                                            <input type="text" class="form-control" id="blBusiness" name="business" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="blEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="blEmail" name="email" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="blPhone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="blPhone" name="phone" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <!-- Loan Comparison -->
+    <!-- Loan Products Overview -->
     <section class="section bg-light">
         <div class="container-lg">
             <div class="section-title">
-                <h2>Loan Products Comparison</h2>
+                <h2>Our Loan Products</h2>
+                <p class="section-subtitle">Comprehensive financial solutions for every need</p>
             </div>
-            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid var(--primary-color);">
+                        <div class="card-body p-4">
+                            <i class="fas fa-user-friends fa-2x mb-3" style="color:var(--primary-color);"></i>
+                            <h5 class="card-title">Surety / Personal Loan</h5>
+                            <p class="text-muted small">Loans on surety of members for personal needs, education, medical emergencies, and more.</p>
+                            <a href="#surety" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid var(--success-color);">
+                        <div class="card-body p-4">
+                            <i class="fas fa-credit-card fa-2x mb-3" style="color:var(--success-color);"></i>
+                            <h5 class="card-title">Cash Credit Loan</h5>
+                            <p class="text-muted small">Revolving credit facility for working capital needs of businesses and traders.</p>
+                            <a href="#cash-credit" class="btn btn-sm btn-outline-success mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #f59e0b;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-building fa-2x mb-3" style="color:#f59e0b;"></i>
+                            <h5 class="card-title">Mortgage Loan</h5>
+                            <p class="text-muted small">Loans against mortgage of immovable property for business or personal use.</p>
+                            <a href="#mortgage" class="btn btn-sm btn-outline-warning mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #f59e0b;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-coins fa-2x mb-3" style="color:#f59e0b;"></i>
+                            <h5 class="card-title">Gold Loan</h5>
+                            <p class="text-muted small">Quick loans against pledge of gold ornaments at competitive interest rates.</p>
+                            <a href="#gold" class="btn btn-sm btn-outline-warning mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #8b5cf6;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-tractor fa-2x mb-3" style="color:#8b5cf6;"></i>
+                            <h5 class="card-title">Hypothecation Loan</h5>
+                            <p class="text-muted small">Loans against hypothecation of movable assets including agricultural equipment and machinery.</p>
+                            <a href="#hypothecation" class="btn btn-sm btn-outline-secondary mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #06b6d4;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-car fa-2x mb-3" style="color:#06b6d4;"></i>
+                            <h5 class="card-title">Vehicle Loan</h5>
+                            <p class="text-muted small">Finance for two-wheelers, four-wheelers, and commercial vehicles at attractive rates.</p>
+                            <a href="#vehicle" class="btn btn-sm btn-outline-info mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #ec4899;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-home fa-2x mb-3" style="color:#ec4899;"></i>
+                            <h5 class="card-title">Housing Loan</h5>
+                            <p class="text-muted small">Residential and commercial housing loans for construction, purchase, and repair.</p>
+                            <a href="#housing" class="btn btn-sm btn-outline-danger mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid #10b981;">
+                        <div class="card-body p-4">
+                            <i class="fas fa-industry fa-2x mb-3" style="color:#10b981;"></i>
+                            <h5 class="card-title">Industrial / MSME Loan</h5>
+                            <p class="text-muted small">Working capital and term loans for small and medium enterprises, including shed construction.</p>
+                            <a href="#industrial" class="btn btn-sm btn-outline-success mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100" style="border-top:4px solid var(--primary-color);">
+                        <div class="card-body p-4">
+                            <i class="fas fa-briefcase fa-2x mb-3" style="color:var(--primary-color);"></i>
+                            <h5 class="card-title">Other Loans</h5>
+                            <p class="text-muted small">Professional, Consumer Durable, Agricultural, Trade/Business, Transport, and other RBI-approved loans.</p>
+                            <a href="#other-loans" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interest Rates Table -->
+    <section class="section">
+        <div class="container-lg">
+            <div class="section-title">
+                <h2>Loan Interest Rates</h2>
+                <p class="section-subtitle">Transparent and competitive rates on all our loan products</p>
+            </div>
             <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-primary">
                         <tr>
-                            <th>Feature</th>
-                            <th>Personal Loan</th>
-                            <th>Home Loan</th>
-                            <th>Vehicle Loan</th>
-                            <th>Business Loan</th>
+                            <th>Sr. No.</th>
+                            <th>Type of Loan</th>
+                            <th class="text-center">Interest Rate (% p.a.)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><strong>Interest Rate</strong></td>
-                            <td>8.5-12.5%</td>
-                            <td>7.0-8.5%</td>
-                            <td>7.5-9.5%</td>
-                            <td>9.0-14.0%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Loan Amount</strong></td>
-                            <td>₹50K-₹25L</td>
-                            <td>₹5L-₹2Cr</td>
-                            <td>Up to 80% value</td>
-                            <td>₹1L-₹1Cr</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tenure</strong></td>
-                            <td>12-60 mo</td>
-                            <td>Up to 20 yr</td>
-                            <td>12-84 mo</td>
-                            <td>12-84 mo</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Collateral</strong></td>
-                            <td>None</td>
-                            <td>Property</td>
-                            <td>Vehicle</td>
-                            <td>Optional</td>
-                        </tr>
+                        <tr class="table-light"><td colspan="3"><strong>I. Industrial Loan / MSME</strong></td></tr>
+                        <tr><td>1.</td><td>Working Capital</td><td class="text-center"><strong>10.00%</strong></td></tr>
+                        <tr><td>2.</td><td>Term Loan</td><td class="text-center"><strong>11.00%</strong></td></tr>
+                        <tr><td>3.</td><td>Shade Construction (MSME)</td><td class="text-center"><strong>11.00%</strong></td></tr>
+                        <tr class="table-light"><td colspan="3"><strong>II. Housing Loan</strong></td></tr>
+                        <tr><td>4.</td><td>Housing Loan – Residential Construction</td><td class="text-center"><strong>10.50%</strong></td></tr>
+                        <tr><td>5.</td><td>Housing Loan – Residential Purchase</td><td class="text-center"><strong>10.50%</strong></td></tr>
+                        <tr><td>6.</td><td>Housing Loan – Residential Repair</td><td class="text-center"><strong>11.00%</strong></td></tr>
+                        <tr><td>7.</td><td>Housing Loan – Commercial</td><td class="text-center"><strong>11.50%</strong></td></tr>
+                        <tr class="table-light"><td colspan="3"><strong>III. Vehicle Loan</strong></td></tr>
+                        <tr><td>8.</td><td>Two Wheeler</td><td class="text-center"><strong>11.00%</strong></td></tr>
+                        <tr><td>9.</td><td>Four Wheeler / Commercial Vehicle</td><td class="text-center"><strong>10.50%</strong></td></tr>
+                        <tr class="table-light"><td colspan="3"><strong>IV. Professional Loan</strong></td></tr>
+                        <tr><td>10.</td><td>Professional Loan</td><td class="text-center"><strong>12.00% – 13.00%</strong></td></tr>
+                        <tr class="table-light"><td colspan="3"><strong>V. Gold Loan</strong></td></tr>
+                        <tr><td>11.</td><td>Gold Loan</td><td class="text-center"><strong>9.00%</strong></td></tr>
+                        <tr class="table-light"><td colspan="3"><strong>VI. Staff Loans</strong></td></tr>
+                        <tr><td>12.</td><td>Staff Loan – Festival Advance</td><td class="text-center"><strong>7.50%</strong></td></tr>
+                        <tr><td>13.</td><td>Staff Loan – Personal / Other</td><td class="text-center"><strong>10.00%</strong></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
 
-    <script>
-        document.getElementById('tenureSlider').addEventListener('input', function() {
-            document.getElementById('loanTenure').value = this.value;
-            document.getElementById('tenureDisplay').textContent = this.value;
-        });
-        
-        document.getElementById('loanTenure').addEventListener('input', function() {
-            document.getElementById('tenureSlider').value = this.value;
-            document.getElementById('tenureDisplay').textContent = this.value;
-        });
-        
-        function calculateEMI() {
-            const principal = parseFloat(document.getElementById('loanAmount').value);
-            const rate = parseFloat(document.getElementById('interestRate').value);
-            const months = parseFloat(document.getElementById('loanTenure').value);
-            
-            if (!principal || !rate || !months) {
-                alert('Please fill all fields');
-                return;
-            }
-            
-            const emi = calculateEMI_helper(principal, rate, months);
-            const totalPayable = emi * months;
-            const totalInterest = totalPayable - principal;
-            
-            document.getElementById('monthlyEMI').textContent = '₹' + emi.toFixed(2);
-            document.getElementById('totalPayable').textContent = '₹' + totalPayable.toFixed(2);
-            document.getElementById('totalInterest').textContent = '₹' + totalInterest.toFixed(2);
-            document.getElementById('emiResult').style.display = 'block';
-        }
-        
-        function calculateEMI_helper(principal, rate, tenure) {
-            const monthlyRate = rate / 100 / 12;
-            const numberOfMonths = tenure;
-            
-            if (monthlyRate === 0) {
-                return principal / numberOfMonths;
-            }
-            
-            const emi = (principal * monthlyRate * Math.pow(1 + monthlyRate, numberOfMonths)) 
-                        / (Math.pow(1 + monthlyRate, numberOfMonths) - 1);
-            
-            return emi;
-        }
-    </script>
+    <!-- Surety / Personal Loan -->
+    <section class="section bg-light" id="surety">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-2 fs-6">Surety / Personal Loan</span>
+                    <h2 class="mb-3 mt-2">Surety / Personal Loan</h2>
+                    <p>Our Surety / Personal Loan is available to members of the bank on the surety of other members. It can be utilized for personal needs, education, medical emergencies, marriage, home renovation, and other genuine personal requirements.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Quick Processing</strong><p class="small text-muted mb-0">Fast approval for genuine needs</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Member Benefits</strong><p class="small text-muted mb-0">Available to all bank members</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Flexible Repayment</strong><p class="small text-muted mb-0">Repayment in convenient EMIs</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>No Collateral</strong><p class="small text-muted mb-0">Surety of members is sufficient</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid var(--primary-color);">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-info-circle me-2 text-primary"></i>Loan Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>For bank members</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Surety of members required</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>EMI repayment available</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Multiple purposes covered</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<?php
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php';
-?>
+    <!-- Cash Credit -->
+    <section class="section" id="cash-credit">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-success mb-2 fs-6">Cash Credit Loan</span>
+                    <h2 class="mb-3 mt-2">Cash Credit Loan</h2>
+                    <p>A Cash Credit Loan is a revolving credit facility ideal for traders and business owners who need working capital. It allows you to withdraw up to your approved credit limit and pay interest only on the amount used.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Revolving Credit</strong><p class="small text-muted mb-0">Withdraw and repay as needed</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Interest on Utilized Amount</strong><p class="small text-muted mb-0">Pay interest only on amount used</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Business Growth</strong><p class="small text-muted mb-0">Fuel your business working capital</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Annual Review</strong><p class="small text-muted mb-0">Limit reviewed every year</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid var(--success-color);">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-info-circle me-2 text-success"></i>Loan Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>For traders & businesses</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Revolving credit line</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Security / collateral required</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Annual renewal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mortgage Loan -->
+    <section class="section bg-light" id="mortgage">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-warning text-dark mb-2 fs-6">Mortgage Loan</span>
+                    <h2 class="mb-3 mt-2">Mortgage Loan</h2>
+                    <p>Our Mortgage Loan is available against the mortgage of immovable property such as land, buildings, or commercial premises. It provides higher loan amounts for business expansion, personal needs, or working capital requirements.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>High Loan Amount</strong><p class="small text-muted mb-0">Higher limits against property</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Multiple Purposes</strong><p class="small text-muted mb-0">Business or personal use</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Long Tenure</strong><p class="small text-muted mb-0">Repayment over longer period</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Competitive Rates</strong><p class="small text-muted mb-0">Attractive interest rates</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #f59e0b;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-info-circle me-2 text-warning"></i>Loan Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Against immovable property</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Property valuation required</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Legal documentation required</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>High loan-to-value ratio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gold Loan -->
+    <section class="section" id="gold">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-warning text-dark mb-2 fs-6">Gold Loan</span>
+                    <h2 class="mb-3 mt-2">Gold Loan</h2>
+                    <p>Get instant liquidity by pledging your gold ornaments with us. Our Gold Loan offers quick disbursement at one of the lowest interest rates, making it the ideal option for meeting urgent financial needs.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Quick Disbursal</strong><p class="small text-muted mb-0">Loan disbursed within hours</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Low Interest Rate</strong><p class="small text-muted mb-0">Only 9.00% per annum</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Safe Custody</strong><p class="small text-muted mb-0">Gold kept safe at bank vault</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Flexible Repayment</strong><p class="small text-muted mb-0">Repay at your convenience</p></div></div></div>
+                    </div>
+                    <div class="alert alert-warning mt-4"><i class="fas fa-star me-2"></i><strong>Interest Rate: 9.00% p.a.</strong> — One of the lowest gold loan rates available.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #f59e0b;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-coins me-2 text-warning"></i>Gold Loan Details</h5></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tr><td class="text-muted">Interest Rate</td><td><strong>9.00% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Security</td><td><strong>Gold Ornaments</strong></td></tr>
+                                <tr><td class="text-muted">Disbursal</td><td><strong>Same Day</strong></td></tr>
+                                <tr><td class="text-muted">Repayment</td><td><strong>Flexible</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hypothecation -->
+    <section class="section bg-light" id="hypothecation">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#8b5cf6;">Hypothecation Loan</span>
+                    <h2 class="mb-3 mt-2">Hypothecation Loan</h2>
+                    <p>A Hypothecation Loan is available against the hypothecation of movable assets such as agricultural equipment, machinery, inventory, or other eligible assets. The borrower retains possession while the asset is hypothecated to the bank as security.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Retain Asset Possession</strong><p class="small text-muted mb-0">Continue using your assets</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>For Business Assets</strong><p class="small text-muted mb-0">Machinery, equipment, inventory</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Agricultural Use</strong><p class="small text-muted mb-0">Suitable for farm equipment</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Flexible Tenure</strong><p class="small text-muted mb-0">As per loan type</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #8b5cf6;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-info-circle me-2" style="color:#8b5cf6;"></i>Loan Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Movable asset as security</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Borrower retains possession</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Insurance on hypothecated assets</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Suitable for agriculture & MSME</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicle Loan -->
+    <section class="section" id="vehicle">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#06b6d4;">Vehicle Loan</span>
+                    <h2 class="mb-3 mt-2">Vehicle Loan</h2>
+                    <p>Drive your dreams with our Vehicle Loan. We finance two-wheelers, four-wheelers, and commercial vehicles at competitive interest rates with easy EMI options. The vehicle itself serves as the primary security.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Two & Four Wheelers</strong><p class="small text-muted mb-0">All types of vehicles financed</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Commercial Vehicles</strong><p class="small text-muted mb-0">Auto, trucks, and more</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Easy EMI</strong><p class="small text-muted mb-0">Convenient monthly repayments</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Quick Processing</strong><p class="small text-muted mb-0">Fast approval and disbursement</p></div></div></div>
+                    </div>
+                    <div class="alert alert-info mt-4"><i class="fas fa-info-circle me-2"></i><strong>Two Wheeler:</strong> 11.00% p.a. &nbsp;|&nbsp; <strong>Four Wheeler / Commercial:</strong> 10.50% p.a.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #06b6d4;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-car me-2" style="color:#06b6d4;"></i>Vehicle Loan Details</h5></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tr><td class="text-muted">Two Wheeler</td><td><strong>11.00% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Four Wheeler</td><td><strong>10.50% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Security</td><td><strong>Vehicle Hypothecation</strong></td></tr>
+                                <tr><td class="text-muted">Repayment</td><td><strong>EMI</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Housing Loan -->
+    <section class="section bg-light" id="housing">
+        <div class="container-lg">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#ec4899;">Housing Loan</span>
+                    <h2 class="mb-3 mt-2">Housing Loan</h2>
+                    <p>Our Housing Loan products cover all your residential and commercial property needs — from constructing a new home, purchasing a ready property, repairing an existing home, to financing a commercial building.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Residential Construction</strong><p class="small text-muted mb-0">Build your dream home</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Property Purchase</strong><p class="small text-muted mb-0">Buy ready or under-construction property</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Home Repair / Renovation</strong><p class="small text-muted mb-0">Renovate or expand your home</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Commercial Property</strong><p class="small text-muted mb-0">Finance your commercial space</p></div></div></div>
+                    </div>
+                    <h6 class="mt-4 mb-3"><i class="fas fa-table me-2 text-primary"></i>Housing Loan Interest Rates</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-primary">
+                                <tr><th>Type</th><th class="text-center">Interest Rate</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Residential – Construction</td><td class="text-center"><strong>10.50%</strong></td></tr>
+                                <tr><td>Residential – Purchase</td><td class="text-center"><strong>10.50%</strong></td></tr>
+                                <tr><td>Residential – Repair</td><td class="text-center"><strong>11.00%</strong></td></tr>
+                                <tr><td>Commercial Property</td><td class="text-center"><strong>11.50%</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #ec4899;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-home me-2" style="color:#ec4899;"></i>Key Benefits</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>High loan amount available</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Long repayment tenure</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Property as security</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>EMI facility available</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Both residential & commercial</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industrial / MSME Loan -->
+    <section class="section" id="industrial">
+        <div class="container-lg">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#10b981;">Industrial / MSME Loan</span>
+                    <h2 class="mb-3 mt-2">Industrial / MSME Loan</h2>
+                    <p>We support the growth of small and medium enterprises with specialized MSME loan products. Whether you need working capital, a term loan, or funds for shed construction, we have you covered.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Working Capital</strong><p class="small text-muted mb-0">Fund day-to-day operations</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Term Loan</strong><p class="small text-muted mb-0">Capital investment loans</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Shed Construction</strong><p class="small text-muted mb-0">Finance your factory or workshop</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>MSME Eligible</strong><p class="small text-muted mb-0">For all registered MSMEs</p></div></div></div>
+                    </div>
+                    <div class="alert alert-success mt-4"><i class="fas fa-info-circle me-2"></i><strong>Working Capital:</strong> 10.00% p.a. &nbsp;|&nbsp; <strong>Term Loan:</strong> 11.00% p.a. &nbsp;|&nbsp; <strong>Shade Construction:</strong> 11.00% p.a.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #10b981;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-industry me-2" style="color:#10b981;"></i>MSME Loan Details</h5></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tr><td class="text-muted">Working Capital</td><td><strong>10.00% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Term Loan</td><td><strong>11.00% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Shade Construction</td><td><strong>11.00% p.a.</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Loans -->
+    <section class="section bg-light" id="other-loans">
+        <div class="container-lg">
+            <div class="section-title">
+                <h2>Other Loan Products</h2>
+                <p class="section-subtitle">We also offer the following specialized loan products</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-stethoscope fa-2x mb-3 text-primary"></i>
+                            <h5>Professional Loan</h5>
+                            <p class="text-muted small">For doctors, engineers, lawyers, and other professionals to set up or expand their practice. Rate: <strong>12.00% – 13.00% p.a.</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-tv fa-2x mb-3 text-primary"></i>
+                            <h5>Consumer Durable Loan</h5>
+                            <p class="text-muted small">Finance for household appliances, electronics, and other consumer durables for daily living needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-seedling fa-2x mb-3 text-success"></i>
+                            <h5>Allied to Agriculture Loan</h5>
+                            <p class="text-muted small">Loans for activities allied to agriculture such as animal husbandry, dairy, poultry, fishery, and horticulture.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-store fa-2x mb-3 text-warning"></i>
+                            <h5>Trade / Business Loan</h5>
+                            <p class="text-muted small">Loans for traders, shopkeepers, and small business owners to expand or maintain their commercial operations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-truck fa-2x mb-3" style="color:#06b6d4;"></i>
+                            <h5>Transport Loan</h5>
+                            <p class="text-muted small">Finance for purchase of trucks, tempos, buses, and other transport vehicles for commercial transport business.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <i class="fas fa-university fa-2x mb-3" style="color:#8b5cf6;"></i>
+                            <h5>Other RBI Approved Loans</h5>
+                            <p class="text-muted small">All other loans approved by the Reserve Bank of India guidelines for urban co-operative banks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background:linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);color:white;">
+        <div class="container-lg text-center">
+            <h2 class="mb-3">Ready to Apply for a Loan?</h2>
+            <p class="lead mb-4">Visit any of our 14 branches or contact us to start your loan application today.</p>
+            <a href="/bank-website-grok/pages/contact.php" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-map-marker-alt me-2"></i>Find a Branch
+            </a>
+            <a href="/bank-website-grok/pages/media.php" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-percent me-2"></i>View All Interest Rates
+            </a>
+        </div>
+    </section>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php'; ?>

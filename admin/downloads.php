@@ -151,13 +151,18 @@ if ($action === 'list') {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="notices.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-bullhorn me-2"></i>Manage Notices
+                    <a class="nav-link" href="contacts.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-envelope me-2"></i>Contact Submissions
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="downloads.php" style="color: rgba(255,255,255,0.85); padding: 0.85rem 1.5rem; border-left: 3px solid #B8860B; background: rgba(184,134,11,0.12); font-weight: 600;">
                         <i class="fas fa-download me-2" style="color: #B8860B;"></i>Manage Downloads
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="notices.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-bullhorn me-2"></i>Manage Notices
                     </a>
                 </li>
                 <li class="nav-item">

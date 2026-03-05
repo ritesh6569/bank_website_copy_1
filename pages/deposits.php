@@ -1,631 +1,346 @@
-<?php
+﻿<?php
 /**
- * Deposits Page - Professional Bank Website
+ * Deposits Page - Shri Shantappanna Miraji Urban Co-op. Bank Ltd.
  */
 
-$page_title = 'Deposits - Professional Bank';
+$page_title = 'Deposits - Miraji Bank';
 $current_page = 'deposits';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/notices-fetcher.php';
 
-$interest_rates = $data_fetcher->getInterestRates();
 $notices = getActiveNotices();
 ?>
 
     <!-- Notices Alert Banner -->
-    <?php if (!empty($notices)): 
-        $latest_notice = $notices[0];
-    ?>
-    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius: 0; border-left: 5px solid #f59e0b;">
-        <div class="container-lg">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-bell me-3" style="font-size: 1.25rem; color: #d97706;"></i>
-                <div style="flex: 1;">
-                    <strong style="color: #92400e;">Important Notice:</strong>
-                    <span class="ms-2" style="color: #b45309;">
-                        <?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </span>
-                    <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color: #1e40af; font-weight: 600;">
-                        Read More →
-                    </a>
-                </div>
+    <?php if (!empty($notices)): $latest_notice = $notices[0]; ?>
+    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius:0;border-left:5px solid #f59e0b;">
+        <div class="container-lg d-flex align-items-center">
+            <i class="fas fa-bell me-3" style="font-size:1.25rem;color:#d97706;"></i>
+            <div style="flex:1;">
+                <strong style="color:#92400e;">Important Notice:</strong>
+                <span class="ms-2" style="color:#b45309;"><?php echo htmlspecialchars($latest_notice['title']); ?></span>
+                <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color:#1e40af;font-weight:600;">Read More</a>
             </div>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <!-- Latest Notice Modal -->
-    <div class="modal fade" id="noticeModalLatest" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; border: none;">
-                    <h5 class="modal-title">
-                        <i class="fas fa-bell me-2"></i><?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <small class="text-muted d-block mb-3">
-                        <i class="fas fa-calendar-alt me-1"></i>Published on <?php echo formatNoticeDate($latest_notice['date_published']); ?>
-                    </small>
-                    <div class="notice-content">
-                        <?php echo $latest_notice['content']; ?>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
     <?php endif; ?>
 
     <!-- Page Header -->
     <div class="page-header">
+        <i class="fas fa-piggy-bank page-header-icon"></i>
         <div class="container-lg">
-            <h1 class="mb-2">Deposit Products</h1>
-            <p class="lead">Choose the right deposit product for your financial goals</p>
+            <span class="page-header-eyebrow"><i class="fas fa-circle-dot"></i> Banking Products</span>
+            <h1>Deposit Schemes</h1>
+            <p>Invest in different schemes of Deposits — Shri Shantappanna Miraji Urban Co-op. Bank Ltd.</p>
         </div>
     </div>
 
-    <!-- Navigation Tabs -->
-    <section class="bg-light py-4 sticky-top" style="z-index: 99;">
-        <div class="container-lg">
-            <ul class="nav nav-pills" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="savings-tab" data-bs-toggle="tab" data-bs-target="#savings" type="button" role="tab">Savings Account</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="current-tab" data-bs-toggle="tab" data-bs-target="#current" type="button" role="tab">Current Account</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="fd-tab" data-bs-toggle="tab" data-bs-target="#fd" type="button" role="tab">Fixed Deposit</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="rd-tab" data-bs-toggle="tab" data-bs-target="#rd" type="button" role="tab">Recurring Deposit</button>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Tab Content -->
-    <div class="tab-content" id="depositTabContent">
-        <!-- Savings Account -->
-        <div class="tab-pane fade show active" id="savings" role="tabpanel" aria-labelledby="savings-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Savings Account</h2>
-                            <p class="lead">Start your savings journey with our flexible and rewarding Savings Account.</p>
-                            
-                            <h4 class="mt-4 mb-3">Key Features</h4>
-                            <ul class="list-unstyled mb-4">
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Interest Rate:</strong> 3.5% - 4.0% p.a.
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Minimum Balance:</strong> ₹1,000
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Free Monthly Withdrawals:</strong> 5 times
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Free Debit Card:</strong> Yes, lifetime free
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Passbook:</strong> Digital + Physical
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Insurance Coverage:</strong> ₹1 Lakh (DICGC)
-                                </li>
-                            </ul>
-                            
-                            <h4 class="mb-3">Eligibility</h4>
-                            <p>Any individual aged 18+ years with a valid government ID can open a Savings Account. Minors can open accounts with parental consent.</p>
-                            
-                            <h4 class="mt-4 mb-3">How to Apply</h4>
-                            <ol class="ps-3">
-                                <li>Visit our nearest branch or apply online</li>
-                                <li>Fill the account opening form</li>
-                                <li>Provide required documents (ID, Address proof)</li>
-                                <li>Complete KYC verification</li>
-                                <li>Receive your account number and debit card</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Open Savings Account</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="savingsForm" novalidate>
-                                        <div class="mb-3">
-                                            <label for="savName" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control" id="savName" name="name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="savEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="savEmail" name="email" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="savPhone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="savPhone" name="phone" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="savAge" class="form-label">Age</label>
-                                            <input type="number" class="form-control" id="savAge" name="age" min="18" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Current Account -->
-        <div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="current-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h2 class="mb-4">Current Account</h2>
-                            <p class="lead">Designed for businesses and professionals with high transaction volumes.</p>
-                            
-                            <h4 class="mt-4 mb-3">Key Features</h4>
-                            <ul class="list-unstyled mb-4">
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Interest Rate:</strong> No Interest
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Minimum Balance:</strong> ₹5,000 - ₹25,000
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Unlimited Transactions:</strong> Deposits & Withdrawals
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Overdraft Facility:</strong> Available up to 2x balance
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Free Cheque Book:</strong> Yes (100 leaves)
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Business Reporting:</strong> Monthly statements
-                                </li>
-                            </ul>
-                            
-                            <h4 class="mb-3">Eligibility</h4>
-                            <p>Proprietorships, partnerships, private limited companies, public limited companies, NGOs, and other business entities are eligible.</p>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">Apply for Current Account</h5>
-                                </div>
-                                <div class="card-body">
-                                    <form id="currentForm" novalidate>
-                                        <div class="mb-3">
-                                            <label for="curName" class="form-label">Business Name</label>
-                                            <input type="text" class="form-control" id="curName" name="name" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="curEmail" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="curEmail" name="email" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="curPhone" class="form-label">Phone</label>
-                                            <input type="tel" class="form-control" id="curPhone" name="phone" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="curType" class="form-label">Business Type</label>
-                                            <select class="form-select" id="curType" name="type" required>
-                                                <option value="">Select...</option>
-                                                <option value="proprietorship">Proprietorship</option>
-                                                <option value="partnership">Partnership</option>
-                                                <option value="company">Company</option>
-                                                <option value="ngo">NGO</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Fixed Deposit -->
-        <div class="tab-pane fade" id="fd" role="tabpanel" aria-labelledby="fd-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <h2 class="mb-4">Fixed Deposit (FD)</h2>
-                    <p class="lead mb-4">Earn guaranteed returns with our Fixed Deposit schemes offering competitive interest rates.</p>
-                    
-                    <!-- Interest Rates Table -->
-                    <div class="row mb-5">
-                        <div class="col-lg-8">
-                            <h4 class="mb-3">Interest Rates (p.a.)</h4>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Tenure</th>
-                                            <th>Regular Customer</th>
-                                            <th>Senior Citizen</th>
-                                            <th>Minimum Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>7 Days</strong></td>
-                                            <td>5.0%</td>
-                                            <td>5.5%</td>
-                                            <td>₹1,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>1 Month</strong></td>
-                                            <td>5.25%</td>
-                                            <td>5.75%</td>
-                                            <td>₹1,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>3 Months</strong></td>
-                                            <td>5.5%</td>
-                                            <td>6.0%</td>
-                                            <td>₹5,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>6 Months</strong></td>
-                                            <td>5.75%</td>
-                                            <td>6.25%</td>
-                                            <td>₹5,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>1 Year</strong></td>
-                                            <td>6.0%</td>
-                                            <td>6.5%</td>
-                                            <td>₹10,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>2 Years</strong></td>
-                                            <td>6.2%</td>
-                                            <td>6.7%</td>
-                                            <td>₹10,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>3 Years</strong></td>
-                                            <td>6.3%</td>
-                                            <td>6.8%</td>
-                                            <td>₹10,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>5 Years</strong></td>
-                                            <td>6.5%</td>
-                                            <td>7.0%</td>
-                                            <td>₹25,000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">FD Maturity Calculator</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="fdPrincipal" class="form-label">Principal Amount (₹)</label>
-                                        <input type="number" class="form-control" id="fdPrincipal" placeholder="10000" min="1000">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="fdRate" class="form-label">Interest Rate (%)</label>
-                                        <input type="number" class="form-control" id="fdRate" placeholder="6.0" min="0" step="0.1">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="fdTenure" class="form-label">Tenure (Years)</label>
-                                        <input type="number" class="form-control" id="fdTenure" placeholder="1" min="0.5" step="0.5">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="fdFrequency" class="form-label">Compounding</label>
-                                        <select class="form-select" id="fdFrequency">
-                                            <option value="quarterly">Quarterly</option>
-                                            <option value="semi-annually">Semi-Annually</option>
-                                            <option value="annually">Annually</option>
-                                            <option value="monthly">Monthly</option>
-                                        </select>
-                                    </div>
-                                    <button type="button" class="btn btn-primary w-100" onclick="calculateFD()">
-                                        Calculate
-                                    </button>
-                                    <div id="fdResult" class="mt-3" style="display:none;">
-                                        <hr>
-                                        <p class="mb-1"><strong>Maturity Amount:</strong></p>
-                                        <h5 id="fdMaturityAmount" class="text-success">₹0</h5>
-                                        <p class="small text-muted mb-0">Interest Earned: <span id="fdInterest">₹0</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h4 class="mb-3">Key Features</h4>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="card-title"><i class="fas fa-shield-alt text-success me-2"></i>Guaranteed Returns</h6>
-                                    <p class="small text-muted">Assured interest returns regardless of market conditions.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="card-title"><i class="fas fa-money-bill text-success me-2"></i>Flexible Tenures</h6>
-                                    <p class="small text-muted">Choose from 7 days to 5 years tenure options.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="card-title"><i class="fas fa-loan text-success me-2"></i>Loan Against FD</h6>
-                                    <p class="small text-muted">Borrow up to 90% of FD amount at competitive rates.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h6 class="card-title"><i class="fas fa-lock text-success me-2"></i>DICGC Insurance</h6>
-                                    <p class="small text-muted">Deposits insured up to ₹5 Lakh per depositor.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Recurring Deposit -->
-        <div class="tab-pane fade" id="rd" role="tabpanel" aria-labelledby="rd-tab">
-            <section class="section">
-                <div class="container-lg">
-                    <h2 class="mb-4">Recurring Deposit (RD)</h2>
-                    <p class="lead mb-4">Build wealth through regular monthly deposits with attractive interest rates.</p>
-                    
-                    <div class="row g-4">
-                        <div class="col-lg-8">
-                            <h4 class="mb-3">Interest Rates (p.a.)</h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Tenure</th>
-                                            <th>Regular Customer</th>
-                                            <th>Senior Citizen</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>6 Months</strong></td>
-                                            <td>5.5%</td>
-                                            <td>6.0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>1 Year</strong></td>
-                                            <td>5.75%</td>
-                                            <td>6.25%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>2 Years</strong></td>
-                                            <td>5.9%</td>
-                                            <td>6.4%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>3 Years</strong></td>
-                                            <td>6.0%</td>
-                                            <td>6.5%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>5 Years</strong></td>
-                                            <td>6.0%</td>
-                                            <td>6.5%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <h4 class="mt-4 mb-3">Key Features</h4>
-                            <ul class="list-unstyled">
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Monthly Deposit:</strong> ₹500 minimum
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Flexible Tenure:</strong> 6 months to 10 years
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Auto-Renewal:</strong> Automatic renewal on maturity
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Loan Facility:</strong> Borrow up to 80% of maturity value
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Nomination Facility:</strong> Available
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div class="col-lg-4">
-                            <div class="card sticky-top" style="top: 80px;">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">RD Maturity Calculator</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <label for="rdMonthly" class="form-label">Monthly Deposit (₹)</label>
-                                        <input type="number" class="form-control" id="rdMonthly" placeholder="1000" min="500">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="rdRate" class="form-label">Interest Rate (%)</label>
-                                        <input type="number" class="form-control" id="rdRate" placeholder="6.0" min="0" step="0.1">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="rdTenure" class="form-label">Tenure (Months)</label>
-                                        <input type="number" class="form-control" id="rdTenure" placeholder="12" min="6" step="6">
-                                    </div>
-                                    <button type="button" class="btn btn-primary w-100" onclick="calculateRD()">
-                                        Calculate
-                                    </button>
-                                    <div id="rdResult" class="mt-3" style="display:none;">
-                                        <hr>
-                                        <p class="mb-1"><strong>Total Amount Invested:</strong></p>
-                                        <p id="rdInvested">₹0</p>
-                                        <p class="mb-1"><strong>Maturity Amount:</strong></p>
-                                        <h5 id="rdMaturityAmount" class="text-success">₹0</h5>
-                                        <p class="small text-muted mb-0">Interest Earned: <span id="rdInterest">₹0</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <!-- Comparison Table -->
+    <!-- Overview Cards -->
     <section class="section bg-light">
         <div class="container-lg">
             <div class="section-title">
-                <h2>Comparison of Deposit Products</h2>
+                <h2>Our Deposit Schemes</h2>
+                <p class="section-subtitle">Choose the right deposit product for your financial goals</p>
             </div>
-            
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Savings Account</th>
-                            <th>Current Account</th>
-                            <th>Fixed Deposit</th>
-                            <th>Recurring Deposit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Interest Rate</strong></td>
-                            <td>3.5-4.0%</td>
-                            <td>No Interest</td>
-                            <td>5.0-6.5%</td>
-                            <td>5.5-6.0%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Min Balance</strong></td>
-                            <td>₹1,000</td>
-                            <td>₹5,000-25,000</td>
-                            <td>₹1,000-25,000</td>
-                            <td>₹500/month</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Flexibility</strong></td>
-                            <td>High</td>
-                            <td>Limited</td>
-                            <td>Low</td>
-                            <td>Medium</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ideal For</strong></td>
-                            <td>Individuals</td>
-                            <td>Businesses</td>
-                            <td>Long-term savings</td>
-                            <td>Regular savers</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid var(--secondary-color);">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:var(--secondary-color);font-weight:700;">01</div>
+                            <i class="fas fa-piggy-bank fa-2x mb-3" style="color:var(--secondary-color);"></i>
+                            <h5 class="card-title">Savings Deposit</h5>
+                            <p class="text-muted small">Earn interest on your daily balance with easy withdrawals. Ideal for individuals and families.</p>
+                            <a href="#savings" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid var(--success-color);">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:var(--success-color);font-weight:700;">02</div>
+                            <i class="fas fa-briefcase fa-2x mb-3" style="color:var(--success-color);"></i>
+                            <h5 class="card-title">Current Deposit</h5>
+                            <p class="text-muted small">A flexible account for businesses with unlimited transactions and overdraft facilities.</p>
+                            <a href="#current" class="btn btn-sm btn-outline-success mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid var(--warning-color);">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:var(--warning-color);font-weight:700;">03</div>
+                            <i class="fas fa-lock fa-2x mb-3" style="color:var(--warning-color);"></i>
+                            <h5 class="card-title">Fixed Deposit</h5>
+                            <p class="text-muted small">Earn attractive fixed interest rates on your lump-sum investment for a chosen tenure.</p>
+                            <a href="#fixed" class="btn btn-sm btn-outline-warning mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid #8b5cf6;">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:#8b5cf6;font-weight:700;">04</div>
+                            <i class="fas fa-certificate fa-2x mb-3" style="color:#8b5cf6;"></i>
+                            <h5 class="card-title">Kalyan Nidhi Cash Certificates</h5>
+                            <p class="text-muted small">Special cash certificates for long-term wealth creation with attractive returns.</p>
+                            <a href="#kalyan" class="btn btn-sm btn-outline-secondary mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid #ec4899;">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:#ec4899;font-weight:700;">05</div>
+                            <i class="fas fa-calendar-alt fa-2x mb-3" style="color:#ec4899;"></i>
+                            <h5 class="card-title">Recurring Deposit</h5>
+                            <p class="text-muted small">Save a fixed amount every month and earn good interest. Perfect for building savings habits.</p>
+                            <a href="#recurring" class="btn btn-sm btn-outline-danger mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 text-center" style="border-top:4px solid #06b6d4;">
+                        <div class="card-body p-4">
+                            <div class="mb-2" style="font-size:2rem;color:#06b6d4;font-weight:700;">06</div>
+                            <i class="fas fa-hand-holding-usd fa-2x mb-3" style="color:#06b6d4;"></i>
+                            <h5 class="card-title">Yeshwant Pigmy Deposit</h5>
+                            <p class="text-muted small">Small daily/weekly deposits collected at your doorstep. Great for small savers and daily wage earners.</p>
+                            <a href="#pigmy" class="btn btn-sm btn-outline-info mt-2">Learn More</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <script>
-        function calculateFD() {
-            const principal = parseFloat(document.getElementById('fdPrincipal').value);
-            const rate = parseFloat(document.getElementById('fdRate').value);
-            const years = parseFloat(document.getElementById('fdTenure').value);
-            const frequency = document.getElementById('fdFrequency').value;
-            
-            if (!principal || !rate || !years) {
-                alert('Please fill all fields');
-                return;
-            }
-            
-            const maturity = calculateMaturity(principal, rate, years, frequency);
-            const interest = maturity - principal;
-            
-            document.getElementById('fdMaturityAmount').textContent = '₹' + maturity.toFixed(2);
-            document.getElementById('fdInterest').textContent = '₹' + interest.toFixed(2);
-            document.getElementById('fdResult').style.display = 'block';
-        }
-        
-        function calculateRD() {
-            const monthly = parseFloat(document.getElementById('rdMonthly').value);
-            const rate = parseFloat(document.getElementById('rdRate').value);
-            const months = parseFloat(document.getElementById('rdTenure').value);
-            
-            if (!monthly || !rate || !months) {
-                alert('Please fill all fields');
-                return;
-            }
-            
-            const monthlyRate = rate / 100 / 12;
-            let maturity = 0;
-            
-            for (let i = 1; i <= months; i++) {
-                maturity += monthly * Math.pow(1 + monthlyRate, months - i + 1);
-            }
-            
-            const invested = monthly * months;
-            const interest = maturity - invested;
-            
-            document.getElementById('rdInvested').textContent = '₹' + invested.toFixed(2);
-            document.getElementById('rdMaturityAmount').textContent = '₹' + maturity.toFixed(2);
-            document.getElementById('rdInterest').textContent = '₹' + interest.toFixed(2);
-            document.getElementById('rdResult').style.display = 'block';
-        }
-    </script>
+    <!-- Savings Deposit -->
+    <section class="section" id="savings">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary mb-2 fs-6">Scheme 01</span>
+                    <h2 class="mb-3 mt-2">Savings Deposit</h2>
+                    <p>Our Savings Deposit account is designed for individuals and families who want to save money while earning interest on their deposits. It provides the flexibility of easy withdrawals while ensuring your money grows steadily.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Competitive Interest Rate</strong><p class="small text-muted mb-0">Earn attractive interest on your daily balance</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Easy Withdrawals</strong><p class="small text-muted mb-0">Withdraw your money whenever you need</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Passbook Facility</strong><p class="small text-muted mb-0">Track all transactions with a passbook</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Nomination Facility</strong><p class="small text-muted mb-0">Nominate a person for your account</p></div></div></div>
+                    </div>
+                    <div class="alert alert-info mt-4"><i class="fas fa-info-circle me-2"></i><strong>Interest Rate:</strong> 3.00% p.a. &nbsp;|&nbsp; <strong>Senior Citizen / Soldier:</strong> 3.50% p.a.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid var(--secondary-color);">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-list me-2 text-primary"></i>Key Details</h5></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tr><td class="text-muted">Account Type</td><td><strong>Savings</strong></td></tr>
+                                <tr><td class="text-muted">Interest Rate</td><td><strong>3.00% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Senior Citizen</td><td><strong>3.50% p.a.</strong></td></tr>
+                                <tr><td class="text-muted">Cheque Book</td><td><strong>Available</strong></td></tr>
+                                <tr><td class="text-muted">Nomination</td><td><strong>Available</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<?php
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php';
-?>
+    <!-- Current Deposit -->
+    <section class="section bg-light" id="current">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-success mb-2 fs-6">Scheme 02</span>
+                    <h2 class="mb-3 mt-2">Current Deposit</h2>
+                    <p>The Current Deposit account is ideal for businesses, traders, and professionals who require unlimited transactions. It offers overdraft facilities and is perfect for high-volume transaction requirements.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Unlimited Transactions</strong><p class="small text-muted mb-0">No restrictions on number of transactions</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Overdraft Facility</strong><p class="small text-muted mb-0">Short-term credit facility available</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Cheque Book</strong><p class="small text-muted mb-0">Personalized CTS cheque books</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>RTGS / NEFT</strong><p class="small text-muted mb-0">Electronic fund transfers</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid var(--success-color);">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-list me-2 text-success"></i>Key Details</h5></div>
+                        <div class="card-body">
+                            <table class="table table-sm mb-0">
+                                <tr><td class="text-muted">Account Type</td><td><strong>Current</strong></td></tr>
+                                <tr><td class="text-muted">Suitable For</td><td><strong>Business / Trade</strong></td></tr>
+                                <tr><td class="text-muted">Transactions</td><td><strong>Unlimited</strong></td></tr>
+                                <tr><td class="text-muted">Overdraft</td><td><strong>Available</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fixed Deposit -->
+    <section class="section" id="fixed">
+        <div class="container-lg">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                    <span class="badge bg-warning text-dark mb-2 fs-6">Scheme 03</span>
+                    <h2 class="mb-3 mt-2">Fixed Deposit</h2>
+                    <p>Earn high, assured returns on your lump sum investments. Our Fixed Deposit schemes offer some of the most competitive interest rates with flexible tenure options ranging from 46 days to 5+ years.</p>
+                    <h5 class="mt-4 mb-3"><i class="fas fa-table me-2 text-primary"></i>Interest Rates on Term Deposits</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Period</th>
+                                    <th class="text-center">General Public</th>
+                                    <th class="text-center">Senior Citizen / Soldier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>46 Days to 90 Days</td><td class="text-center"><strong>5.00%</strong></td><td class="text-center"><strong>5.50%</strong></td></tr>
+                                <tr><td>91 Days to 180 Days</td><td class="text-center"><strong>5.50%</strong></td><td class="text-center"><strong>6.00%</strong></td></tr>
+                                <tr><td>181 Days to 364 Days</td><td class="text-center"><strong>7.00%</strong></td><td class="text-center"><strong>7.50%</strong></td></tr>
+                                <tr class="table-success"><td>1 Year and above to less than 2 Years</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                                <tr class="table-success"><td>2 Years and above to less than 5 Years</td><td class="text-center"><strong>8.00%</strong></td><td class="text-center"><strong>8.50%</strong></td></tr>
+                                <tr><td>5 Years and above</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-success mt-3"><i class="fas fa-star me-2"></i><strong>Saving Bank Interest:</strong> 3.00% p.a. &nbsp;(3.50% for Senior Citizen / Soldier)</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid var(--warning-color);">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-star me-2 text-warning"></i>Key Benefits</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Interest rates up to <strong>8.50%</strong></li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Tenure from 46 days to 5+ years</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Nomination facility available</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Loan against FD available</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Auto-renewal option</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Extra 0.50% for Senior Citizens</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kalyan Nidhi -->
+    <section class="section bg-light" id="kalyan">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#8b5cf6;">Scheme 04</span>
+                    <h2 class="mb-3 mt-2">Kalyan Nidhi Cash Certificates</h2>
+                    <p>Kalyan Nidhi Cash Certificates are special investment instruments offered by our bank for long-term wealth creation. These certificates offer attractive returns and are a safe, reliable investment option for individuals looking to grow their savings over a fixed period.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Long-Term Growth</strong><p class="small text-muted mb-0">Ideal for long-term wealth creation</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Attractive Returns</strong><p class="small text-muted mb-0">Competitive interest on certificates</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Safe Investment</strong><p class="small text-muted mb-0">Backed by our co-operative bank</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Nomination</strong><p class="small text-muted mb-0">Nomination facility available</p></div></div></div>
+                    </div>
+                    <div class="alert alert-primary mt-4"><i class="fas fa-info-circle me-2"></i>Contact your nearest branch for current rates and details on Kalyan Nidhi Cash Certificates.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #8b5cf6;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-certificate me-2" style="color:#8b5cf6;"></i>Certificate Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Fixed tenure certificates</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Transferable to family members</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Loan facility against certificates</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Duplicate certificate issuable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recurring Deposit -->
+    <section class="section" id="recurring">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#ec4899;">Scheme 05</span>
+                    <h2 class="mb-3 mt-2">Recurring Deposit</h2>
+                    <p>Build a healthy savings habit with our Recurring Deposit scheme. Deposit a fixed amount every month and earn attractive interest. Perfect for salaried employees and those who want to save regularly towards a financial goal.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Monthly Deposits</strong><p class="small text-muted mb-0">Save a fixed amount every month</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Good Interest</strong><p class="small text-muted mb-0">Competitive interest rates apply</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Flexible Tenure</strong><p class="small text-muted mb-0">Choose tenure as per your goal</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Loan Against RD</strong><p class="small text-muted mb-0">Avail loan against your RD balance</p></div></div></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #ec4899;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-calendar-alt me-2" style="color:#ec4899;"></i>RD Details</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Minimum monthly instalment</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Maturity payment on schedule</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Nomination facility</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Duplicate passbook available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yeshwant Pigmy -->
+    <section class="section bg-light" id="pigmy">
+        <div class="container-lg">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge mb-2 fs-6" style="background:#06b6d4;">Scheme 06</span>
+                    <h2 class="mb-3 mt-2">Yeshwant Pigmy Deposit</h2>
+                    <p>The Yeshwant Pigmy Deposit scheme is specially designed for small savers, daily wage earners, and people in rural areas. Our bank agents collect small deposits daily or weekly at your doorstep, making saving easy and accessible for everyone.</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Doorstep Collection</strong><p class="small text-muted mb-0">Deposits collected at your location</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Small Amounts Welcome</strong><p class="small text-muted mb-0">Even small daily savings are welcome</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Rural &amp; Urban Focus</strong><p class="small text-muted mb-0">Designed for all communities</p></div></div></div>
+                        <div class="col-sm-6"><div class="d-flex"><i class="fas fa-check-circle text-success me-3 mt-1"></i><div><strong>Financial Inclusion</strong><p class="small text-muted mb-0">Brings banking to the unbanked</p></div></div></div>
+                    </div>
+                    <div class="alert alert-info mt-4"><i class="fas fa-info-circle me-2"></i>Contact your nearest branch or our Pigmy agent for enrollment and details.</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm" style="border-left:4px solid #06b6d4;">
+                        <div class="card-header bg-white"><h5 class="mb-0"><i class="fas fa-hand-holding-usd me-2" style="color:#06b6d4;"></i>Pigmy Deposit Benefits</h5></div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Daily / weekly collection</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>No minimum amount barrier</li>
+                                <li class="py-2 border-bottom"><i class="fas fa-check text-success me-2"></i>Passbook issued</li>
+                                <li class="py-2"><i class="fas fa-check text-success me-2"></i>Nomination facility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background:linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);color:white;">
+        <div class="container-lg text-center">
+            <h2 class="mb-3">Ready to Start Saving?</h2>
+            <p class="lead mb-4">Visit any of our 14 branches to open a deposit account today. Our staff will guide you to the best scheme for your needs.</p>
+            <a href="/bank-website-grok/pages/contact.php" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-map-marker-alt me-2"></i>Find a Branch
+            </a>
+            <a href="/bank-website-grok/pages/media.php" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-percent me-2"></i>View Interest Rates
+            </a>
+        </div>
+    </section>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php'; ?>

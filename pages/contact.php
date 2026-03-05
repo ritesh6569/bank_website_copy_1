@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/helpers.ph
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/db.php';
 
 $page_title = 'Contact Us - ' . SITE_NAME;
-$meta_description = 'Get in touch with ' . SITE_NAME . '. Find branches, phone numbers, and contact information';
+$meta_description = 'Get in touch with Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi. Phone, email, and address.';
 
 $form_submitted = false;
 $form_message = '';
@@ -142,8 +142,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
                     <div class="card-body">
                         <i class="fas fa-phone" style="font-size: 2.5rem; color: #3b82f6; margin-bottom: 1rem; display: block;"></i>
                         <h5 class="card-title">Call Us</h5>
-                        <p class="text-muted mb-2">Available 24/7</p>
-                        <a href="tel:+919876543210" class="btn btn-sm btn-primary">+91-9876-543-210</a>
+                        <p class="text-muted mb-1">Mon–Fri: 10 AM – 4 PM</p>
+                        <a href="tel:+918338273169" class="btn btn-sm btn-primary mb-1">+91 8338273169</a><br>
+                        <a href="tel:+918494903886" class="btn btn-sm btn-outline-primary mt-1">+91 8494903886</a>
                     </div>
                 </div>
             </div>
@@ -154,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
                         <i class="fas fa-envelope" style="font-size: 2.5rem; color: #10b981; margin-bottom: 1rem; display: block;"></i>
                         <h5 class="card-title">Email Us</h5>
                         <p class="text-muted mb-2">We'll respond within 24 hours</p>
-                        <a href="mailto:<?php echo ADMIN_EMAIL; ?>" class="btn btn-sm btn-success"><?php echo ADMIN_EMAIL; ?></a>
+                        <a href="mailto:shantappanna@mirajibank.com" class="btn btn-sm btn-success">shantappanna@mirajibank.com</a>
                     </div>
                 </div>
             </div>
@@ -164,8 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
                     <div class="card-body">
                         <i class="fas fa-map-marker-alt" style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 1rem; display: block;"></i>
                         <h5 class="card-title">Visit Us</h5>
-                        <p class="text-muted mb-2">Main Branch - Miraj</p>
-                        <a href="#branches" class="btn btn-sm btn-warning">View Branches</a>
+                        <p class="text-muted mb-2">Head Office — Chikodi</p>
+                        <a href="#branches" class="btn btn-sm btn-warning">View Location</a>
                     </div>
                 </div>
             </div>
@@ -232,91 +233,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
                         <div class="mb-4">
                             <h6 class="mb-2"><i class="fas fa-map-pin text-danger me-2"></i>Head Office</h6>
                             <p class="text-muted">
-                                Shantappanna Miraj Bank<br>
-                                Main Branch, Miraj<br>
-                                Maharashtra - 416410<br>
+                                Shri Shantappanna Miraji Urban Coop Bank Ltd.<br>
+                                944-945, Guruwar Peth, Chikodi<br>
+                                Belagavi, Karnataka 591201<br>
                                 India
                             </p>
                         </div>
 
                         <div class="mb-4">
                             <h6 class="mb-2"><i class="fas fa-clock text-info me-2"></i>Working Hours</h6>
-                            <p class="text-muted mb-1"><strong>Monday - Friday:</strong> 10:00 AM - 5:00 PM</p>
-                            <p class="text-muted mb-1"><strong>Saturday:</strong> 10:00 AM - 2:00 PM</p>
+                            <p class="text-muted mb-1"><strong>Monday – Friday:</strong> 10:00 AM – 4:00 PM</p>
+                            <p class="text-muted mb-1"><strong>Saturday:</strong> 10:00 AM – 1:00 PM</p>
                             <p class="text-muted"><strong>Sunday:</strong> Closed</p>
                         </div>
 
                         <div class="mb-4">
                             <h6 class="mb-2"><i class="fas fa-phone text-success me-2"></i>Customer Support</h6>
-                            <p class="text-muted mb-1">Toll Free: <strong>1800-123-4567</strong></p>
-                            <p class="text-muted">Available 24/7 for your assistance</p>
+                            <p class="text-muted mb-1">Phone: <strong><a href="tel:+918338273169" class="text-decoration-none">+91 8338273169</a></strong></p>
+                            <p class="text-muted mb-1">Phone: <strong><a href="tel:+918494903886" class="text-decoration-none">+91 8494903886</a></strong></p>
+                            <p class="text-muted mb-1">Email: <strong><a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none">shantappanna@mirajibank.com</a></strong></p>
+                            <p class="text-muted">Website: <strong><a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none">www.shantappannamirajibank.com</a></strong></p>
                         </div>
 
                         <!-- Embed Map -->
                         <div style="border-radius: 0.5rem; overflow: hidden; margin-top: 2rem;">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3812.897382866829!2d74.54614!3d16.8278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc5c6b5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sMiraj%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.0!2d74.5879!3d16.4333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc5af00000000000%3A0x0!2sChikodi%2C%20Karnataka%20591201!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Branches -->
-        <div class="row" id="branches">
+        <!-- Branches — All 14 Branches -->
+        <div class="row mt-5" id="branches">
             <div class="col-12 mb-4">
-                <h3>Our Branches</h3>
-                <p class="text-muted">Visit any of our branches across the region</p>
+                <?php
+                require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
+                $branches = $data_fetcher->getBranches();
+                ?>
+                <h3><i class="fas fa-map-marker-alt me-2 text-primary"></i>Our Branch Network</h3>
+                <p class="text-muted">Serving you across 14 branches in Belagavi District and beyond</p>
             </div>
 
-            <div class="col-12 animate-on-scroll">
-                <div class="accordion" id="branchesAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#branch1">
-                                <i class="fas fa-building me-2"></i>Main Branch - Miraj
-                            </button>
-                        </h2>
-                        <div id="branch1" class="accordion-collapse collapse show" data-bs-parent="#branchesAccordion">
-                            <div class="accordion-body">
-                                <p><strong>Address:</strong> Shantappanna Complex, Main Road, Miraj - 416410</p>
-                                <p><strong>Phone:</strong> <a href="tel:+919876543210">+91-9876-543-210</a></p>
-                                <p><strong>Email:</strong> <a href="mailto:miraj@bank.com">miraj@bank.com</a></p>
-                                <p><strong>Hours:</strong> Monday - Friday: 10:00 AM - 5:00 PM, Saturday: 10:00 AM - 2:00 PM</p>
+            <!-- Summary Cards -->
+            <div class="col-12 mb-4">
+                <div class="row g-3">
+                    <?php foreach ($branches as $bi => $branch): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100" style="border-left:4px solid <?php echo $bi === 0 ? '#1e40af' : 'var(--secondary-color)'; ?>;">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-<?php echo $bi === 0 ? 'university' : 'map-marker-alt'; ?> fa-lg me-3 mt-1" style="color:<?php echo $bi === 0 ? '#1e40af' : 'var(--secondary-color)'; ?>;"></i>
+                                    <div>
+                                        <h6 class="mb-1"><?php echo htmlspecialchars($branch['name']); ?></h6>
+                                        <p class="text-muted small mb-1"><i class="fas fa-map-pin me-1"></i><?php echo htmlspecialchars($branch['address']); ?></p>
+                                        <?php if (!empty($branch['phone'])): ?>
+                                        <p class="small mb-1"><i class="fas fa-phone me-1 text-success"></i><a href="tel:<?php echo $branch['phone']; ?>" class="text-decoration-none"><?php echo $branch['phone']; ?></a></p>
+                                        <?php endif; ?>
+                                        <?php if (!empty($branch['ifsc'])): ?>
+                                        <p class="small mb-0 text-muted"><strong>IFSC:</strong> <?php echo $branch['ifsc']; ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#branch2">
-                                <i class="fas fa-building me-2"></i>Miraj West Branch
-                            </button>
-                        </h2>
-                        <div id="branch2" class="accordion-collapse collapse" data-bs-parent="#branchesAccordion">
-                            <div class="accordion-body">
-                                <p><strong>Address:</strong> 123, West Road, Miraj - 416410</p>
-                                <p><strong>Phone:</strong> <a href="tel:+919876543211">+91-9876-543-211</a></p>
-                                <p><strong>Email:</strong> <a href="mailto:west@bank.com">west@bank.com</a></p>
-                                <p><strong>Hours:</strong> Monday - Friday: 10:00 AM - 5:00 PM, Saturday: 10:00 AM - 2:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#branch3">
-                                <i class="fas fa-building me-2"></i>Pandharpur Branch
-                            </button>
-                        </h2>
-                        <div id="branch3" class="accordion-collapse collapse" data-bs-parent="#branchesAccordion">
-                            <div class="accordion-body">
-                                <p><strong>Address:</strong> 456, Main Street, Pandharpur - 413304</p>
-                                <p><strong>Phone:</strong> <a href="tel:+919876543212">+91-9876-543-212</a></p>
-                                <p><strong>Email:</strong> <a href="mailto:pandharpur@bank.com">pandharpur@bank.com</a></p>
-                                <p><strong>Hours:</strong> Monday - Friday: 10:00 AM - 5:00 PM, Saturday: 10:00 AM - 2:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>

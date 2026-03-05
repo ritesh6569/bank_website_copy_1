@@ -50,20 +50,27 @@ class DataFetcher {
             }
         }
         
-        // Fallback data
+        // Fallback data — Real rates for Shri Shantappanna Miraji Urban Co-op. Bank Ltd.
         return [
             'deposits' => [
-                ['name' => 'Savings Account', 'rate' => '3.5% - 4.0% p.a.', 'min_balance' => '₹1,000'],
-                ['name' => 'Current Account', 'rate' => 'No Interest', 'min_balance' => '₹5,000'],
-                ['name' => 'Fixed Deposit (1 Year)', 'rate' => '6.0% - 6.5% p.a.', 'min_balance' => '₹10,000'],
-                ['name' => 'Fixed Deposit (2 Year)', 'rate' => '6.2% - 6.7% p.a.', 'min_balance' => '₹10,000'],
-                ['name' => 'Recurring Deposit', 'rate' => '5.5% - 6.0% p.a.', 'min_balance' => '₹500/month']
+                ['name' => 'Saving Bank Deposit (General)',         'rate' => '3.00% p.a.',  'min_balance' => '₹500'],
+                ['name' => 'Saving Bank Deposit (Senior Citizen)',  'rate' => '3.50% p.a.',  'min_balance' => '₹500'],
+                ['name' => 'Term Deposit — 46 to 90 Days',         'rate' => '5.00% p.a.',  'min_balance' => '₹1,000'],
+                ['name' => 'Term Deposit — 91 to 180 Days',        'rate' => '5.50% p.a.',  'min_balance' => '₹1,000'],
+                ['name' => 'Term Deposit — 181 to 364 Days',       'rate' => '7.00% p.a.',  'min_balance' => '₹1,000'],
+                ['name' => 'Term Deposit — 1 to < 2 Years',        'rate' => '7.75% p.a.',  'min_balance' => '₹1,000'],
+                ['name' => 'Term Deposit — 2 to < 5 Years',        'rate' => '8.00% p.a.',  'min_balance' => '₹1,000'],
+                ['name' => 'Term Deposit — 5 Years and above',     'rate' => '7.75% p.a.',  'min_balance' => '₹1,000'],
             ],
             'loans' => [
-                ['name' => 'Personal Loan', 'rate' => '8.5% - 12.5% p.a.', 'amount' => '₹50,000 - ₹25,00,000'],
-                ['name' => 'Home Loan', 'rate' => '7.0% - 8.5% p.a.', 'amount' => '₹5,00,000 - ₹2 Cr'],
-                ['name' => 'Vehicle Loan', 'rate' => '7.5% - 9.5% p.a.', 'amount' => 'Up to 80% of vehicle cost'],
-                ['name' => 'Business Loan', 'rate' => '9.0% - 14.0% p.a.', 'amount' => '₹1,00,000 - ₹1 Cr']
+                ['name' => 'Gold Loan',                            'rate' => '9.00% p.a.',          'amount' => 'As per gold value'],
+                ['name' => 'Industrial / MSME — Working Capital',  'rate' => '10.00% p.a.',         'amount' => 'As per eligibility'],
+                ['name' => 'Housing Loan — Residential Construction','rate' => '10.50% p.a.',       'amount' => 'As per eligibility'],
+                ['name' => 'Vehicle Loan — Four Wheeler',          'rate' => '10.50% p.a.',         'amount' => 'As per eligibility'],
+                ['name' => 'Industrial / MSME — Term Loan',        'rate' => '11.00% p.a.',         'amount' => 'As per eligibility'],
+                ['name' => 'Vehicle Loan — Two Wheeler',           'rate' => '11.00% p.a.',         'amount' => 'As per eligibility'],
+                ['name' => 'Housing Loan — Commercial',            'rate' => '11.50% p.a.',         'amount' => 'As per eligibility'],
+                ['name' => 'Professional Loan',                    'rate' => '12.00%–13.00% p.a.',  'amount' => 'As per eligibility'],
             ]
         ];
     }
@@ -73,52 +80,185 @@ class DataFetcher {
      */
     public function getServiceCharges() {
         return [
-            ['service' => 'Account Opening', 'charge' => 'Free'],
-            ['service' => 'Account Maintenance (Annual)', 'charge' => 'Free'],
-            ['service' => 'Cheque Book (20 leaves)', 'charge' => '₹50'],
-            ['service' => 'Demand Draft', 'charge' => '₹25-50'],
-            ['service' => 'RTGS/NEFT Transfer', 'charge' => '₹5-50'],
-            ['service' => 'SMS Banking Setup', 'charge' => 'Free'],
-            ['service' => 'Internet Banking Setup', 'charge' => 'Free'],
-            ['service' => 'Fixed Deposit Renewal', 'charge' => 'Free'],
-            ['service' => 'Locker Facility (Annual)', 'charge' => '₹500-5,000'],
-            ['service' => 'Account Closure', 'charge' => 'Free']
+            // I. Membership
+            ['category' => 'Membership', 'service' => 'New Membership Admission Fee',          'charge' => 'Rs. 100/-'],
+            ['category' => 'Membership', 'service' => 'Share Capital (per share)',              'charge' => 'Rs. 100/- per share'],
+            ['category' => 'Membership', 'service' => 'Membership Transfer Fee',               'charge' => 'Rs. 100/-'],
+            // II. Deposits
+            ['category' => 'Deposits',   'service' => 'Account Opening (SB / Current)',        'charge' => 'Free'],
+            ['category' => 'Deposits',   'service' => 'Minimum Balance (SB Account)',          'charge' => 'Rs. 500/-'],
+            ['category' => 'Deposits',   'service' => 'Duplicate Passbook',                    'charge' => 'Rs. 25/-'],
+            ['category' => 'Deposits',   'service' => 'Account Closing (within 1 year)',       'charge' => 'Rs. 100/-'],
+            ['category' => 'Deposits',   'service' => 'FD / RD Premature Closure Penalty',    'charge' => '1.00% rate reduction'],
+            // III. Loans
+            ['category' => 'Loans',      'service' => 'Loan Processing Fee (Personal/Surety)', 'charge' => '0.25% (Min Rs. 100/-)'],
+            ['category' => 'Loans',      'service' => 'Loan Processing Fee (Mortgage/Housing)', 'charge' => '0.50% of loan amount'],
+            ['category' => 'Loans',      'service' => 'Penal Interest (Overdue)',              'charge' => '2.00% p.a. over rate'],
+            ['category' => 'Loans',      'service' => 'Loan NOC Certificate',                 'charge' => 'Rs. 100/-'],
+            // IV. Cheque/Passbook
+            ['category' => 'Cheque',     'service' => 'Cheque Book — First (SB Account)',     'charge' => 'Free'],
+            ['category' => 'Cheque',     'service' => 'Cheque Book — 10 leaves',              'charge' => 'Rs. 25/-'],
+            ['category' => 'Cheque',     'service' => 'Cheque Book — 25 leaves',              'charge' => 'Rs. 50/-'],
+            ['category' => 'Cheque',     'service' => 'Cheque Return — Insufficient Funds',   'charge' => 'Rs. 200/- + GST'],
+            ['category' => 'Cheque',     'service' => 'Pay Order (up to Rs. 10,000/-)',        'charge' => 'Rs. 25/-'],
+            ['category' => 'Cheque',     'service' => 'Pay Order (Rs. 10,001/- to 1,00,000/-)', 'charge' => 'Rs. 50/-'],
+            ['category' => 'Cheque',     'service' => 'Pay Order (above Rs. 1,00,000/-)',     'charge' => 'Rs. 100/-'],
+            // V. Other
+            ['category' => 'Other',      'service' => 'RTGS (Rs. 2,00,001/- to 5,00,000/-)', 'charge' => 'Rs. 25/- + GST'],
+            ['category' => 'Other',      'service' => 'RTGS (above Rs. 5,00,000/-)',          'charge' => 'Rs. 50/- + GST'],
+            ['category' => 'Other',      'service' => 'NEFT (up to Rs. 10,000/-)',            'charge' => 'Rs. 2.50 + GST'],
+            ['category' => 'Other',      'service' => 'NEFT (Rs. 10,001/- to 1,00,000/-)',   'charge' => 'Rs. 5/- + GST'],
+            ['category' => 'Other',      'service' => 'NEFT (Rs. 1,00,001/- to 2,00,000/-)', 'charge' => 'Rs. 15/- + GST'],
+            ['category' => 'Other',      'service' => 'NEFT (above Rs. 2,00,000/-)',          'charge' => 'Rs. 25/- + GST'],
+            ['category' => 'Other',      'service' => 'Balance / Signature Certificate',      'charge' => 'Rs. 100/-'],
         ];
     }
     
     /**
-     * Get branches data
+     * Get branches data — all 14 branches
      */
     public function getBranches() {
         return [
             [
-                'name' => 'Main Branch',
-                'address' => '123 Banking Street, Financial City, FC 12345',
-                'phone' => '+1 (234) 567-890',
-                'email' => 'main@bank.com',
-                'hours' => 'Mon-Fri: 10:00 AM - 4:00 PM, Sat: 10:00 AM - 1:00 PM'
+                'name'    => 'Head Office — Chikodi (Admin)',
+                'type'    => 'Head Office',
+                'address' => '944-945, Guruwar Peth, Chikodi, Belagavi, Karnataka 591201',
+                'ifsc'    => 'SSBM0000001',
+                'phone'   => '+91 8338273169',
+                'phone2'  => '+91 8494903886',
+                'email'   => 'shantappanna@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
             ],
             [
-                'name' => 'Downtown Branch',
-                'address' => '456 Commerce Avenue, Financial City, FC 12346',
-                'phone' => '+1 (234) 567-891',
-                'email' => 'downtown@bank.com',
-                'hours' => 'Mon-Fri: 10:00 AM - 4:00 PM, Sat: 10:00 AM - 1:00 PM'
+                'name'    => 'Main Branch — Chikodi',
+                'type'    => 'Branch',
+                'address' => 'Main Branch, Chikodi, Belagavi, Karnataka 591201',
+                'ifsc'    => 'SSBM0000002',
+                'phone'   => '+91 8338273169',
+                'phone2'  => '',
+                'email'   => 'chikodi@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
             ],
             [
-                'name' => 'Midtown Branch',
-                'address' => '789 Finance Plaza, Financial City, FC 12347',
-                'phone' => '+1 (234) 567-892',
-                'email' => 'midtown@bank.com',
-                'hours' => 'Mon-Fri: 10:00 AM - 4:00 PM, Sat: 10:00 AM - 1:00 PM'
+                'name'    => 'Examba Branch',
+                'type'    => 'Branch',
+                'address' => 'Examba, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000003',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'examba@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
             ],
             [
-                'name' => 'Uptown Branch',
-                'address' => '321 Investment Road, Financial City, FC 12348',
-                'phone' => '+1 (234) 567-893',
-                'email' => 'uptown@bank.com',
-                'hours' => 'Mon-Fri: 10:00 AM - 4:00 PM, Sat: 10:00 AM - 1:00 PM'
-            ]
+                'name'    => 'Manjari Branch',
+                'type'    => 'Branch',
+                'address' => 'Manjari, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000004',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'manjari@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Kothali Branch',
+                'type'    => 'Branch',
+                'address' => 'Kothali, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000005',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'kothali@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Karoshi Branch',
+                'type'    => 'Branch',
+                'address' => 'Karoshi, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000006',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'karoshi@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Goa-Ves Branch — Belagavi',
+                'type'    => 'Branch',
+                'address' => 'Goa-Ves, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000007',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'goaves@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'R.K. Colony Branch — Chikodi',
+                'type'    => 'Branch',
+                'address' => 'R.K. Colony, Chikodi, Belagavi, Karnataka 591201',
+                'ifsc'    => 'SSBM0000008',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'rkcolony@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Nasalapur Branch',
+                'type'    => 'Branch',
+                'address' => 'Nasalapur, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000009',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'nasalapur@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Soundatti Branch',
+                'type'    => 'Branch',
+                'address' => 'Soundatti, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000010',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'soundatti@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Auto Nagar Branch — Belagavi',
+                'type'    => 'Branch',
+                'address' => 'Auto Nagar, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000011',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'autonagar@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Nipani Branch',
+                'type'    => 'Branch',
+                'address' => 'Nipani, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000012',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'nipani@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Athani Branch',
+                'type'    => 'Branch',
+                'address' => 'Athani, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000013',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'athani@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
+            [
+                'name'    => 'Ugar-Khurd Branch',
+                'type'    => 'Branch',
+                'address' => 'Ugar-Khurd, Belagavi, Karnataka',
+                'ifsc'    => 'SSBM0000014',
+                'phone'   => '',
+                'phone2'  => '',
+                'email'   => 'ugarkhurd@mirajibank.com',
+                'hours'   => 'Mon–Fri: 10:00 AM – 4:00 PM, Sat: 10:00 AM – 1:00 PM'
+            ],
         ];
     }
     
@@ -128,21 +268,21 @@ class DataFetcher {
     public function getLeadership() {
         return [
             'founder' => [
-                'name' => 'Mr. John Smith',
-                'title' => 'Founder & Chairman Emeritus',
-                'bio' => 'Founded the bank in 1995 with a vision to revolutionize banking services in the region. With over 40 years of experience in finance.',
+                'name' => 'Late Shri Shantappanna Miraji',
+                'title' => 'Founder — "Pratham Sahakara Ratna"',
+                'bio' => 'A leading Co-operative Bank of the Belagavi district was founded by visionary and positive thinker Shri Shantappannaji in 1961 to cater to the Banking needs of a common man. He was a true co-operator who established and developed the Bank on true co-operative principles. He had done "Financial Inclusion" 61 years back by opening branches in Rural areas with a population of less than 1000. He never added a single penny to his personal wealth but spent almost all his share of wealth and life for the growth of society by establishing many co-operative, Educational, Social and Charitable Institutions.',
                 'image' => '/bank-website-grok/assets/images/founder.jpg'
             ],
             'chairman' => [
-                'name' => 'Dr. Sarah Johnson',
-                'title' => 'Chairman & CEO',
-                'bio' => 'Leads the bank with a commitment to innovation and customer-centric banking solutions. MBA from Harvard Business School.',
+                'name' => 'Mr. Mahantesh Gangadhar Bhate',
+                'title' => 'Chairman',
+                'bio' => 'We listen, while our Balance Sheet talks! We ended year 2024-2025 on a success note, with "A" grade in Audit remarks. It is indeed a proud moment to share that soon we will come up with our AGM-2024-25 dates. Our bank has continued to register a steady growth in business and earnings through Strong Financial Health, excellent Services, Attractive Rate of Interest, and easy access to Nearest Branch.',
                 'image' => '/bank-website-grok/assets/images/chairman.jpg'
             ],
             'general_manager' => [
-                'name' => 'Mr. Robert Williams',
+                'name' => 'Mr. Rajendra S Vandure',
                 'title' => 'General Manager',
-                'bio' => 'Oversees daily operations with 25+ years of banking experience. CFA Charterholder.',
+                'bio' => 'Welcome dear customers! I am excited to welcome you all to our Bank. I guarantee a realm of services to your complete Banking needs. Here I am always ready to help you. Reach me for any query you have, I will be happy to address them.',
                 'image' => '/bank-website-grok/assets/images/gm.jpg'
             ]
         ];
@@ -153,70 +293,96 @@ class DataFetcher {
      */
     public function getBoardOfDirectors() {
         return [
-            ['name' => 'Dr. Michael Brown', 'position' => 'Director', 'qualification' => 'Ph.D. in Economics'],
-            ['name' => 'Ms. Emily Davis', 'position' => 'Independent Director', 'qualification' => 'B.Tech in Finance'],
-            ['name' => 'Mr. James Wilson', 'position' => 'Director', 'qualification' => 'MBA, Strategic Management'],
-            ['name' => 'Ms. Lisa Anderson', 'position' => 'Independent Director', 'qualification' => 'CPA, CFO'],
-            ['name' => 'Mr. David Martinez', 'position' => 'Director', 'qualification' => 'BS in Banking & Finance']
+            ['name' => 'Mr. Mahantesh Gangadhar Bhate',     'position' => 'Chairman',   'qualification' => '', 'phone' => '9448349272'],
+            ['name' => 'Mr. Amaranath Chandrashekhar Basaragi', 'position' => 'Director', 'qualification' => '', 'phone' => '9448811522'],
+            ['name' => 'Mr. Yeshwant Shantappanna Miraji',  'position' => 'Director',   'qualification' => '', 'phone' => '9448469449'],
+            ['name' => 'Mr. Irappa Neelakanth Hampannavar', 'position' => 'Director',   'qualification' => '', 'phone' => '9448995332'],
+            ['name' => 'Mr. Sanjaykumar Rudragouda Patil',  'position' => 'Director',   'qualification' => '', 'phone' => '9448540744'],
+            ['name' => 'Mr. Mahaveer Appa Patil',           'position' => 'Director',   'qualification' => '', 'phone' => '9448693973'],
+            ['name' => 'Smt. Mala Shrimandhar Desai',       'position' => 'Director',   'qualification' => '', 'phone' => '9480012068'],
+            ['name' => 'Mr. Ravikumar Yeshwant Rokhade',    'position' => 'Director',   'qualification' => '', 'phone' => '9448875937'],
+            ['name' => 'Mr. Ashok Adappa Danawade',         'position' => 'Director',   'qualification' => '', 'phone' => '9845096404'],
+            ['name' => 'Mr. Anil Anant Sadalage',           'position' => 'Director',   'qualification' => '', 'phone' => '9448129822'],
+            ['name' => 'Mr. Mahesh Jayapal Ladage',         'position' => 'Director',   'qualification' => '', 'phone' => '9482081061'],
+            ['name' => 'Shri Jitendra Sangale',             'position' => 'Director',   'qualification' => '', 'phone' => ''],
+            ['name' => 'Mr. Mahaveer Yeshwant Miraji',      'position' => 'Director',   'qualification' => '', 'phone' => '9448482544'],
+            ['name' => 'Mr. Ajit Ravsaheb Akkole',          'position' => 'Director',   'qualification' => '', 'phone' => '7411897116'],
+        ];
+    }
+
+    /**
+     * Get board of management
+     */
+    public function getBoardOfManagement() {
+        return [
+            ['name' => 'Shri Anil Sadalage',       'position' => 'BOM Chairman', 'phone' => '9448129822'],
+            ['name' => 'Shri Ashok Danawade',       'position' => 'BOM Director', 'phone' => '9845096404'],
+            ['name' => 'Shri Mahaveer Yeshwant Miraji', 'position' => 'BOM Director', 'phone' => '9448482544'],
+            ['name' => 'Shri Basavaraj Patil',      'position' => 'BOM Director', 'phone' => ''],
+            ['name' => 'Shri Uday Mane',            'position' => 'BOM Director', 'phone' => ''],
         ];
     }
     
     /**
-     * Get news/announcements
+     * Get news/announcements — Real updates for Miraji Bank
      */
     public function getNews() {
         return [
             [
-                'title' => 'New Mobile App Launch',
-                'date' => date('Y-m-d', strtotime('-5 days')),
-                'excerpt' => 'Our enhanced mobile banking app now includes AI-powered financial insights and improved security features.',
-                'link' => '#'
+                'title' => 'AGM 2024-25 — Notice to Members',
+                'date' => date('Y-m-d', strtotime('-7 days')),
+                'excerpt' => 'The Annual General Meeting for the year 2024-25 will be held shortly. All members are requested to attend and participate.',
+                'link' => '/bank-website-grok/pages/media.php#notices'
             ],
             [
-                'title' => 'Special FD Rate Promotion',
-                'date' => date('Y-m-d', strtotime('-10 days')),
-                'excerpt' => 'Enjoy up to 7% interest rate on Fixed Deposits for 1-year tenure. Limited time offer!',
-                'link' => '#'
-            ],
-            [
-                'title' => 'Q4 Financial Results Announced',
-                'date' => date('Y-m-d', strtotime('-15 days')),
-                'excerpt' => 'Bank reports strong financial performance with 25% increase in customer base and improved profitability.',
-                'link' => '#'
-            ],
-            [
-                'title' => 'New Home Loan Products',
+                'title' => '"A" Grade Audit — 2024-25',
                 'date' => date('Y-m-d', strtotime('-20 days')),
-                'excerpt' => 'Introducing flexible home loan options with reduced processing time and competitive interest rates.',
-                'link' => '#'
+                'excerpt' => 'We are proud to announce that the bank has received an "A" Grade in Audit remarks for the year 2024-25, reflecting strong financial health.',
+                'link' => '/bank-website-grok/pages/about.php'
+            ],
+            [
+                'title' => 'FD Interest Rate — Up to 8.00% p.a.',
+                'date' => date('Y-m-d', strtotime('-35 days')),
+                'excerpt' => 'Earn up to 8.00% p.a. on Fixed Deposits (2–5 years). Senior citizens and soldiers enjoy an additional 0.50% benefit.',
+                'link' => '/bank-website-grok/pages/deposits.php#fixed'
+            ],
+            [
+                'title' => 'DEAF Accounts — Unclaimed Deposits',
+                'date' => date('Y-m-d', strtotime('-60 days')),
+                'excerpt' => 'Details of accounts transferred to Depositor Education & Awareness Fund (DEAF) as per RBI circular. Contact your nearest branch.',
+                'link' => '/bank-website-grok/pages/media.php#notices'
             ]
         ];
     }
     
     /**
-     * Get featured offers
+     * Get featured offers/highlights — Real products for Miraji Bank
      */
     public function getOffers() {
         return [
             [
-                'title' => 'Cashback on Digital Transfers',
-                'description' => 'Get 2% cashback on all RTGS/NEFT transfers up to ₹50,000',
-                'icon' => 'fas fa-hand-holding-usd'
+                'title' => 'Fixed Deposit — Up to 8.00% p.a.',
+                'description' => 'Earn up to 8.00% p.a. on 2–5 year FD. Senior citizens get 0.50% extra. Flexible tenure from 46 days.',
+                'icon' => 'fas fa-chart-line',
+                'link' => '/bank-website-grok/pages/deposits.php#fixed'
             ],
             [
-                'title' => 'Premium Savings Account',
-                'description' => 'Earn up to 4.5% interest + exclusive benefits',
-                'icon' => 'fas fa-piggy-bank'
+                'title' => 'Gold Loan — 9.00% p.a.',
+                'description' => 'Instant gold loan at just 9.00% p.a. Quick disbursal. Secure your gold with us while meeting your financial needs.',
+                'icon' => 'fas fa-coins',
+                'link' => '/bank-website-grok/pages/loans.php#gold'
             ],
             [
-                'title' => 'Personal Loan at 8.5%',
-                'description' => 'Quick approval | No hidden charges | Instant disbursement',
-                'icon' => 'fas fa-handshake'
+                'title' => 'Yeshwant Pigmy Deposit',
+                'description' => 'Daily savings scheme — our agent collects at your doorstep. Build wealth with small daily contributions.',
+                'icon' => 'fas fa-home',
+                'link' => '/bank-website-grok/pages/deposits.php#pigmy'
             ],
             [
-                'title' => 'Zero Annual Fee Credit Card',
-                'description' => 'Unlimited rewards + travel benefits + exclusive perks',
-                'icon' => 'fas fa-credit-card'
+                'title' => 'RTGS / NEFT Fund Transfer',
+                'description' => 'Transfer funds electronically via RTGS/NEFT to any bank in India. Fast, secure, and convenient.',
+                'icon' => 'fas fa-exchange-alt',
+                'link' => '/bank-website-grok/pages/services.php#rtgs'
             ]
         ];
     }

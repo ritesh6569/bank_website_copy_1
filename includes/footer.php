@@ -11,9 +11,9 @@
         <div class="container-lg">
             <div class="row mb-4">
                 <!-- Company Info -->
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <h5 class="mb-3">Professional Bank</h5>
-                    <p class="text-muted small">Your trusted banking partner providing comprehensive financial solutions.</p>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <h5 class="mb-3"><i class="fas fa-university me-2"></i>Shri Shantappanna Miraji Urban Coop Bank Ltd., Chikodi</h5>
+                    <p class="text-muted small">65 Years of Banking — A bank that understands you! Serving the community since 1961 with honest effort and abounding faith.</p>
                     <div class="social-links mt-3">
                         <a href="#" class="text-decoration-none me-3" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
@@ -30,45 +30,63 @@
                     </div>
                 </div>
                 
-                <!-- Products -->
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <h5 class="mb-3">Products</h5>
+                <!-- Pages -->
+                <div class="col-md-2 col-sm-6 mb-4">
+                    <h5 class="mb-3">Pages</h5>
                     <ul class="list-unstyled small">
-                        <li><a href="/bank-website-grok/pages/deposits.php#savings" class="text-decoration-none text-muted">Savings Account</a></li>
-                        <li><a href="/bank-website-grok/pages/deposits.php#current" class="text-decoration-none text-muted">Current Account</a></li>
-                        <li><a href="/bank-website-grok/pages/deposits.php#fd" class="text-decoration-none text-muted">Fixed Deposit</a></li>
-                        <li><a href="/bank-website-grok/pages/loans.php#personal" class="text-decoration-none text-muted">Personal Loan</a></li>
-                        <li><a href="/bank-website-grok/pages/loans.php#home" class="text-decoration-none text-muted">Home Loan</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/pages/about.php" class="text-decoration-none text-muted">Auditors Appointment Policy</a></li>
+                        <li class="mb-1"><a href="#" class="text-decoration-none text-muted">Coming Up</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/terms.php" class="text-decoration-none text-muted">Disclaimer</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/privacy-policy.php" class="text-decoration-none text-muted">Privacy Policy</a></li>
                     </ul>
                 </div>
-                
-                <!-- Services -->
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <h5 class="mb-3">Services</h5>
+
+                <!-- Deposits & Loans -->
+                <div class="col-md-2 col-sm-6 mb-4">
+                    <h5 class="mb-3">Deposits</h5>
                     <ul class="list-unstyled small">
-                        <li><a href="/bank-website-grok/pages/services.php#internet" class="text-decoration-none text-muted">Internet Banking</a></li>
-                        <li><a href="/bank-website-grok/pages/services.php#mobile" class="text-decoration-none text-muted">Mobile Banking</a></li>
-                        <li><a href="/bank-website-grok/pages/services.php#sms" class="text-decoration-none text-muted">SMS Banking</a></li>
-                        <li><a href="/bank-website-grok/pages/services.php#rtgs" class="text-decoration-none text-muted">RTGS/NEFT</a></li>
-                        <li><a href="/bank-website-grok/pages/services.php#locker" class="text-decoration-none text-muted">Locker Facility</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/pages/deposits.php#cumulative" class="text-decoration-none text-muted">Cumulative Deposit</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/pages/deposits.php#fixed" class="text-decoration-none text-muted">Fixed Deposit</a></li>
+                    </ul>
+                    <h5 class="mt-3 mb-3">Loans</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-1"><a href="/bank-website-grok/pages/loans.php#cash-credit" class="text-decoration-none text-muted">Cash Credit</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/pages/loans.php#overdraft" class="text-decoration-none text-muted">Over Draft</a></li>
+                        <li class="mb-1"><a href="/bank-website-grok/pages/loans.php#personal" class="text-decoration-none text-muted">Personal Loan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Gallery -->
+                <div class="col-md-1 col-sm-6 mb-4">
+                    <h5 class="mb-3">Gallery</h5>
+                    <ul class="list-unstyled small">
+                        <li><a href="/bank-website-grok/pages/media.php" class="text-decoration-none text-muted">View Gallery</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contact -->
                 <div class="col-md-3 col-sm-6 mb-4">
-                    <h5 class="mb-3">Contact</h5>
+                    <h5 class="mb-3">Contact Info</h5>
                     <ul class="list-unstyled small">
                         <li class="mb-2">
-                            <i class="fas fa-phone text-primary me-2"></i>
-                            <a href="tel:+1234567890" class="text-decoration-none text-muted">+1 (234) 567-890</a>
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                            <span class="text-muted">944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201</span>
                         </li>
                         <li class="mb-2">
-                            <i class="fas fa-envelope text-primary me-2"></i>
-                            <a href="mailto:support@bank.com" class="text-decoration-none text-muted">support@bank.com</a>
+                            <i class="fas fa-globe text-primary me-2"></i>
+                            <a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none text-muted">www.shantappannamirajibank.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <a href="tel:+918338273169" class="text-decoration-none text-muted">+91 8338273169</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <a href="tel:+918494903886" class="text-decoration-none text-muted">+91 8494903886</a>
                         </li>
                         <li>
-                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                            <span class="text-muted">123 Banking Street, Financial City, FC 12345</span>
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none text-muted">shantappanna@mirajibank.com</a>
                         </li>
                     </ul>
                 </div>
@@ -81,13 +99,13 @@
             <div class="row align-items-center py-3">
                 <div class="col-md-6 mb-3 mb-md-0">
                     <p class="mb-0 small text-muted">
-                        &copy; <?php echo date('Y'); ?> Professional Bank. All rights reserved.
+                        &copy; <?php echo date('Y'); ?> All rights reserved | <a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none text-muted">www.shantappannamirajibank.com</a>
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-decoration-none text-muted small me-3">Privacy Policy</a>
-                    <a href="#" class="text-decoration-none text-muted small me-3">Terms & Conditions</a>
-                    <a href="#" class="text-decoration-none text-muted small">Sitemap</a>
+                    <a href="/bank-website-grok/terms.php" class="text-decoration-none text-muted small me-3">Disclaimer</a>
+                    <a href="/bank-website-grok/privacy-policy.php" class="text-decoration-none text-muted small me-3">Privacy Policy</a>
+                    <a href="/bank-website-grok/terms.php" class="text-decoration-none text-muted small">Standard Practice</a>
                 </div>
             </div>
         </div>

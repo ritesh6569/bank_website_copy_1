@@ -1,9 +1,9 @@
 <?php
 /**
- * Home Page - Professional Bank Website
+ * Home Page - Shri Shantappanna Miraji Urban Co-op. Bank Ltd.
  */
 
-$page_title = 'Home - Professional Bank';
+$page_title = 'Home - Miraji Bank';
 $current_page = 'home';
 
 // Include header
@@ -24,14 +24,18 @@ $notices = getActiveNotices();
         <div class="container-lg">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <h1 class="hero-title">Your Trusted Banking Partner</h1>
-                    <p class="hero-subtitle">Experience modern banking with secure, innovative financial solutions designed for your success.</p>
+                    <p class="hero-subtitle mb-1" style="font-size:1rem; color: rgba(255,255,255,0.7); letter-spacing:1px; text-transform:uppercase;">65 Years of Banking</p>
+                    <h1 class="hero-title">A bank that understands you!</h1>
+                    <p class="hero-subtitle">Keep Faith — Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi, serving the community since 1961.</p>
                     <div class="hero-buttons">
                         <a href="/bank-website-grok/pages/deposits.php" class="btn btn-light me-3 mb-2">
-                            <i class="fas fa-wallet me-2"></i>Open Account
+                            <i class="fas fa-piggy-bank me-2"></i>Deposits
                         </a>
                         <a href="/bank-website-grok/pages/loans.php" class="btn btn-outline-light mb-2">
-                            <i class="fas fa-handshake me-2"></i>Apply for Loan
+                            <i class="fas fa-handshake me-2"></i>Loans
+                        </a>
+                        <a href="/bank-website-grok/pages/about.php#the-bank" class="btn btn-outline-light mb-2 ms-2">
+                            <i class="fas fa-info-circle me-2"></i>Read More
                         </a>
                     </div>
                 </div>
@@ -48,8 +52,8 @@ $notices = getActiveNotices();
     <section class="section bg-light">
         <div class="container-lg">
             <div class="section-title">
-                <h2>Special Offers & Highlights</h2>
-                <p class="section-subtitle">Check out our latest promotions and exclusive benefits</p>
+                <h2>Products & Highlights</h2>
+                <p class="section-subtitle">Explore our best-in-class products and special offerings for our valued members</p>
             </div>
             
             <div class="row g-4">
@@ -57,10 +61,10 @@ $notices = getActiveNotices();
                     <div class="col-md-6 col-lg-3">
                         <div class="card feature-card h-100">
                             <div class="card-body d-flex flex-column p-4">
-                                <i class="<?php echo htmlspecialchars($offer['icon']); ?> mb-3" style="font-size:2rem;"></i>
+                                <i class="<?php echo htmlspecialchars($offer['icon']); ?> mb-3" style="font-size:2rem; color: var(--secondary-color);"></i>
                                 <h5 class="card-title mb-2"><?php echo htmlspecialchars($offer['title']); ?></h5>
                                 <p class="text-muted mb-4 flex-grow-1"><?php echo htmlspecialchars($offer['description']); ?></p>
-                                <a href="/bank-website-grok/pages/deposits.php" class="btn btn-sm btn-primary mt-auto align-self-start">Learn More</a>
+                                <a href="<?php echo htmlspecialchars($offer['link'] ?? '/bank-website-grok/pages/deposits.php'); ?>" class="btn btn-sm btn-primary mt-auto align-self-start">Learn More</a>
                             </div>
                         </div>
                     </div>
@@ -83,27 +87,27 @@ $notices = getActiveNotices();
                         <div class="card-body text-center">
                             <i class="fas fa-piggy-bank" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Deposits</h5>
-                            <p class="text-muted small">Savings, Current, FD & RD</p>
+                            <p class="text-muted small">Savings, Current, FD, Kalyan Nidhi & Pigmy</p>
                         </div>
                     </a>
                 </div>
                 
                 <div class="col-md-6 col-lg-3">
-                    <a href="/bank-website-grok/pages/loans.php#personal" class="card text-decoration-none h-100" style="border-left: 4px solid var(--success-color);">
+                    <a href="/bank-website-grok/pages/loans.php#gold" class="card text-decoration-none h-100" style="border-left: 4px solid var(--success-color);">
                         <div class="card-body text-center">
                             <i class="fas fa-hand-holding-usd" style="font-size: 2.5rem; color: var(--success-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Loans</h5>
-                            <p class="text-muted small">Personal, Home, Vehicle & Business</p>
+                            <p class="text-muted small">Gold, Housing, Vehicle & Business Loans</p>
                         </div>
                     </a>
                 </div>
                 
                 <div class="col-md-6 col-lg-3">
-                    <a href="/bank-website-grok/pages/services.php#internet" class="card text-decoration-none h-100" style="border-left: 4px solid var(--warning-color);">
+                    <a href="/bank-website-grok/pages/services.php#rtgs" class="card text-decoration-none h-100" style="border-left: 4px solid var(--warning-color);">
                         <div class="card-body text-center">
-                            <i class="fas fa-globe" style="font-size: 2.5rem; color: var(--warning-color); margin-bottom: 1rem;"></i>
+                            <i class="fas fa-exchange-alt" style="font-size: 2.5rem; color: var(--warning-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Services</h5>
-                            <p class="text-muted small">Internet, Mobile & SMS Banking</p>
+                            <p class="text-muted small">RTGS/NEFT, CTS Cheques, EMI & Pay Order</p>
                         </div>
                     </a>
                 </div>
@@ -137,27 +141,27 @@ $notices = getActiveNotices();
                             <h5 class="mb-0"><i class="fas fa-book me-2"></i>Deposit Products</h5>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted">Our deposit products are designed to help you save money with competitive interest rates and flexible terms.</p>
+                            <p class="text-muted">Grow your savings with our range of deposit products offering competitive interest rates and flexible terms.</p>
                             <ul class="list-unstyled">
-                                <li class="py-2">
+                                <li class="py-2 border-bottom">
                                     <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Savings Account</strong> - Up to 4.0% p.a.
+                                    <strong>Savings Bank Deposit</strong> — 3.00% p.a. (3.50% Senior Citizen)
+                                </li>
+                                <li class="py-2 border-bottom">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Fixed Deposit</strong> — Up to 8.00% p.a. (8.50% Senior)
+                                </li>
+                                <li class="py-2 border-bottom">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Kalyan Nidhi Recurring Deposit</strong> — Monthly savings scheme
                                 </li>
                                 <li class="py-2">
                                     <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Fixed Deposit</strong> - Up to 6.5% p.a.
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Recurring Deposit</strong> - Up to 6.0% p.a.
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Current Account</strong> - Business focused
+                                    <strong>Yeshwant Pigmy Deposit</strong> — Daily doorstep collection
                                 </li>
                             </ul>
                             <a href="/bank-website-grok/pages/deposits.php" class="btn btn-primary mt-3">
-                                Learn More <i class="fas fa-arrow-right ms-2"></i>
+                                View All Deposits <i class="fas fa-arrow-right ms-2"></i>
                             </a>
                         </div>
                     </div>
@@ -170,27 +174,27 @@ $notices = getActiveNotices();
                             <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Loan Products</h5>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted">Get the financial support you need with our flexible loan options and competitive rates.</p>
+                            <p class="text-muted">Get the financial support you need with our flexible loan options and competitive interest rates.</p>
                             <ul class="list-unstyled">
-                                <li class="py-2">
+                                <li class="py-2 border-bottom">
                                     <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Personal Loan</strong> - From 8.5% p.a.
+                                    <strong>Gold Loan</strong> — From 9.00% p.a., quick disbursal
+                                </li>
+                                <li class="py-2 border-bottom">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Housing Loan</strong> — Construction & purchase from 10.50% p.a.
+                                </li>
+                                <li class="py-2 border-bottom">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Cash Credit / Working Capital</strong> — Industrial & MSME
                                 </li>
                                 <li class="py-2">
                                     <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Home Loan</strong> - From 7.0% p.a.
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Vehicle Loan</strong> - From 7.5% p.a.
-                                </li>
-                                <li class="py-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i>
-                                    <strong>Business Loan</strong> - From 9.0% p.a.
+                                    <strong>Vehicle Loan</strong> — 4-wheeler from 10.50%, 2-wheeler 11.00%
                                 </li>
                             </ul>
                             <a href="/bank-website-grok/pages/loans.php" class="btn btn-primary mt-3">
-                                Learn More <i class="fas fa-arrow-right ms-2"></i>
+                                View All Loans <i class="fas fa-arrow-right ms-2"></i>
                             </a>
                         </div>
                     </div>
@@ -409,8 +413,11 @@ $notices = getActiveNotices();
                         <div class="card-body text-center">
                             <i class="fas fa-phone" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Phone</h5>
+                            <p class="text-muted mb-1">
+                                <a href="tel:+918338273169" class="text-decoration-none">+91 8338273169</a>
+                            </p>
                             <p class="text-muted">
-                                <a href="tel:+1234567890" class="text-decoration-none">+1 (234) 567-890</a>
+                                <a href="tel:+918494903886" class="text-decoration-none">+91 8494903886</a>
                             </p>
                         </div>
                     </div>
@@ -422,7 +429,7 @@ $notices = getActiveNotices();
                             <i class="fas fa-envelope" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Email</h5>
                             <p class="text-muted">
-                                <a href="mailto:support@bank.com" class="text-decoration-none">support@bank.com</a>
+                                <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none">shantappanna@mirajibank.com</a>
                             </p>
                         </div>
                     </div>
@@ -433,7 +440,7 @@ $notices = getActiveNotices();
                         <div class="card-body text-center">
                             <i class="fas fa-map-marker-alt" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
                             <h5 class="card-title">Address</h5>
-                            <p class="text-muted">123 Banking Street, Financial City, FC 12345</p>
+                            <p class="text-muted">944-945, Guruwar Peth Chikodi,<br>Belagavi Karnataka, 591201</p>
                         </div>
                     </div>
                 </div>
@@ -444,10 +451,13 @@ $notices = getActiveNotices();
     <!-- CTA Section -->
     <section class="section" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white;">
         <div class="container-lg text-center">
-            <h2 class="mb-3">Ready to Get Started?</h2>
-            <p class="lead mb-4">Join thousands of satisfied customers who trust us with their financial needs.</p>
-            <a href="/bank-website-grok/pages/deposits.php" class="btn btn-light btn-lg">
-                Open an Account Today <i class="fas fa-arrow-right ms-2"></i>
+            <h2 class="mb-3">Keep Faith — 65 Years of Banking</h2>
+            <p class="lead mb-4">Join thousands of satisfied customers of Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi who trust us with their financial needs.</p>
+            <a href="/bank-website-grok/pages/deposits.php" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-piggy-bank me-2"></i>Our Deposits
+            </a>
+            <a href="/bank-website-grok/pages/contact.php" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-phone me-2"></i>Contact Us
             </a>
         </div>
     </section>
