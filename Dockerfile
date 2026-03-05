@@ -1,4 +1,5 @@
 # PHP 8.2 with Apache
+# Cache-bust: 2026-03-05-v3
 FROM php:8.2-apache
 
 # Install required PHP extensions
