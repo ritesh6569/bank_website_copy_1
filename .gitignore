@@ -1,0 +1,17 @@
+# Logs
+logs/*.log
+
+# Uploads (large binaries — manage separately or use cloud storage)
+# uploads/
+
+# Environment / secrets — never commit these
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

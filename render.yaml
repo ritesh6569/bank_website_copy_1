@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: miraji-bank-website
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free            # change to 'starter' for production
+    healthCheckPath: /
+    envVars:
+      - key: SITE_URL
+        value: https://miraji-bank-website.onrender.com/   # update after first deploy
+      - key: DB_HOST
+        sync: false       # set manually in Render dashboard
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: MAIL_PASS
+        sync: false       # Gmail App Password — set in dashboard

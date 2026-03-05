@@ -7,7 +7,7 @@
 // Define site constants
 define('SITE_NAME', 'Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi');
 define('SITE_NAME_SHORT', 'Miraji Bank');
-define('SITE_URL', 'http://localhost/bank-website-grok/');
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/bank-website-grok/');
 define('SITE_EMAIL', 'shantappanna@mirajibank.com');
 define('ADMIN_EMAIL', 'shantappanna@mirajibank.com');
 define('SITE_PHONE', '+918338273169');
@@ -28,7 +28,7 @@ define('MAIL_HOST',       'smtp.gmail.com');
 define('MAIL_PORT',       587);                               // 587 = TLS, 465 = SSL
 define('MAIL_ENCRYPTION', 'tls');                             // 'tls' or 'ssl'
 define('MAIL_USER',       'shantappanna@mirajibank.com');     // Gmail / SMTP username
-define('MAIL_PASS',       '');                                // App Password (16 chars, no spaces)
+define('MAIL_PASS',       getenv('MAIL_PASS') ?: '');                                // App Password (16 chars, no spaces)
 define('MAIL_FROM_NAME',  SITE_NAME_SHORT);                   // Sender display name
 
 // reCAPTCHA Configuration (for production)

@@ -4,11 +4,12 @@
  * Handles PDO database connections with error handling
  */
 
-// Database Configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'bank_db');
+// Database Configuration — reads from environment variables (set in Render dashboard)
+// Falls back to localhost defaults for local XAMPP development
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'bank_db');
 
 /**
  * Get database connection using PDO

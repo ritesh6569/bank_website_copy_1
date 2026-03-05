@@ -4,8 +4,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Set base directory
-    RewriteBase /bank-website-grok/
+    # Set base directory — root on Render, subdirectory on local XAMPP
+    RewriteBase /
     
     # Redirect www to non-www (optional)
     # RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
