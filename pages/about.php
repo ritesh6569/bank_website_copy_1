@@ -6,9 +6,9 @@
 $page_title = 'About Us - Miraji Bank';
 $current_page = 'about';
 
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/notices-fetcher.php';
+include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/../includes/data-fetcher.php';
+include __DIR__ . '/../includes/notices-fetcher.php';
 
 $leadership = $data_fetcher->getLeadership();
 $board = $data_fetcher->getBoardOfDirectors();
@@ -300,7 +300,7 @@ $notices = getActiveNotices();
                         <p class="fs-5 fst-italic">"Welcome dear customers!"</p>
                     </blockquote>
                     <p>I am excited to welcome you all to our Bank. I guarantee a realm of services to your complete Banking needs. Here I am always ready to help you. Reach me for any query you have — I will be happy to address them.</p>
-                    <a href="/bank-website-grok/pages/contact.php" class="btn btn-primary mt-2">
+                    <a href="/pages/contact.php" class="btn btn-primary mt-2">
                         <i class="fas fa-envelope me-2"></i>Get In Touch
                     </a>
                 </div>
@@ -310,5 +310,5 @@ $notices = getActiveNotices();
 
 <?php
 // Include footer
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php';
+include __DIR__ . '/../includes/footer.php';
 ?>

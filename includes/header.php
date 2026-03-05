@@ -18,7 +18,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <meta name="author" content="Shri Shantappanna Miraji Urban Co-op. Bank Ltd.">
     <meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">
     <meta property="og:description" content="Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi - 65 Years of Banking">
-    <meta property="og:image" content="/bank-website-grok/assets/images/og-image.jpg">
+    <meta property="og:image" content="/assets/images/og-image.jpg">
     <title><?php echo htmlspecialchars($page_title); ?> - Miraji Bank</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -28,7 +28,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Professional Banking Theme -->
-    <link href="/bank-website-grok/css/professional-theme.css" rel="stylesheet">
+    <link href="/css/professional-theme.css" rel="stylesheet">
 </head>
 <body>
     <!-- Top Info Bar -->
@@ -51,7 +51,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-lg">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold text-white" href="/bank-website-grok/index.php" style="color:#ffffff !important;">
+            <a class="navbar-brand fw-bold text-white" href="/index.php" style="color:#ffffff !important;">
                 <i class="fas fa-university me-2"></i>Miraji Bank
             </a>
             
@@ -66,7 +66,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link <?php echo $current_page === 'home' ? 'active' : ''; ?>" 
-                           href="/bank-website-grok/index.php">Home</a>
+                           href="/index.php">Home</a>
                     </li>
                     
                     <!-- About Dropdown -->
@@ -76,12 +76,12 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             About Us
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#the-bank">The Bank</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#our-founder">Our Founder</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#chairman">Chairman</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#board-of-directors">Board of Directors</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#board-of-management">Board of Management</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/about.php#general-manager">General Manager</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#the-bank">The Bank</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#our-founder">Our Founder</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#chairman">Chairman</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#board-of-directors">Board of Directors</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#board-of-management">Board of Management</a></li>
+                            <li><a class="dropdown-item" href="/pages/about.php#general-manager">General Manager</a></li>
                         </ul>
                     </li>
                     
@@ -92,8 +92,8 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             Deposits
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="productsDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/deposits.php#cumulative">Cumulative Deposit</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/deposits.php#fixed">Fixed Deposit</a></li>
+                            <li><a class="dropdown-item" href="/pages/deposits.php#cumulative">Cumulative Deposit</a></li>
+                            <li><a class="dropdown-item" href="/pages/deposits.php#fixed">Fixed Deposit</a></li>
                         </ul>
                     </li>
                     
@@ -104,9 +104,9 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             Loans
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="loansDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#cash-credit">Cash Credit</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#overdraft">Over Draft</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/loans.php#personal">Personal Loan</a></li>
+                            <li><a class="dropdown-item" href="/pages/loans.php#cash-credit">Cash Credit</a></li>
+                            <li><a class="dropdown-item" href="/pages/loans.php#overdraft">Over Draft</a></li>
+                            <li><a class="dropdown-item" href="/pages/loans.php#personal">Personal Loan</a></li>
                         </ul>
                     </li>
                     
@@ -117,7 +117,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             Services
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/services.php">Banking Services</a></li>
+                            <li><a class="dropdown-item" href="/pages/services.php">Banking Services</a></li>
                         </ul>
                     </li>
                     
@@ -128,10 +128,10 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             Media
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php">Media Center</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#deaf-accounts">DEAF Accounts</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#statutory-auditor">Appointment - Statutory Auditor</a></li>
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/media.php#agm-reports">AGM Notice and Annual Reports</a></li>
+                            <li><a class="dropdown-item" href="/pages/media.php">Media Center</a></li>
+                            <li><a class="dropdown-item" href="/pages/media.php#deaf-accounts">DEAF Accounts</a></li>
+                            <li><a class="dropdown-item" href="/pages/media.php#statutory-auditor">Appointment - Statutory Auditor</a></li>
+                            <li><a class="dropdown-item" href="/pages/media.php#agm-reports">AGM Notice and Annual Reports</a></li>
                         </ul>
                     </li>
                     
@@ -142,14 +142,14 @@ $current_page = isset($current_page) ? $current_page : 'home';
                             Contact Us
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="contactDropdown">
-                            <li><a class="dropdown-item" href="/bank-website-grok/pages/contact.php">Contact Us</a></li>
+                            <li><a class="dropdown-item" href="/pages/contact.php">Contact Us</a></li>
                         </ul>
                     </li>
                 </ul>
                 
                 <!-- Right Side Elements -->
                 <div class="d-flex align-items-center ms-3">
-                    <a href="/bank-website-grok/admin/login.php" class="btn btn-primary btn-sm">
+                    <a href="/admin/login.php" class="btn btn-primary btn-sm">
                         <i class="fas fa-sign-in-alt me-1"></i>Admin Login
                     </a>
                 </div>

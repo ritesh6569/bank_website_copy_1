@@ -5,8 +5,12 @@
  */
 
 class DataFetcher {
-    private $cache_dir = '/bank-website-grok/data';
+    private $cache_dir;
     private $timeout = 5;
+
+    public function __construct() {
+        $this->cache_dir = __DIR__ . '/../data';
+    }
     
     /**
      * Fetch data from URL with timeout and error handling
@@ -40,7 +44,7 @@ class DataFetcher {
      * Get interest rates data
      */
     public function getInterestRates() {
-        $cache_file = $_SERVER['DOCUMENT_ROOT'] . $this->cache_dir . '/interest_rates.json';
+        $cache_file = $this->cache_dir . '/interest_rates.json';
         
         // Try to return cached data first
         if (file_exists($cache_file)) {
@@ -271,19 +275,19 @@ class DataFetcher {
                 'name' => 'Late Shri Shantappanna Miraji',
                 'title' => 'Founder — "Pratham Sahakara Ratna"',
                 'bio' => 'A leading Co-operative Bank of the Belagavi district was founded by visionary and positive thinker Shri Shantappannaji in 1961 to cater to the Banking needs of a common man. He was a true co-operator who established and developed the Bank on true co-operative principles. He had done "Financial Inclusion" 61 years back by opening branches in Rural areas with a population of less than 1000. He never added a single penny to his personal wealth but spent almost all his share of wealth and life for the growth of society by establishing many co-operative, Educational, Social and Charitable Institutions.',
-                'image' => '/bank-website-grok/assets/images/founder.jpg'
+                'image' => '/assets/images/founder.jpg'
             ],
             'chairman' => [
                 'name' => 'Mr. Mahantesh Gangadhar Bhate',
                 'title' => 'Chairman',
                 'bio' => 'We listen, while our Balance Sheet talks! We ended year 2024-2025 on a success note, with "A" grade in Audit remarks. It is indeed a proud moment to share that soon we will come up with our AGM-2024-25 dates. Our bank has continued to register a steady growth in business and earnings through Strong Financial Health, excellent Services, Attractive Rate of Interest, and easy access to Nearest Branch.',
-                'image' => '/bank-website-grok/assets/images/chairman.jpg'
+                'image' => '/assets/images/chairman.jpg'
             ],
             'general_manager' => [
                 'name' => 'Mr. Rajendra S Vandure',
                 'title' => 'General Manager',
                 'bio' => 'Welcome dear customers! I am excited to welcome you all to our Bank. I guarantee a realm of services to your complete Banking needs. Here I am always ready to help you. Reach me for any query you have, I will be happy to address them.',
-                'image' => '/bank-website-grok/assets/images/gm.jpg'
+                'image' => '/assets/images/gm.jpg'
             ]
         ];
     }
@@ -332,25 +336,25 @@ class DataFetcher {
                 'title' => 'AGM 2024-25 — Notice to Members',
                 'date' => date('Y-m-d', strtotime('-7 days')),
                 'excerpt' => 'The Annual General Meeting for the year 2024-25 will be held shortly. All members are requested to attend and participate.',
-                'link' => '/bank-website-grok/pages/media.php#notices'
+                'link' => '/pages/media.php#notices'
             ],
             [
                 'title' => '"A" Grade Audit — 2024-25',
                 'date' => date('Y-m-d', strtotime('-20 days')),
                 'excerpt' => 'We are proud to announce that the bank has received an "A" Grade in Audit remarks for the year 2024-25, reflecting strong financial health.',
-                'link' => '/bank-website-grok/pages/about.php'
+                'link' => '/pages/about.php'
             ],
             [
                 'title' => 'FD Interest Rate — Up to 8.00% p.a.',
                 'date' => date('Y-m-d', strtotime('-35 days')),
                 'excerpt' => 'Earn up to 8.00% p.a. on Fixed Deposits (2–5 years). Senior citizens and soldiers enjoy an additional 0.50% benefit.',
-                'link' => '/bank-website-grok/pages/deposits.php#fixed'
+                'link' => '/pages/deposits.php#fixed'
             ],
             [
                 'title' => 'DEAF Accounts — Unclaimed Deposits',
                 'date' => date('Y-m-d', strtotime('-60 days')),
                 'excerpt' => 'Details of accounts transferred to Depositor Education & Awareness Fund (DEAF) as per RBI circular. Contact your nearest branch.',
-                'link' => '/bank-website-grok/pages/media.php#notices'
+                'link' => '/pages/media.php#notices'
             ]
         ];
     }
@@ -364,25 +368,25 @@ class DataFetcher {
                 'title' => 'Fixed Deposit — Up to 8.00% p.a.',
                 'description' => 'Earn up to 8.00% p.a. on 2–5 year FD. Senior citizens get 0.50% extra. Flexible tenure from 46 days.',
                 'icon' => 'fas fa-chart-line',
-                'link' => '/bank-website-grok/pages/deposits.php#fixed'
+                'link' => '/pages/deposits.php#fixed'
             ],
             [
                 'title' => 'Gold Loan — 9.00% p.a.',
                 'description' => 'Instant gold loan at just 9.00% p.a. Quick disbursal. Secure your gold with us while meeting your financial needs.',
                 'icon' => 'fas fa-coins',
-                'link' => '/bank-website-grok/pages/loans.php#gold'
+                'link' => '/pages/loans.php#gold'
             ],
             [
                 'title' => 'Yeshwant Pigmy Deposit',
                 'description' => 'Daily savings scheme — our agent collects at your doorstep. Build wealth with small daily contributions.',
                 'icon' => 'fas fa-home',
-                'link' => '/bank-website-grok/pages/deposits.php#pigmy'
+                'link' => '/pages/deposits.php#pigmy'
             ],
             [
                 'title' => 'RTGS / NEFT Fund Transfer',
                 'description' => 'Transfer funds electronically via RTGS/NEFT to any bank in India. Fast, secure, and convenient.',
                 'icon' => 'fas fa-exchange-alt',
-                'link' => '/bank-website-grok/pages/services.php#rtgs'
+                'link' => '/pages/services.php#rtgs'
             ]
         ];
     }

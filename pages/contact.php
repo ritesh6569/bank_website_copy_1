@@ -4,9 +4,9 @@
  * Contact form, branch information, and map
  */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/helpers.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/db.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../includes/helpers.php';
+require_once __DIR__ . '/../includes/db.php';
 
 $page_title = 'Contact Us - ' . SITE_NAME;
 $meta_description = 'Get in touch with Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi. Phone, email, and address.';
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
 }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php'; ?>
+<?php include __DIR__ . '/../includes/header.php'; ?>
 
 <!-- Page Header -->
 <section style="background: linear-gradient(135deg, #1e3a8a 0%, #2d5a8c 100%); color: white; padding: 60px 0;">
@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
         <div class="row mt-5" id="branches">
             <div class="col-12 mb-4">
                 <?php
-                require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
+                require_once __DIR__ . '/../includes/data-fetcher.php';
                 $branches = $data_fetcher->getBranches();
                 ?>
                 <h3><i class="fas fa-map-marker-alt me-2 text-primary"></i>Our Branch Network</h3>
@@ -305,4 +305,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
     </div>
 </section>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

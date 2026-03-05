@@ -6,10 +6,10 @@
 $page_title = 'Media - Miraji Bank';
 $current_page = 'media';
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/config.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/data-fetcher.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/notices-fetcher.php';
+require_once __DIR__ . '/../config.php';
+include __DIR__ . '/../includes/header.php';
+include __DIR__ . '/../includes/data-fetcher.php';
+include __DIR__ . '/../includes/notices-fetcher.php';
 // db.php already loaded by notices-fetcher.php via require_once
 
 $notices = getActiveNotices();
@@ -491,7 +491,7 @@ try {
                                                 <?php if (!empty($dl['description'])): ?>
                                                 <p class="small text-muted mb-2"><?php echo htmlspecialchars($dl['description']); ?></p>
                                                 <?php endif; ?>
-                                                <a href="/bank-website-grok/uploads/downloads/<?php echo basename($dl['file_path']); ?>" class="btn btn-sm btn-primary" target="_blank"><i class="fas fa-download me-1"></i>Download</a>
+                                                <a href="/uploads/downloads/<?php echo basename($dl['file_path']); ?>" class="btn btn-sm btn-primary" target="_blank"><i class="fas fa-download me-1"></i>Download</a>
                                             </div>
                                         </div>
                                     </div>
@@ -516,11 +516,11 @@ try {
                     <?php foreach ($gallery_images as $gi => $img): ?>
                     <div class="col-6 col-md-4 col-lg-3">
                         <div class="card overflow-hidden h-100" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal<?php echo $gi; ?>">
-                            <img src="/bank-website-grok/uploads/gallery/<?php echo basename($img['image_path']); ?>"
+                            <img src="/uploads/gallery/<?php echo basename($img['image_path']); ?>"
                                  class="card-img-top"
                                  style="height:180px;object-fit:cover;"
                                  alt="<?php echo htmlspecialchars($img['title'] ?? 'Gallery'); ?>"
-                                 onerror="this.src='/bank-website-grok/assets/images/placeholder.jpg'">
+                                 onerror="this.src='/assets/images/placeholder.jpg'">
                             <?php if (!empty($img['title'])): ?>
                             <div class="card-body p-2"><small class="text-muted"><?php echo htmlspecialchars($img['title']); ?></small></div>
                             <?php endif; ?>
@@ -531,10 +531,10 @@ try {
                             <div class="modal-content">
                                 <div class="modal-header"><h6 class="modal-title"><?php echo htmlspecialchars($img['title'] ?? 'Gallery Image'); ?></h6><button class="btn-close" data-bs-dismiss="modal"></button></div>
                                 <div class="modal-body p-0 text-center">
-                                    <img src="/bank-website-grok/uploads/gallery/<?php echo basename($img['image_path']); ?>"
+                                    <img src="/uploads/gallery/<?php echo basename($img['image_path']); ?>"
                                          class="img-fluid"
                                          alt="<?php echo htmlspecialchars($img['title'] ?? 'Gallery'); ?>"
-                                         onerror="this.src='/bank-website-grok/assets/images/placeholder.jpg'">
+                                         onerror="this.src='/assets/images/placeholder.jpg'">
                                 </div>
                             </div>
                         </div>
@@ -558,13 +558,13 @@ try {
         <div class="container-lg text-center">
             <h2 class="mb-3">Have Questions?</h2>
             <p class="lead mb-4">Our team is ready to help you with any queries about our rates, charges, or services.</p>
-            <a href="/bank-website-grok/pages/contact.php" class="btn btn-light btn-lg me-3">
+            <a href="/pages/contact.php" class="btn btn-light btn-lg me-3">
                 <i class="fas fa-phone me-2"></i>Contact Us
             </a>
-            <a href="/bank-website-grok/pages/services.php" class="btn btn-outline-light btn-lg">
+            <a href="/pages/services.php" class="btn btn-outline-light btn-lg">
                 <i class="fas fa-concierge-bell me-2"></i>Our Services
             </a>
         </div>
     </section>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
