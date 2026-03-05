@@ -65,9 +65,11 @@ $notices = getActiveNotices();
 
     <!-- Page Header -->
     <div class="page-header">
+        <i class="fas fa-university page-header-icon"></i>
         <div class="container-lg">
-            <h1 class="mb-2">About Professional Bank</h1>
-            <p class="lead">Learn more about our rich history, leadership, and commitment to excellence</p>
+            <span class="page-header-eyebrow"><i class="fas fa-circle-dot"></i> Who We Are</span>
+            <h1>About Professional Bank</h1>
+            <p>Learn more about our rich history, leadership, and commitment to excellence</p>
         </div>
     </div>
 

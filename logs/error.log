@@ -2,3 +2,21 @@
 [05-Mar-2026 20:14:15 Asia/Kolkata] Attempting to insert: name=CSE Student, email=csestudent2026@gmail.com, subject=ad
 [05-Mar-2026 20:14:15 Asia/Kolkata] Contact submission inserted successfully with ID: 2
 [05-Mar-2026 20:15:43 Asia/Kolkata] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\xampp\htdocs\bank-website-grok\admin\contacts.php on line 64
+[05-Mar-2026 21:56:11 Asia/Kolkata] PHP Warning:  include(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:11 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/header.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:11 Asia/Kolkata] PHP Warning:  include(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:11 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:18 Asia/Kolkata] PHP Warning:  include(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:18 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/header.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:18 Asia/Kolkata] PHP Warning:  include(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:18 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/header.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(includes/header.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/header.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 125
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:56:19 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:57:48 Asia/Kolkata] PHP Warning:  include(includes/footer.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326
+[05-Mar-2026 21:57:48 Asia/Kolkata] PHP Warning:  include(): Failed opening 'includes/footer.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\bank-website-grok\pages\contact.php on line 326

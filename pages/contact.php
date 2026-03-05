@@ -4,9 +4,9 @@
  * Contact form, branch information, and map
  */
 
-require_once 'config.php';
-require_once 'includes/helpers.php';
-require_once 'includes/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/helpers.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/db.php';
 
 $page_title = 'Contact Us - ' . SITE_NAME;
 $meta_description = 'Get in touch with ' . SITE_NAME . '. Find branches, phone numbers, and contact information';
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
 }
 
 ?>
-<?php include 'includes/header.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/header.php'; ?>
 
 <!-- Page Header -->
 <section style="background: linear-gradient(135deg, #1e3a8a 0%, #2d5a8c 100%); color: white; padding: 60px 0;">
@@ -323,4 +323,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form'])) {
     </div>
 </section>
 
-<?php include 'includes/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/bank-website-grok/includes/footer.php'; ?>
