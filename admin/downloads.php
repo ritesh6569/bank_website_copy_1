@@ -130,42 +130,45 @@ if ($action === 'list') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/admin.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/professional-theme.css">
 </head>
 <body>
     <div class="d-flex" style="min-height: 100vh;">
         <!-- Sidebar -->
-        <nav class="sidebar" style="width: 250px; background: linear-gradient(135deg, #1e3a8a 0%, #2d5a8c 100%); padding: 2rem 0; position: fixed; height: 100vh; overflow-y: auto;">
+        <nav class="sidebar" style="width: 250px; background: #1A2533; padding: 2rem 0; position: fixed; height: 100vh; overflow-y: auto; box-shadow: 4px 0 12px rgba(15,31,53,0.15);">
             <div class="sidebar-header mb-4 px-3">
-                <a href="<?php echo SITE_URL; ?>" class="text-white text-decoration-none">
-                    <i class="fas fa-arrow-left me-2"></i> Back to Site
+                <div style="font-size: 1.2rem; font-weight: 800; color: white; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <i class="fas fa-university me-2" style="color: #B8860B;"></i>Admin Panel
+                </div>
+                <a href="<?php echo SITE_URL; ?>" class="d-block mt-3" style="color: rgba(255,255,255,0.65); font-size: 0.85rem; text-decoration: none;">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Site
                 </a>
             </div>
             <ul class="nav flex-column px-0">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index.php" style="padding: 1rem 1.5rem;">
-                        <i class="fas fa-chart-line me-2"></i> Dashboard
+                    <a class="nav-link" href="index.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-chart-line me-2"></i>Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="notices.php" style="padding: 1rem 1.5rem;">
-                        <i class="fas fa-bullhorn me-2"></i> Manage Notices
+                    <a class="nav-link" href="notices.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-bullhorn me-2"></i>Manage Notices
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="downloads.php" style="padding: 1rem 1.5rem;">
-                        <i class="fas fa-download me-2"></i> Manage Downloads
+                    <a class="nav-link" href="downloads.php" style="color: rgba(255,255,255,0.85); padding: 0.85rem 1.5rem; border-left: 3px solid #B8860B; background: rgba(184,134,11,0.12); font-weight: 600;">
+                        <i class="fas fa-download me-2" style="color: #B8860B;"></i>Manage Downloads
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="gallery.php" style="padding: 1rem 1.5rem;">
-                        <i class="fas fa-images me-2"></i> Manage Gallery
+                    <a class="nav-link" href="gallery.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-images me-2"></i>Manage Gallery
                     </a>
                 </li>
-                <hr class="bg-secondary my-3">
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="logout.php" style="padding: 1rem 1.5rem;">
-                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    <a class="nav-link" href="logout.php" style="color: rgba(255,255,255,0.65); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
                     </a>
                 </li>
             </ul>

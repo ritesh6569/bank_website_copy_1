@@ -34,11 +34,11 @@ $current_page = isset($current_page) ? $current_page : 'home';
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-lg">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold" href="/bank-website-grok/index.php">
-                <i class="fas fa-university me-2" style="color: #1e3a8a;"></i>Professional Bank
+            <a class="navbar-brand fw-bold text-white" href="/bank-website-grok/index.php">
+                <i class="fas fa-university me-2"></i>Professional Bank
             </a>
             
             <!-- Toggle Button for Mobile -->

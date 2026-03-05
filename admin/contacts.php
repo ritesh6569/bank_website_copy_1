@@ -214,28 +214,32 @@ try {
         
         .sidebar {
             width: 250px;
-            background: linear-gradient(135deg, #1e3a8a 0%, #2d5a8c 100%);
+            background: #1A2533;
             padding: 2rem 0;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            box-shadow: 4px 0 12px rgba(15,31,53,0.15);
         }
         
         .sidebar .nav-link {
-            padding: 1rem 1.5rem;
-            color: white !important;
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
+            padding: 0.85rem 1.5rem;
+            color: rgba(255,255,255,0.75) !important;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
         }
         
         .sidebar .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left-color: #3b82f6;
+            background-color: #2C3E50;
+            color: white !important;
+            border-left-color: #B8860B;
         }
         
         .sidebar .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-left-color: #fbbf24;
+            background-color: rgba(184,134,11,0.12);
+            color: #B8860B !important;
+            border-left-color: #B8860B;
+            font-weight: 600;
         }
         
         .main-content {
@@ -320,40 +324,43 @@ try {
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
             <div class="sidebar-header mb-4 px-3">
-                <a href="<?php echo SITE_URL; ?>" class="text-white text-decoration-none d-flex align-items-center">
-                    <i class="fas fa-arrow-left me-2"></i> Back to Site
+                <div style="font-size: 1.2rem; font-weight: 800; color: white; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <i class="fas fa-university me-2" style="color: #B8860B;"></i>Admin Panel
+                </div>
+                <a href="<?php echo SITE_URL; ?>" class="d-block mt-3" style="color: rgba(255,255,255,0.65); font-size: 0.85rem; text-decoration: none;">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Site
                 </a>
             </div>
             <ul class="nav flex-column px-0">
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">
-                        <i class="fas fa-chart-line me-2"></i> Dashboard
+                        <i class="fas fa-chart-line me-2"></i>Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="contacts.php">
-                        <i class="fas fa-envelope me-2"></i> Contact Submissions
+                        <i class="fas fa-envelope me-2"></i>Contact Submissions
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="downloads.php">
-                        <i class="fas fa-download me-2"></i> Manage Downloads
+                        <i class="fas fa-download me-2"></i>Manage Downloads
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="notices.php">
-                        <i class="fas fa-bullhorn me-2"></i> Manage Notices
+                        <i class="fas fa-bullhorn me-2"></i>Manage Notices
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="gallery.php">
-                        <i class="fas fa-images me-2"></i> Manage Gallery
+                        <i class="fas fa-images me-2"></i>Manage Gallery
                     </a>
                 </li>
-                <hr class="bg-secondary my-3">
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">
-                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
                     </a>
                 </li>
             </ul>
