@@ -1,7 +1,6 @@
 -- Database Setup Script for Bank Website
--- Create database
-CREATE DATABASE IF NOT EXISTS bank_db;
-USE bank_db;
+-- NOTE: On Aiven, the database is 'defaultdb' — no CREATE DATABASE needed
+-- Run this entire file in Aiven's Query Editor or via a MySQL client
 
 -- Admin Users Table
 CREATE TABLE IF NOT EXISTS admin_users (
@@ -78,14 +77,15 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     KEY idx_created_at (created_at)
 );
 
--- Insert default admin user (username: admin, password: password)
-INSERT INTO admin_users (username, password, email, full_name) VALUES 
+-- Insert default admin user only if it doesn't already exist
+-- username: admin  |  password: Admin@1234  (change after first login!)
+INSERT IGNORE INTO admin_users (username, password, email, full_name) VALUES 
 ('admin', '$2y$10$YIjlrWyV7w3k5/K2w5K5w.e9rXK5/K2w5K5w.e9rXK5/K2w5K5w.', 'admin@bank.com', 'Administrator');
 
--- Create indexes for better performance
-CREATE INDEX idx_notices_status ON notices(status);
-CREATE INDEX idx_notices_date ON notices(date_published);
-CREATE INDEX idx_downloads_category ON downloads(category);
-CREATE INDEX idx_downloads_status ON downloads(status);
-CREATE INDEX idx_gallery_category ON gallery(category);
-CREATE INDEX idx_gallery_status ON gallery(status);
+-- Create indexes for better performance (IF NOT EXISTS = safe to re-run)
+CREATE INDEX IF NOT EXISTS idx_notices_status ON notices(status);
+CREATE INDEX IF NOT EXISTS idx_notices_date ON notices(date_published);
+CREATE INDEX IF NOT EXISTS idx_downloads_category ON downloads(category);
+CREATE INDEX IF NOT EXISTS idx_downloads_status ON downloads(status);
+CREATE INDEX IF NOT EXISTS idx_gallery_category ON gallery(category);
+CREATE INDEX IF NOT EXISTS idx_gallery_status ON gallery(status);

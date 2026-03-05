@@ -7,9 +7,11 @@
 // Database Configuration — reads from environment variables (set in Render dashboard)
 // Falls back to localhost defaults for local XAMPP development
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_USER', getenv('DB_USER') ?: 'root');
 define('DB_PASS', getenv('DB_PASS') ?: '');
 define('DB_NAME', getenv('DB_NAME') ?: 'bank_db');
+define('DB_SSL',  getenv('DB_SSL')  ?: 'false');
 
 /**
  * Get database connection using PDO
@@ -20,15 +22,21 @@ function getDBConnection() {
     
     if ($pdo === null) {
         try {
-            $pdo = new PDO(
-                'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
-                DB_USER,
-                DB_PASS,
-                array(
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_EMULATE_PREPARES => false,
-                )
+            $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+            $options = array(
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES   => false,
             );
+            // Enable SSL for Aiven (and any host requiring it)
+            if (DB_SSL === 'true') {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+                $options[PDO::MYSQL_ATTR_SSL_CA] = '';
+            }
+            $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+
+            // Auto-initialise: create tables if they don't exist yet
+            runSetupSQL($pdo);
+
         } catch (PDOException $e) {
             // Log error securely and show generic message to users
             error_log('Database connection failed: ' . $e->getMessage());
@@ -37,6 +45,38 @@ function getDBConnection() {
     }
     
     return $pdo;
+}
+
+/**
+ * Run db_setup.sql once to create all tables and seed data.
+ * Safe to call on every boot — every statement uses IF NOT EXISTS / INSERT IGNORE.
+ * @param PDO $pdo
+ */
+function runSetupSQL(PDO $pdo) {
+    $sqlFile = __DIR__ . '/../db_setup.sql';
+    if (!file_exists($sqlFile)) {
+        error_log('db_setup.sql not found at: ' . $sqlFile);
+        return;
+    }
+
+    $sql = file_get_contents($sqlFile);
+
+    // Strip comments and split into individual statements
+    $sql = preg_replace('/--[^\n]*\n/', "\n", $sql);   // remove -- comments
+    $sql = preg_replace('/\s+/', ' ', $sql);            // collapse whitespace
+    $statements = array_filter(
+        array_map('trim', explode(';', $sql)),
+        fn($s) => $s !== ''
+    );
+
+    foreach ($statements as $statement) {
+        try {
+            $pdo->exec($statement);
+        } catch (PDOException $e) {
+            // Log but don't crash — table may already exist, index duplicate, etc.
+            error_log('DB setup warning [' . $statement . ']: ' . $e->getMessage());
+        }
+    }
 }
 
 /**
