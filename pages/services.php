@@ -12,20 +12,6 @@ include __DIR__ . '/../includes/notices-fetcher.php';
 $notices = getActiveNotices();
 ?>
 
-    <!-- Notices Alert Banner -->
-    <?php if (!empty($notices)): $latest_notice = $notices[0]; ?>
-    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius:0;border-left:5px solid #f59e0b;">
-        <div class="container-lg d-flex align-items-center">
-            <i class="fas fa-bell me-3" style="font-size:1.25rem;color:#d97706;"></i>
-            <div style="flex:1;">
-                <strong style="color:#92400e;">Important Notice:</strong>
-                <span class="ms-2" style="color:#b45309;"><?php echo htmlspecialchars($latest_notice['title']); ?></span>
-                <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color:#1e40af;font-weight:600;">Read More</a>
-            </div>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    <?php endif; ?>
 
     <!-- Page Header -->
     <div class="page-header">

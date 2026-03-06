@@ -16,52 +16,6 @@ $bom = $data_fetcher->getBoardOfManagement();
 $notices = getActiveNotices();
 ?>
 
-    <!-- Notices Alert Banner -->
-    <?php if (!empty($notices)): 
-        $latest_notice = $notices[0];
-    ?>
-    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert" style="border-radius: 0; border-left: 5px solid #f59e0b;">
-        <div class="container-lg">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-bell me-3" style="font-size: 1.25rem; color: #d97706;"></i>
-                <div style="flex: 1;">
-                    <strong style="color: #92400e;">Important Notice:</strong>
-                    <span class="ms-2" style="color: #b45309;">
-                        <?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </span>
-                    <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#noticeModalLatest" style="color: #1e40af; font-weight: 600;">
-                        Read More →
-                    </a>
-                </div>
-            </div>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <!-- Latest Notice Modal -->
-    <div class="modal fade" id="noticeModalLatest" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; border: none;">
-                    <h5 class="modal-title">
-                        <i class="fas fa-bell me-2"></i><?php echo htmlspecialchars($latest_notice['title']); ?>
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <small class="text-muted d-block mb-3">
-                        <i class="fas fa-calendar-alt me-1"></i>Published on <?php echo formatNoticeDate($latest_notice['date_published']); ?>
-                    </small>
-                    <div class="notice-content">
-                        <?php echo $latest_notice['content']; ?>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php endif; ?>
 
     <!-- Page Header -->
     <div class="page-header">
