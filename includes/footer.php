@@ -7,7 +7,7 @@
     <!-- Main Content Ends Here -->
     
     <!-- Footer -->
-    <footer style="background: #0f2c5e; color: rgba(255,255,255,0.8);" class="mt-5">
+    <footer style="background: #0D3D2E; color: rgba(255,255,255,0.8);" class="mt-5">
 
         <div class="container-lg py-4">
             <div class="row g-4">
@@ -15,7 +15,7 @@
                 <!-- Left: Bank Info -->
                 <div class="col-md-5 col-sm-12">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <i class="fas fa-university fa-lg" style="color:#c5a880;"></i>
+                        <i class="fas fa-university fa-lg" style="color:#B87333;"></i>
                         <span class="fw-bold text-white" style="font-size:0.95rem; line-height:1.3;">
                             Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi
                         </span>
@@ -37,14 +37,14 @@
 
                 <!-- Right: Contact Info -->
                 <div class="col-md-6 col-sm-12">
-                    <p class="text-uppercase fw-semibold mb-3" style="font-size:0.7rem; letter-spacing:0.1em; color:#c5a880;">Contact Information</p>
+                    <p class="text-uppercase fw-semibold mb-3" style="font-size:0.7rem; letter-spacing:0.1em; color:#B87333;">Contact Information</p>
                     <div class="d-flex flex-column gap-2" style="font-size:0.82rem; color:rgba(255,255,255,0.75);">
                         <div class="d-flex align-items-start gap-2">
-                            <i class="fas fa-map-marker-alt mt-1" style="color:#c5a880; min-width:14px;"></i>
+                            <i class="fas fa-map-marker-alt mt-1" style="color:#B87333; min-width:14px;"></i>
                             <span>944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201</span>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-phone" style="color:#c5a880; min-width:14px;"></i>
+                            <i class="fas fa-phone" style="color:#B87333; min-width:14px;"></i>
                             <span>
                                 <a href="tel:+918338273169" class="text-decoration-none" style="color:inherit;">+91 83382 73169</a>
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -52,11 +52,11 @@
                             </span>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-envelope" style="color:#c5a880; min-width:14px;"></i>
+                            <i class="fas fa-envelope" style="color:#B87333; min-width:14px;"></i>
                             <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none" style="color:inherit;">shantappanna@mirajibank.com</a>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                            <i class="fas fa-globe" style="color:#c5a880; min-width:14px;"></i>
+                            <i class="fas fa-globe" style="color:#B87333; min-width:14px;"></i>
                             <a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none" style="color:inherit;">www.shantappannamirajibank.com</a>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
         <!-- Contact Us -->
         <div class="d-flex align-items-center gap-2 floating-fab-wrap">
             <span class="floating-fab-label">Contact Us</span>
-            <button class="floating-fab" style="background:#0f2c5e;" data-bs-toggle="modal" data-bs-target="#floatContactModal" title="Contact Us">
+            <button class="floating-fab" style="background:#0D3D2E;" data-bs-toggle="modal" data-bs-target="#floatContactModal" title="Contact Us">
                 <i class="fas fa-phone-alt"></i>
             </button>
         </div>
@@ -113,7 +113,7 @@
     }
     .floating-fab:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
     .floating-fab-label {
-        background: rgba(15,44,94,0.92); color: #fff;
+        background: rgba(13,61,46,0.92); color: #fff;
         font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.7rem;
         border-radius: 20px; white-space: nowrap;
         box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -128,7 +128,7 @@
     <div class="modal fade" id="floatContactModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content border-0 shadow-lg">
-                <div class="modal-header text-white border-0" style="background:linear-gradient(135deg,#0f2c5e,#1e4d99);">
+                <div class="modal-header text-white border-0" style="background:linear-gradient(135deg,#0D3D2E,#1A5C42);">
                     <h5 class="modal-title"><i class="fas fa-phone-alt me-2"></i>Contact Us</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -136,23 +136,23 @@
                     <div id="floatContactMsg"></div>
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
-                            <div class="text-center p-3 rounded" style="background:#f0f4ff;">
-                                <i class="fas fa-phone fa-lg mb-2" style="color:#0f2c5e;"></i>
+                            <div class="text-center p-3 rounded" style="background:#EBF2ED;">
+                                <i class="fas fa-phone fa-lg mb-2" style="color:#0D3D2E;"></i>
                                 <div class="fw-semibold small">Call Us</div>
-                                <a href="tel:+918338273169" class="text-decoration-none small d-block" style="color:#0f2c5e;">+91 83382 73169</a>
-                                <a href="tel:+918494903886" class="text-decoration-none small d-block" style="color:#0f2c5e;">+91 84949 03886</a>
+                                <a href="tel:+918338273169" class="text-decoration-none small d-block" style="color:#0D3D2E;">+91 83382 73169</a>
+                                <a href="tel:+918494903886" class="text-decoration-none small d-block" style="color:#0D3D2E;">+91 84949 03886</a>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="text-center p-3 rounded" style="background:#f0f4ff;">
-                                <i class="fas fa-envelope fa-lg mb-2" style="color:#0f2c5e;"></i>
+                            <div class="text-center p-3 rounded" style="background:#EBF2ED;">
+                                <i class="fas fa-envelope fa-lg mb-2" style="color:#0D3D2E;"></i>
                                 <div class="fw-semibold small">Email Us</div>
-                                <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none small" style="color:#0f2c5e;">shantappanna@mirajibank.com</a>
+                                <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none small" style="color:#0D3D2E;">shantappanna@mirajibank.com</a>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="text-center p-3 rounded" style="background:#f0f4ff;">
-                                <i class="fas fa-map-marker-alt fa-lg mb-2" style="color:#0f2c5e;"></i>
+                            <div class="text-center p-3 rounded" style="background:#EBF2ED;">
+                                <i class="fas fa-map-marker-alt fa-lg mb-2" style="color:#0D3D2E;"></i>
                                 <div class="fw-semibold small">Visit Us</div>
                                 <span class="small" style="color:#555;">944-945, Guruwar Peth, Chikodi, Belagavi 591201</span>
                             </div>
@@ -180,7 +180,7 @@
                         </div>
                         <div class="mt-3 text-end">
                             <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn text-white" style="background:#0f2c5e;">
+                            <button type="submit" class="btn text-white" style="background:#0D3D2E;">
                                 <i class="fas fa-paper-plane me-1"></i>Send Message
                             </button>
                         </div>

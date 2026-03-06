@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Admin Dashboard
  * Main admin panel with overview and navigation
@@ -143,7 +143,7 @@ try {
                 <!-- Stats Cards -->
                 <div class="row mb-4">
                     <div class="col-6 col-md-3 mb-3">
-                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #3b82f6;">
+                        <div class="card stat-card animate__animated animate__fadeInUp" style="border-left: 4px solid #2E8B63;">
                             <div class="card-body">
                                 <h6 class="text-muted mb-2"><i class="fas fa-bullhorn"></i> Notices</h6>
                                 <h3 class="mb-0"><?php echo $totalNotices; ?></h3>
@@ -306,3 +306,4 @@ try {
     </style>
 </body>
 </html>
+

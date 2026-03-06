@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Admin Login Page
  * Secure admin panel login with session management
@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .demo-info {
             background-color: #f0f9ff;
-            border-left: 4px solid #3b82f6;
+            border-left: 4px solid #2E8B63;
             padding: 1rem;
             border-radius: 0.25rem;
             margin-bottom: 1.5rem;
@@ -310,3 +310,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </body>
 </html>
+

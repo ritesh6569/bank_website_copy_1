@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Manage Gallery
  * CRUD operations for gallery images
@@ -157,7 +157,7 @@ if ($action === 'list') {
         <nav class="sidebar" id="adminSidebar" style="width: 250px; background: #1A2533; padding: 2rem 0; position: fixed; height: 100vh; overflow-y: auto; box-shadow: 4px 0 12px rgba(15,31,53,0.15);">
             <div class="sidebar-header mb-4 px-3">
                 <div style="font-size: 1.2rem; font-weight: 800; color: white; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <i class="fas fa-university me-2" style="color: #B8860B;"></i>Admin Panel
+                    <i class="fas fa-university me-2" style="color: #B87333;"></i>Admin Panel
                 </div>
                 <a href="<?php echo SITE_URL; ?>" class="d-block mt-3" style="color: rgba(255,255,255,0.65); font-size: 0.85rem; text-decoration: none;">
                     <i class="fas fa-arrow-left me-2"></i>Back to Site
@@ -185,8 +185,8 @@ if ($action === 'list') {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="gallery.php" style="color: rgba(255,255,255,0.85); padding: 0.85rem 1.5rem; border-left: 3px solid #B8860B; background: rgba(184,134,11,0.12); font-weight: 600;">
-                        <i class="fas fa-images me-2" style="color: #B8860B;"></i>Manage Gallery
+                    <a class="nav-link" href="gallery.php" style="color: rgba(255,255,255,0.85); padding: 0.85rem 1.5rem; border-left: 3px solid #B87333; background: rgba(184,134,11,0.12); font-weight: 600;">
+                        <i class="fas fa-images me-2" style="color: #B87333;"></i>Manage Gallery
                     </a>
                 </li>
                 <li class="nav-item">
@@ -233,7 +233,7 @@ if ($action === 'list') {
                     <div class="row" style="gap: 1.5rem;">
                         <?php foreach ($gallery_items as $item): ?>
                             <div class="col-md-4 mb-3">
-                                <div class="card" style="border: 2px solid #1e4d99; border-top: 4px solid #B8860B; border-radius: 10px; box-shadow: 0 2px 10px rgba(15,44,94,0.10); overflow: hidden;">
+                                <div class="card" style="border: 2px solid #1A5C42; border-top: 4px solid #B87333; border-radius: 10px; box-shadow: 0 2px 10px rgba(15,44,94,0.10); overflow: hidden;">
                                     <img src="<?php echo SITE_URL . '/' . $item['image_path']; ?>" class="card-img-top" alt="<?php echo escape($item['alt_text']); ?>" style="height: 200px; object-fit: cover;">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo escape($item['title']); ?></h5>
@@ -374,3 +374,4 @@ if ($action === 'list') {
     </script>
 </body>
 </html>
+

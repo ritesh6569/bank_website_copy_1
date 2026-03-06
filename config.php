@@ -7,7 +7,7 @@
 // Define site constants
 define('SITE_NAME', 'Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi');
 define('SITE_NAME_SHORT', 'Miraji Bank');
-define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/bank-website-grok/');
+define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/bank-website-grok-copied-1/');
 define('SITE_EMAIL', 'shantappanna@mirajibank.com');
 define('ADMIN_EMAIL', 'shantappanna@mirajibank.com');
 define('SITE_PHONE', '+918338273169');
@@ -20,7 +20,7 @@ define('SITE_WEBSITE', 'www.shantappannamirajibank.com');
 // define('DB_HOST', 'localhost');
 // define('DB_USER', 'root');
 // define('DB_PASS', '');
-// define('DB_NAME', 'bank_db');
+// define('DB_NAME', 'bank_db_copy_1');
 
 // Email / SMTP Configuration (PHPMailer)
 // Use Gmail App Password: https://myaccount.google.com/apppasswords

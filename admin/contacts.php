@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Admin Contact Submissions Manager
  * View, manage, and reply to contact form submissions
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     // Send via PHPMailer SMTP
                     $result = sendMail(
                         $contact['email'],
-                        'RE: Your Contact Inquiry — ' . SITE_NAME_SHORT,
+                        'RE: Your Contact Inquiry â€” ' . SITE_NAME_SHORT,
                         $emailBody,
                         SITE_EMAIL,        // Reply-To
                         $contact['name']   // Recipient display name
@@ -227,7 +227,7 @@ try {
 
         .main-content { margin-left: 250px; width: calc(100% - 250px); padding: 2rem; }
 
-        /* ── Stat Cards ── */
+        /* â”€â”€ Stat Cards â”€â”€ */
         .stat-card {
             border-radius: 12px; padding: 1.4rem 1.2rem;
             text-align: center; border: none;
@@ -239,15 +239,15 @@ try {
         .stat-card .sc-num { font-size: 2rem; font-weight: 800; line-height: 1; }
         .stat-card .sc-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.3rem; }
 
-        .sc-total   { background: linear-gradient(135deg,#0f2c5e,#1e4d99); color: white; }
+        .sc-total   { background: linear-gradient(135deg,#0D3D2E,#1A5C42); color: white; }
         .sc-new     { background: linear-gradient(135deg,#1e3a6e,#2563eb); color: white; }
         .sc-replied { background: linear-gradient(135deg,#065f46,#059669); color: white; }
         .sc-archived{ background: linear-gradient(135deg,#374151,#6b7280); color: white; }
 
-        /* ── Contact Grid Cards ── */
+        /* â”€â”€ Contact Grid Cards â”€â”€ */
         .contact-grid { display:none; } /* unused, kept for safety */
 
-        /* ── Submission List ── */
+        /* â”€â”€ Submission List â”€â”€ */
         .sub-list { display: flex; flex-direction: column; gap: 0; }
 
         .sub-row {
@@ -278,7 +278,7 @@ try {
         /* Unread dot */
         .sub-unread-dot {
             width: 7px; height: 7px; border-radius: 50%;
-            background: #1e4d99; flex-shrink: 0;
+            background: #1A5C42; flex-shrink: 0;
         }
         .sub-unread-dot.hidden { background: transparent; }
 
@@ -294,7 +294,7 @@ try {
         .sub-subject-line .sub-subject { font-weight: 600; color: #1e293b; }
         .sub-subject-line .sub-preview { color: #9ca3af; }
 
-        /* Mobile meta line (status + time) — hidden on desktop */
+        /* Mobile meta line (status + time) â€” hidden on desktop */
         .sub-mobile-meta { display: none; }
 
         /* Right side */
@@ -303,7 +303,7 @@ try {
 
         .status-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
 
-        /* ── Mobile: submission rows ── */
+        /* â”€â”€ Mobile: submission rows â”€â”€ */
         @media (max-width: 640px) {
             /* Row becomes a 2-col grid: [avatar] [content block] */
             .sub-row {
@@ -316,7 +316,7 @@ try {
                 align-items: start;
             }
 
-            /* Avatar — row 1, col 1 */
+            /* Avatar â€” row 1, col 1 */
             .sub-avatar {
                 grid-column: 1; grid-row: 1;
                 width: 34px !important; height: 34px !important;
@@ -324,10 +324,10 @@ try {
                 align-self: center;
             }
 
-            /* Unread dot — hide it (status badge replaces it) */
+            /* Unread dot â€” hide it (status badge replaces it) */
             .sub-unread-dot { display: none !important; }
 
-            /* Name column (inline flex:0 0 180px) — row 1, col 2 */
+            /* Name column (inline flex:0 0 180px) â€” row 1, col 2 */
             .sub-row > div[style*="flex:0 0 180px"],
             .sub-row > div[style*="flex: 0 0 180px"] {
                 grid-column: 2; grid-row: 1;
@@ -339,7 +339,7 @@ try {
                 flex-wrap: wrap;
             }
 
-            /* Subject body — row 2, col 2 */
+            /* Subject body â€” row 2, col 2 */
             .sub-body {
                 grid-column: 2; grid-row: 2;
                 min-width: 0;
@@ -352,13 +352,13 @@ try {
             }
             .sub-preview { display: none; } /* hide preview on mobile to save space */
 
-            /* Status badge — hide separate status div, show inline in subject line via badge */
+            /* Status badge â€” hide separate status div, show inline in subject line via badge */
             .sub-row > div[style*="flex:0 0 80px"],
             .sub-row > div[style*="flex: 0 0 80px"] {
                 display: none !important;
             }
 
-            /* Time — hide in separate div; shown inline via name row */
+            /* Time â€” hide in separate div; shown inline via name row */
             .sub-row > .sub-time[style*="flex:0 0 70px"],
             .sub-row > div[style*="flex:0 0 70px"],
             .sub-row > div[style*="flex: 0 0 70px"] {
@@ -388,13 +388,13 @@ try {
             border-radius: 3px; letter-spacing: 0.05em; vertical-align: middle;
         }
 
-        /* ── Detail View ── */
+        /* â”€â”€ Detail View â”€â”€ */
         .detail-page-wrap { max-width: 820px; margin: 0 auto; }
 
         .detail-hero {
             border-radius: 10px; padding: 1.6rem 2rem;
             color: white; margin-bottom: 1.5rem;
-            background: linear-gradient(135deg,#0a1f44,#1e4d99);
+            background: linear-gradient(135deg,#0A3020,#1A5C42);
             box-shadow: 0 3px 14px rgba(15,44,94,0.18);
         }
         .detail-hero h5 { font-weight: 700; margin-bottom: 0.2rem; font-size: 1.05rem; }
@@ -432,12 +432,12 @@ try {
         .info-value {
             font-size: 0.93rem; color: #111827; font-weight: 500; word-break: break-word;
         }
-        .info-value a { color: #1e4d99; text-decoration: none; }
+        .info-value a { color: #1A5C42; text-decoration: none; }
         .info-value a:hover { text-decoration: underline; }
 
         .msg-box {
             background: #f4f7ff; padding: 1.1rem 1.3rem; border-radius: 7px;
-            border-left: 4px solid #1e4d99; white-space: pre-wrap;
+            border-left: 4px solid #1A5C42; white-space: pre-wrap;
             font-size: 0.93rem; line-height: 1.75; color: #1e293b;
         }
         .msg-box.complaint-msg {
@@ -585,7 +585,7 @@ try {
                             <i class="fas fa-arrow-left me-2"></i>Back to All Submissions
                         </a>
 
-                        <!-- Header bar — navy for all, gold left accent for complaints -->
+                        <!-- Header bar â€” navy for all, gold left accent for complaints -->
                         <div class="detail-hero" style="<?php echo $isComplaint ? 'border-left:5px solid #B8860B;' : 'border-left:5px solid rgba(255,255,255,0.3);'; ?>">
                             <div class="d-flex align-items-start justify-content-between gap-3">
                                 <div>
@@ -674,12 +674,12 @@ try {
                                             <input type="hidden" name="id" value="<?php echo $contact_id; ?>">
                                             <div class="mb-3">
                                                 <textarea class="form-control" name="reply_message" rows="6" required
-                                                    placeholder="Type your reply here…"
+                                                    placeholder="Type your reply hereâ€¦"
                                                     style="font-size:0.93rem; resize:vertical;"></textarea>
                                                 <small class="text-muted mt-1 d-block">An email will be sent to the customer automatically.</small>
                                             </div>
                                             <button type="submit" class="btn text-white px-4"
-                                                style="background:linear-gradient(135deg,#0f2c5e,#1e4d99); border:none;">
+                                                style="background:linear-gradient(135deg,#0D3D2E,#1A5C42); border:none;">
                                                 <i class="fas fa-paper-plane me-2"></i>Send Reply
                                             </button>
                                         </form>
@@ -698,7 +698,7 @@ try {
                                     <div class="detail-card-body">
                                         <?php
                                         $sc = $current_contact['status'] === 'replied' ? '#059669'
-                                            : ($current_contact['status'] === 'archived' ? '#6b7280' : '#1e4d99');
+                                            : ($current_contact['status'] === 'archived' ? '#6b7280' : '#1A5C42');
                                         $sb = $current_contact['status'] === 'replied' ? '#f0fdf6'
                                             : ($current_contact['status'] === 'archived' ? '#f9fafb' : '#f0f6ff');
                                         ?>
@@ -753,7 +753,7 @@ try {
                                             <div class="info-value">
                                                 <?php echo $isComplaint
                                                     ? '<span class="complaint-tag">Complaint</span>'
-                                                    : '<span style="color:#1e4d99; font-weight:600;">Contact Query</span>'; ?>
+                                                    : '<span style="color:#1A5C42; font-weight:600;">Contact Query</span>'; ?>
                                             </div>
                                         </div>
                                         <div>
@@ -852,7 +852,7 @@ try {
                             </div>
                             <div class="sub-list">
                             <?php
-                            $avatarColors = ['#1e4d99','#0369a1','#0f766e','#7c3aed','#b45309','#0f2c5e','#065f46'];
+                            $avatarColors = ['#1A5C42','#0369a1','#0f766e','#7c3aed','#b45309','#0D3D2E','#065f46'];
                             foreach ($contacts as $i => $contact):
                                 $isComplaint = str_starts_with($contact['subject'], '[Complaint]');
                                 $isNew       = $contact['status'] === 'new';
@@ -887,7 +887,7 @@ try {
                                                 <span class="complaint-pill me-1">COMPLAINT</span>
                                             <?php endif; ?>
                                             <span class="sub-subject"><?php echo escape($displaySubject); ?></span>
-                                            <span class="sub-preview"> — <?php echo escape($preview); ?><?php echo strlen($contact['message']) > 70 ? '…' : ''; ?></span>
+                                            <span class="sub-preview"> â€” <?php echo escape($preview); ?><?php echo strlen($contact['message']) > 70 ? 'â€¦' : ''; ?></span>
                                         </div>
                                         <!-- Mobile-only: status + time on second line -->
                                         <div class="sub-mobile-meta">
@@ -925,3 +925,4 @@ try {
     </script>
 </body>
 </html>
+

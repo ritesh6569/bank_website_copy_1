@@ -10,7 +10,7 @@
     top: 0.85rem;
     left: 0.85rem;
     z-index: 1050;
-    background: #1A2533;
+    background: #0D3D2E;
     border: none;
     color: white;
     width: 42px;
@@ -22,7 +22,7 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     transition: background 0.2s;
 }
-.hamburger-btn:hover { background: #253548; }
+.hamburger-btn:hover { background: #1A5C42; }
 .hamburger-btn i { font-size: 1.05rem; }
 
 /* ── Overlay backdrop ── */

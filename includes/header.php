@@ -31,23 +31,23 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Professional Banking Theme -->
     <link href="<?php echo rtrim(SITE_URL,'/'); ?>/css/professional-theme.css" rel="stylesheet">
 </head>
 <body>
     <!-- Top Info Bar (hidden on mobile, visible on md and above) -->
-    <div class="top-info-bar d-none d-md-block" style="background: #0f2c5e; color: rgba(255,255,255,0.85); font-size: 0.8rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <div class="top-info-bar d-none d-md-block" style="background: #0D3D2E; color: rgba(255,255,255,0.85); font-size: 0.8rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div class="container-lg d-flex flex-wrap justify-content-between align-items-center gap-2">
             <span>
-                <i class="fas fa-map-marker-alt me-1"></i>944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201
+                <i class="fas fa-map-marker-alt me-1" style="color:#B87333;"></i>944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201
             </span>
             <span class="d-flex gap-3">
                 <a href="mailto:shantappanna@mirajibank.com" class="text-decoration-none" style="color:rgba(255,255,255,0.85);">
-                    <i class="fas fa-envelope me-1"></i>shantappanna@mirajibank.com
+                    <i class="fas fa-envelope me-1" style="color:#B87333;"></i>shantappanna@mirajibank.com
                 </a>
                 <a href="http://www.shantappannamirajibank.com" target="_blank" class="text-decoration-none" style="color:rgba(255,255,255,0.85);">
-                    <i class="fas fa-globe me-1"></i>www.shantappannamirajibank.com
+                    <i class="fas fa-globe me-1" style="color:#B87333;"></i>www.shantappannamirajibank.com
                 </a>
             </span>
         </div>
