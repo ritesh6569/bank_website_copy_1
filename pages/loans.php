@@ -11,6 +11,23 @@ include __DIR__ . '/../includes/data-fetcher.php';
 include __DIR__ . '/../includes/notices-fetcher.php';
 
 $notices = getActiveNotices();
+
+// Fetch loan rates from DB
+$loan_rates_db = [];
+try {
+    $pdo = getDBConnection();
+    if ($pdo) {
+        $stmt = $pdo->prepare("SELECT * FROM loan_rates WHERE status = 'active' ORDER BY display_order, id");
+        $stmt->execute();
+        $loan_rates_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (Exception $e) { /* silent */ }
+
+// Group by category
+$grouped_rates = [];
+foreach ($loan_rates_db as $row) {
+    $grouped_rates[$row['category']][] = $row;
+}
 ?>
 
     <!-- Notices Alert Banner -->
@@ -157,25 +174,20 @@ $notices = getActiveNotices();
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="table-light"><td colspan="3"><strong>I. Industrial Loan / MSME</strong></td></tr>
-                        <tr><td>1.</td><td>Working Capital</td><td class="text-center"><strong>10.00%</strong></td></tr>
-                        <tr><td>2.</td><td>Term Loan</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                        <tr><td>3.</td><td>Shade Construction (MSME)</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                        <tr class="table-light"><td colspan="3"><strong>II. Housing Loan</strong></td></tr>
-                        <tr><td>4.</td><td>Housing Loan – Residential Construction</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                        <tr><td>5.</td><td>Housing Loan – Residential Purchase</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                        <tr><td>6.</td><td>Housing Loan – Residential Repair</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                        <tr><td>7.</td><td>Housing Loan – Commercial</td><td class="text-center"><strong>11.50%</strong></td></tr>
-                        <tr class="table-light"><td colspan="3"><strong>III. Vehicle Loan</strong></td></tr>
-                        <tr><td>8.</td><td>Two Wheeler</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                        <tr><td>9.</td><td>Four Wheeler / Commercial Vehicle</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                        <tr class="table-light"><td colspan="3"><strong>IV. Professional Loan</strong></td></tr>
-                        <tr><td>10.</td><td>Professional Loan</td><td class="text-center"><strong>12.00% – 13.00%</strong></td></tr>
-                        <tr class="table-light"><td colspan="3"><strong>V. Gold Loan</strong></td></tr>
-                        <tr><td>11.</td><td>Gold Loan</td><td class="text-center"><strong>9.00%</strong></td></tr>
-                        <tr class="table-light"><td colspan="3"><strong>VI. Staff Loans</strong></td></tr>
-                        <tr><td>12.</td><td>Staff Loan – Festival Advance</td><td class="text-center"><strong>7.50%</strong></td></tr>
-                        <tr><td>13.</td><td>Staff Loan – Personal / Other</td><td class="text-center"><strong>10.00%</strong></td></tr>
+                        <?php if (empty($grouped_rates)): ?>
+                        <tr><td colspan="3" class="text-center text-muted py-4">Interest rate information coming soon.</td></tr>
+                        <?php else: ?>
+                        <?php $sr = 1; foreach ($grouped_rates as $category => $rows): ?>
+                        <tr class="table-light"><td colspan="3"><strong><?php echo htmlspecialchars($category); ?></strong></td></tr>
+                        <?php foreach ($rows as $r): ?>
+                        <tr>
+                            <td><?php echo $sr++; ?>.</td>
+                            <td><?php echo htmlspecialchars($r['loan_type']); ?></td>
+                            <td class="text-center"><strong><?php echo htmlspecialchars($r['interest_rate']); ?></strong></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -524,11 +536,6 @@ $notices = getActiveNotices();
     <!-- CTA -->
     <section class="section" style="background:linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);color:white;">
         <div class="container-lg text-center">
-            <h2 class="mb-3">Ready to Apply for a Loan?</h2>
-            <p class="lead mb-4">Visit any of our 14 branches or contact us to start your loan application today.</p>
-            <a href="<?php echo SITE_URL; ?>pages/contact.php" class="btn btn-light btn-lg me-3">
-                <i class="fas fa-map-marker-alt me-2"></i>Find a Branch
-            </a>
             <a href="<?php echo SITE_URL; ?>pages/media.php" class="btn btn-outline-light btn-lg">
                 <i class="fas fa-percent me-2"></i>View All Interest Rates
             </a>

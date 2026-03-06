@@ -1496,7 +1496,10 @@ hr {
     .card-header { padding: 0.9rem 1.25rem; }
 
     .section-title { margin-bottom: 2rem; }
-    .hero-buttons { flex-direction: column; align-items: flex-start; }
+    .hero-buttons { flex-direction: row; align-items: center; justify-content: center; }
+
+    .hero-content { text-align: center; }
+    .hero-subtitle { max-width: 100%; }
 }
 
 @media (max-width: 576px) {

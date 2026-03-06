@@ -11,6 +11,19 @@ include __DIR__ . '/../includes/data-fetcher.php';
 include __DIR__ . '/../includes/notices-fetcher.php';
 
 $notices = getActiveNotices();
+
+// Fetch Term Deposit rates from DB (db.php already loaded via data-fetcher.php)
+$term_deposit_rates = [];
+try {
+    $pdo = getDBConnection();
+    if ($pdo) {
+        $stmt = $pdo->prepare("SELECT * FROM deposit_rates WHERE status = 'active' AND deposit_type = 'Term Deposit' ORDER BY display_order, id");
+        $stmt->execute();
+        $term_deposit_rates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+} catch (Exception $e) {
+    // fallback to empty — static hardcoded rows will show
+}
 ?>
 
     <!-- Notices Alert Banner -->
@@ -201,12 +214,25 @@ $notices = getActiveNotices();
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>46 Days to 90 Days</td><td class="text-center"><strong>5.00%</strong></td><td class="text-center"><strong>5.50%</strong></td></tr>
-                                <tr><td>91 Days to 180 Days</td><td class="text-center"><strong>5.50%</strong></td><td class="text-center"><strong>6.00%</strong></td></tr>
-                                <tr><td>181 Days to 364 Days</td><td class="text-center"><strong>7.00%</strong></td><td class="text-center"><strong>7.50%</strong></td></tr>
-                                <tr class="table-success"><td>1 Year and above to less than 2 Years</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
-                                <tr class="table-success"><td>2 Years and above to less than 5 Years</td><td class="text-center"><strong>8.00%</strong></td><td class="text-center"><strong>8.50%</strong></td></tr>
-                                <tr><td>5 Years and above</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                                <?php if (!empty($term_deposit_rates)): ?>
+                                    <?php foreach ($term_deposit_rates as $rate): ?>
+                                        <tr<?php
+                                            $g = (float) $rate['general_rate'];
+                                            echo ($g >= 7.75) ? ' class="table-success"' : '';
+                                        ?>>
+                                            <td><?php echo htmlspecialchars($rate['period']); ?></td>
+                                            <td class="text-center"><strong><?php echo htmlspecialchars($rate['general_rate']); ?></strong></td>
+                                            <td class="text-center"><strong><?php echo htmlspecialchars($rate['senior_rate']); ?></strong></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr><td>46 Days to 90 Days</td><td class="text-center"><strong>5.00%</strong></td><td class="text-center"><strong>5.50%</strong></td></tr>
+                                    <tr><td>91 Days to 180 Days</td><td class="text-center"><strong>5.50%</strong></td><td class="text-center"><strong>6.00%</strong></td></tr>
+                                    <tr><td>181 Days to 364 Days</td><td class="text-center"><strong>7.00%</strong></td><td class="text-center"><strong>7.50%</strong></td></tr>
+                                    <tr class="table-success"><td>1 Year and above to less than 2 Years</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                                    <tr class="table-success"><td>2 Years and above to less than 5 Years</td><td class="text-center"><strong>8.00%</strong></td><td class="text-center"><strong>8.50%</strong></td></tr>
+                                    <tr><td>5 Years and above</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

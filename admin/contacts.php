@@ -205,120 +205,202 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #f5f7fa;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .admin-wrapper {
-            display: flex;
-            min-height: 100vh;
-        }
-        
+        body { background-color: #f0f4f8; font-family: 'Roboto', sans-serif; }
+
+        .admin-wrapper { display: flex; min-height: 100vh; }
+
         .sidebar {
-            width: 250px;
-            background: #1A2533;
-            padding: 2rem 0;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
+            width: 250px; background: #1A2533; padding: 2rem 0;
+            position: fixed; height: 100vh; overflow-y: auto;
             box-shadow: 4px 0 12px rgba(15,31,53,0.15);
         }
-        
         .sidebar .nav-link {
-            padding: 0.85rem 1.5rem;
-            color: rgba(255,255,255,0.75) !important;
-            border-left: 3px solid transparent;
-            transition: all 0.2s ease;
+            padding: 0.85rem 1.5rem; color: rgba(255,255,255,0.75) !important;
+            border-left: 3px solid transparent; transition: all 0.2s ease;
         }
-        
-        .sidebar .nav-link:hover {
-            background-color: #2C3E50;
-            color: white !important;
-            border-left-color: #B8860B;
-        }
-        
+        .sidebar .nav-link:hover { background:#2C3E50; color:white !important; border-left-color:#B8860B; }
         .sidebar .nav-link.active {
-            background-color: rgba(184,134,11,0.12);
-            color: #B8860B !important;
-            border-left-color: #B8860B;
-            font-weight: 600;
+            background: rgba(184,134,11,0.12); color: #B8860B !important;
+            border-left-color: #B8860B; font-weight: 600;
         }
-        
-        .main-content {
-            margin-left: 250px;
-            width: calc(100% - 250px);
-            padding: 2rem;
-        }
-        
+
+        .main-content { margin-left: 250px; width: calc(100% - 250px); padding: 2rem; }
+
+        /* ── Stat Cards ── */
         .stat-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 1rem;
+            border-radius: 12px; padding: 1.4rem 1.2rem;
+            text-align: center; border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
         }
-        
-        .stat-card h6 {
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-        
-        .stat-card .number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1e40af;
-        }
-        
-        .contact-list-item {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-card .sc-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .stat-card .sc-num { font-size: 2rem; font-weight: 800; line-height: 1; }
+        .stat-card .sc-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.3rem; }
+
+        .sc-total   { background: linear-gradient(135deg,#0f2c5e,#1e4d99); color: white; }
+        .sc-new     { background: linear-gradient(135deg,#1e3a6e,#2563eb); color: white; }
+        .sc-replied { background: linear-gradient(135deg,#065f46,#059669); color: white; }
+        .sc-archived{ background: linear-gradient(135deg,#374151,#6b7280); color: white; }
+
+        /* ── Contact Grid Cards ── */
+        .contact-grid { display:none; } /* unused, kept for safety */
+
+        /* ── Submission List ── */
+        .sub-list { display: flex; flex-direction: column; gap: 0; }
+
+        .sub-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.85rem 1.2rem;
+            border-bottom: 1px solid #f0f3f8;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-        
-        .contact-list-item:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-left-color: #3b82f6;
-        }
-        
-        .contact-list-item.new {
-            border-left-color: #ef4444;
-            background-color: #fef2f2;
-        }
-        
-        .contact-list-item.replied {
-            border-left-color: #10b981;
-        }
-        
-        .contact-list-item.archived {
-            border-left-color: #9ca3af;
-            opacity: 0.7;
-        }
-        
-        .status-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-        }
-        
-        .contact-detail {
+            transition: background 0.14s;
             background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none; color: inherit;
         }
-        
-        .reply-box {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        .sub-row:last-child { border-bottom: none; }
+        .sub-row:hover { background: #f5f8ff; }
+        .sub-row.is-new { background: #f7f9ff; }
+        .sub-row.is-new:hover { background: #edf2ff; }
+        .sub-row.is-complaint { background: #fdfaf2; }
+        .sub-row.is-complaint:hover { background: #faf4e0; }
+        .sub-row.is-archived { opacity: 0.58; }
+
+        /* Avatar circle */
+        .sub-avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: 700; color: white;
+            flex-shrink: 0; letter-spacing: 0.02em;
+        }
+
+        /* Unread dot */
+        .sub-unread-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #1e4d99; flex-shrink: 0;
+        }
+        .sub-unread-dot.hidden { background: transparent; }
+
+        /* Main text block */
+        .sub-body { flex: 1; min-width: 0; }
+        .sub-top { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.15rem; }
+        .sub-name { font-weight: 700; font-size: 0.88rem; color: #111827; white-space: nowrap; }
+        .sub-email { font-size: 0.75rem; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sub-subject-line {
+            font-size: 0.83rem; color: #374151;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sub-subject-line .sub-subject { font-weight: 600; color: #1e293b; }
+        .sub-subject-line .sub-preview { color: #9ca3af; }
+
+        /* Right side */
+        .sub-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; flex-shrink: 0; }
+        .sub-time { font-size: 0.72rem; color: #9ca3af; white-space: nowrap; }
+
+        .status-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
+
+        .complaint-pill {
+            display: inline-block; background: #B8860B; color: white;
+            font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.5rem;
+            border-radius: 3px; letter-spacing: 0.05em; vertical-align: middle;
+        }
+
+        /* ── Detail View ── */
+        .detail-page-wrap { max-width: 820px; margin: 0 auto; }
+
+        .detail-hero {
+            border-radius: 10px; padding: 1.6rem 2rem;
+            color: white; margin-bottom: 1.5rem;
+            background: linear-gradient(135deg,#0a1f44,#1e4d99);
+            box-shadow: 0 3px 14px rgba(15,44,94,0.18);
+        }
+        .detail-hero h5 { font-weight: 700; margin-bottom: 0.2rem; font-size: 1.05rem; }
+        .detail-hero .hero-subject {
+            font-size: 0.88rem; opacity: 0.80; font-weight: 400;
+            word-break: break-word; margin-top: 0.15rem;
+        }
+        .hero-status-pill {
+            font-size: 0.72rem; padding: 0.28rem 0.8rem; border-radius: 20px;
+            background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3);
+            color: white; font-weight: 600; white-space: nowrap;
+        }
+
+        .detail-card {
+            background: white; border-radius: 10px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            border: 1px solid #e5e9f0;
+            margin-bottom: 1.1rem; overflow: hidden;
+        }
+        .detail-card-header {
+            padding: 0.75rem 1.3rem;
+            border-bottom: 1px solid #f0f2f5;
+            background: #f8f9fb;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.07em; color: #4b5563;
+        }
+        .detail-card-body { padding: 1.2rem 1.3rem; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 576px) { .info-grid { grid-template-columns: 1fr; } }
+        .info-label {
+            font-size: 0.69rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 0.18rem;
+        }
+        .info-value {
+            font-size: 0.93rem; color: #111827; font-weight: 500; word-break: break-word;
+        }
+        .info-value a { color: #1e4d99; text-decoration: none; }
+        .info-value a:hover { text-decoration: underline; }
+
+        .msg-box {
+            background: #f4f7ff; padding: 1.1rem 1.3rem; border-radius: 7px;
+            border-left: 4px solid #1e4d99; white-space: pre-wrap;
+            font-size: 0.93rem; line-height: 1.75; color: #1e293b;
+        }
+        .msg-box.complaint-msg {
+            background: #fdfaf2; border-left-color: #B8860B; color: #3b2a00;
+        }
+        .reply-history-box {
+            background: #f0fdf6; padding: 1.1rem 1.3rem; border-radius: 7px;
+            border-left: 4px solid #059669; font-size: 0.93rem;
+            line-height: 1.75; color: #1e293b;
+        }
+        .reply-meta {
+            font-size: 0.76rem; color: #6b7280; margin-bottom: 0.6rem;
+        }
+
+        .reply-form-card {
+            background: white; border-radius: 10px;
+            border: 1px solid #e5e9f0;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            margin-bottom: 1.1rem; overflow: hidden;
+        }
+        .reply-form-header {
+            padding: 0.8rem 1.3rem;
+            background: #f8f9fb; border-bottom: 1px solid #f0f2f5;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.07em; color: #4b5563;
+        }
+        .reply-form-body { padding: 1.3rem; }
+
+        .action-card {
+            background: white; border-radius: 10px;
+            border: 1px solid #e5e9f0;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            margin-bottom: 1.1rem; overflow: hidden;
+        }
+        .action-card-header {
+            padding: 0.75rem 1.3rem; background: #f8f9fb;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.07em; color: #4b5563;
+        }
+        .action-card-body { padding: 1.1rem 1.3rem; display: grid; gap: 0.55rem; }
+
+        .complaint-tag {
+            display: inline-block; background: #B8860B; color: white;
+            font-size: 0.67rem; font-weight: 700; padding: 0.2rem 0.6rem;
+            border-radius: 4px; letter-spacing: 0.05em;
         }
     </style>
 </head>
@@ -360,6 +442,11 @@ try {
                         <i class="fas fa-images me-2"></i>Manage Gallery
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rates.php">
+                        <i class="fas fa-percent me-2"></i>Interest Rates
+                    </a>
+                </li>
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">
@@ -396,142 +483,234 @@ try {
                 <?php endif; ?>
 
                 <!-- View Details or List -->
-                <?php if ($current_contact && $contact_id): ?>
-                    <!-- Contact Detail View -->
-                    <div class="contact-detail">
-                        <div class="mb-3">
-                            <a href="contacts.php" class="btn btn-sm btn-outline-secondary mb-3">
-                                <i class="fas fa-arrow-left me-2"></i> Back to List
-                            </a>
-                        </div>
+                <?php if ($current_contact && $contact_id):
+                    $isComplaint = str_starts_with($current_contact['subject'], '[Complaint]');
+                    $statusLabel = $current_contact['status'] === 'replied' ? 'Replied'
+                        : ($current_contact['status'] === 'archived' ? 'Archived' : 'New');
+                ?>
+                    <div class="detail-page-wrap">
 
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <h5 class="text-muted mb-3">Contact Information</h5>
-                                <dl class="row">
-                                    <dt class="col-sm-4">Name:</dt>
-                                    <dd class="col-sm-8"><?php echo escape($current_contact['name']); ?></dd>
+                        <!-- Back -->
+                        <a href="contacts.php" class="btn btn-sm btn-outline-secondary mb-3">
+                            <i class="fas fa-arrow-left me-2"></i>Back to All Submissions
+                        </a>
 
-                                    <dt class="col-sm-4">Email:</dt>
-                                    <dd class="col-sm-8">
-                                        <a href="mailto:<?php echo escape($current_contact['email']); ?>">
-                                            <?php echo escape($current_contact['email']); ?>
-                                        </a>
-                                    </dd>
-
-                                    <dt class="col-sm-4">Phone:</dt>
-                                    <dd class="col-sm-8">
-                                        <?php echo !empty($current_contact['phone']) ? escape($current_contact['phone']) : '<em class="text-muted">Not provided</em>'; ?>
-                                    </dd>
-
-                                    <dt class="col-sm-4">Subject:</dt>
-                                    <dd class="col-sm-8"><?php echo escape($current_contact['subject']); ?></dd>
-
-                                    <dt class="col-sm-4">Submitted:</dt>
-                                    <dd class="col-sm-8"><?php echo formatDate($current_contact['created_at']); ?></dd>
-
-                                    <dt class="col-sm-4">Status:</dt>
-                                    <dd class="col-sm-8">
-                                        <?php
-                                        $status_badge_class = 'warning';
-                                        $status_text = 'New';
-                                        if ($current_contact['status'] === 'replied') {
-                                            $status_badge_class = 'success';
-                                            $status_text = 'Replied';
-                                        } elseif ($current_contact['status'] === 'archived') {
-                                            $status_badge_class = 'secondary';
-                                            $status_text = 'Archived';
-                                        }
-                                        ?>
-                                        <span class="badge bg-<?php echo $status_badge_class; ?>"><?php echo $status_text; ?></span>
-                                    </dd>
-                                </dl>
-                            </div>
-
-                            <div class="col-md-6">
-                                <h5 class="text-muted mb-3">Actions</h5>
-                                <form method="POST" class="d-grid gap-2">
-                                    <input type="hidden" name="id" value="<?php echo $contact_id; ?>">
-                                    <?php if ($current_contact['status'] !== 'archived'): ?>
-                                        <button type="submit" name="action" value="archive" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-archive me-2"></i> Archive
-                                        </button>
-                                    <?php endif; ?>
-                                    <button type="submit" name="action" value="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash me-2"></i> Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <h5 class="text-muted mb-3">Message</h5>
-                            <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; border-left: 4px solid #3b82f6;">
-                                <?php echo nl2br(escape($current_contact['message'])); ?>
-                            </div>
-                        </div>
-
-                        <!-- Previous Reply (if exists) -->
-                        <?php if (!empty($current_contact['admin_reply'])): ?>
-                            <div class="mb-4">
-                                <h5 class="text-muted mb-3">Your Previous Reply</h5>
-                                <div style="background: #f0fdf4; padding: 1rem; border-radius: 8px; border-left: 4px solid #10b981;">
-                                    <small class="text-muted d-block mb-2">
-                                        Sent on <?php echo formatDate($current_contact['admin_reply_at']); ?>
-                                    </small>
-                                    <?php echo nl2br(escape($current_contact['admin_reply'])); ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <!-- Reply Form -->
-                        <?php if ($current_contact['status'] !== 'archived'): ?>
-                            <div class="reply-box">
-                                <h5 class="mb-3">
-                                    <i class="fas fa-reply me-2"></i> Send Reply
-                                </h5>
-                                <form method="POST">
-                                    <input type="hidden" name="action" value="reply">
-                                    <input type="hidden" name="id" value="<?php echo $contact_id; ?>">
-                                    
-                                    <div class="mb-3">
-                                        <label for="reply_message" class="form-label">Your Reply *</label>
-                                        <textarea class="form-control" id="reply_message" name="reply_message" rows="6" required placeholder="Type your reply here..."></textarea>
-                                        <small class="text-muted">A response email will be sent to <?php echo escape($current_contact['email']); ?></small>
+                        <!-- Header bar — navy for all, gold left accent for complaints -->
+                        <div class="detail-hero" style="<?php echo $isComplaint ? 'border-left:5px solid #B8860B;' : 'border-left:5px solid rgba(255,255,255,0.3);'; ?>">
+                            <div class="d-flex align-items-start justify-content-between gap-3">
+                                <div>
+                                    <h5>
+                                        <?php if ($isComplaint): ?>
+                                            <span class="complaint-tag me-2">COMPLAINT</span>
+                                        <?php endif; ?>
+                                        <?php echo escape($current_contact['subject']); ?>
+                                    </h5>
+                                    <div class="hero-subject">
+                                        From <strong><?php echo escape($current_contact['name']); ?></strong>
+                                        &nbsp;&middot;&nbsp; <?php echo formatDate($current_contact['created_at']); ?>
                                     </div>
+                                </div>
+                                <span class="hero-status-pill flex-shrink-0"><?php echo $statusLabel; ?></span>
+                            </div>
+                        </div>
 
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-paper-plane me-2"></i> Send Reply
-                                    </button>
-                                </form>
+                        <div class="row g-3">
+                            <!-- Left: sender info + message + reply history + reply form -->
+                            <div class="col-lg-8">
+
+                                <!-- Sender Info -->
+                                <div class="detail-card">
+                                    <div class="detail-card-header">Sender Information</div>
+                                    <div class="detail-card-body">
+                                        <div class="info-grid">
+                                            <div>
+                                                <div class="info-label">Full Name</div>
+                                                <div class="info-value"><?php echo escape($current_contact['name']); ?></div>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Email</div>
+                                                <div class="info-value">
+                                                    <a href="mailto:<?php echo escape($current_contact['email']); ?>">
+                                                        <?php echo escape($current_contact['email']); ?>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Phone</div>
+                                                <div class="info-value">
+                                                    <?php echo !empty($current_contact['phone'])
+                                                        ? '<a href="tel:' . escape($current_contact['phone']) . '">' . escape($current_contact['phone']) . '</a>'
+                                                        : '<span class="text-muted" style="font-size:0.87rem;">Not provided</span>'; ?>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Submitted</div>
+                                                <div class="info-value"><?php echo formatDate($current_contact['created_at']); ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Message -->
+                                <div class="detail-card">
+                                    <div class="detail-card-header"><?php echo $isComplaint ? 'Complaint Message' : 'Message'; ?></div>
+                                    <div class="detail-card-body">
+                                        <div class="msg-box<?php echo $isComplaint ? ' complaint-msg' : ''; ?>">
+                                            <?php echo nl2br(escape($current_contact['message'])); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Previous Reply -->
+                                <?php if (!empty($current_contact['admin_reply'])): ?>
+                                <div class="detail-card">
+                                    <div class="detail-card-header">Previous Reply</div>
+                                    <div class="detail-card-body">
+                                        <div class="reply-meta">Sent on <?php echo formatDate($current_contact['admin_reply_at']); ?></div>
+                                        <div class="reply-history-box">
+                                            <?php echo nl2br(escape($current_contact['admin_reply'])); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
+                                <!-- Reply Form -->
+                                <?php if ($current_contact['status'] !== 'archived'): ?>
+                                <div class="reply-form-card">
+                                    <div class="reply-form-header">Send Reply &rarr; <?php echo escape($current_contact['email']); ?></div>
+                                    <div class="reply-form-body">
+                                        <form method="POST">
+                                            <input type="hidden" name="action" value="reply">
+                                            <input type="hidden" name="id" value="<?php echo $contact_id; ?>">
+                                            <div class="mb-3">
+                                                <textarea class="form-control" name="reply_message" rows="6" required
+                                                    placeholder="Type your reply here…"
+                                                    style="font-size:0.93rem; resize:vertical;"></textarea>
+                                                <small class="text-muted mt-1 d-block">An email will be sent to the customer automatically.</small>
+                                            </div>
+                                            <button type="submit" class="btn text-white px-4"
+                                                style="background:linear-gradient(135deg,#0f2c5e,#1e4d99); border:none;">
+                                                <i class="fas fa-paper-plane me-2"></i>Send Reply
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+
                             </div>
-                        <?php endif; ?>
-                    </div>
+
+                            <!-- Right: status + actions -->
+                            <div class="col-lg-4">
+
+                                <!-- Status -->
+                                <div class="detail-card">
+                                    <div class="detail-card-header">Status</div>
+                                    <div class="detail-card-body">
+                                        <?php
+                                        $sc = $current_contact['status'] === 'replied' ? '#059669'
+                                            : ($current_contact['status'] === 'archived' ? '#6b7280' : '#1e4d99');
+                                        $sb = $current_contact['status'] === 'replied' ? '#f0fdf6'
+                                            : ($current_contact['status'] === 'archived' ? '#f9fafb' : '#f0f6ff');
+                                        ?>
+                                        <div style="background:<?php echo $sb; ?>; border-left:4px solid <?php echo $sc; ?>;
+                                            border-radius:7px; padding:0.8rem 1rem; border:1px solid <?php echo $sc; ?>22;">
+                                            <div style="color:<?php echo $sc; ?>; font-weight:700; font-size:0.85rem;">
+                                                <?php echo strtoupper($statusLabel); ?>
+                                            </div>
+                                            <div class="text-muted mt-1" style="font-size:0.76rem;">
+                                                #<?php echo $current_contact['id']; ?> &middot; <?php echo timeAgo($current_contact['created_at']); ?>
+                                            </div>
+                                        </div>
+                                        <?php if ($isComplaint): ?>
+                                        <div class="mt-2" style="background:#fdfaf2; border-left:4px solid #B8860B;
+                                            border-radius:7px; padding:0.7rem 1rem; border:1px solid #e2c97e55;">
+                                            <div style="color:#92400e; font-weight:700; font-size:0.78rem;">
+                                                FLAGGED AS COMPLAINT
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="action-card">
+                                    <div class="action-card-header">Actions</div>
+                                    <div class="action-card-body">
+                                        <form method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $contact_id; ?>">
+                                            <?php if ($current_contact['status'] !== 'archived'): ?>
+                                            <button type="submit" name="action" value="archive"
+                                                class="btn btn-sm w-100"
+                                                style="background:#fef9ec; color:#92400e; border:1px solid #e2c97e; font-weight:600;">
+                                                Archive
+                                            </button>
+                                            <?php endif; ?>
+                                            <button type="submit" name="action" value="delete"
+                                                class="btn btn-sm w-100 btn-outline-danger"
+                                                onclick="return confirm('Permanently delete this submission?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Submission Info -->
+                                <div class="detail-card">
+                                    <div class="detail-card-header">Details</div>
+                                    <div class="detail-card-body" style="display:grid; gap:0.8rem;">
+                                        <div>
+                                            <div class="info-label">Type</div>
+                                            <div class="info-value">
+                                                <?php echo $isComplaint
+                                                    ? '<span class="complaint-tag">Complaint</span>'
+                                                    : '<span style="color:#1e4d99; font-weight:600;">Contact Query</span>'; ?>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="info-label">Submission ID</div>
+                                            <div class="info-value">#<?php echo $current_contact['id']; ?></div>
+                                        </div>
+                                        <?php if (!empty($current_contact['admin_reply_at'])): ?>
+                                        <div>
+                                            <div class="info-label">Last Replied</div>
+                                            <div class="info-value" style="font-size:0.87rem;"><?php echo formatDate($current_contact['admin_reply_at']); ?></div>
+                                        </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- /detail-page-wrap -->
                 <?php else: ?>
-                    <!-- Contact List View -->
-                    <div class="row mb-4">
-                        <div class="col-md-3">
-                            <div class="stat-card">
-                                <h6><i class="fas fa-inbox me-2"></i> Total Submissions</h6>
-                                <div class="number"><?php echo $stats['total'] ?? 0; ?></div>
+                    <!-- Stats -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card sc-total">
+                                <div class="sc-icon"><i class="fas fa-inbox"></i></div>
+                                <div class="sc-num"><?php echo $stats['total'] ?? 0; ?></div>
+                                <div class="sc-label">Total</div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="stat-card">
-                                <h6><i class="fas fa-star me-2"></i> New Inquiries</h6>
-                                <div class="number" style="color: #ef4444;"><?php echo $stats['new'] ?? 0; ?></div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card sc-new">
+                                <div class="sc-icon"><i class="fas fa-bell"></i></div>
+                                <div class="sc-num"><?php echo $stats['new'] ?? 0; ?></div>
+                                <div class="sc-label">New</div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="stat-card">
-                                <h6><i class="fas fa-check-circle me-2"></i> Replied</h6>
-                                <div class="number" style="color: #10b981;"><?php echo $stats['replied'] ?? 0; ?></div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card sc-replied">
+                                <div class="sc-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="sc-num"><?php echo $stats['replied'] ?? 0; ?></div>
+                                <div class="sc-label">Replied</div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="stat-card">
-                                <h6><i class="fas fa-archive me-2"></i> Archived</h6>
-                                <div class="number" style="color: #6b7280;"><?php echo $stats['archived'] ?? 0; ?></div>
+                        <div class="col-6 col-md-3">
+                            <div class="stat-card sc-archived">
+                                <div class="sc-icon"><i class="fas fa-archive"></i></div>
+                                <div class="sc-num"><?php echo $stats['archived'] ?? 0; ?></div>
+                                <div class="sc-label">Archived</div>
                             </div>
                         </div>
                     </div>
@@ -564,62 +743,72 @@ try {
                         </div>
                     </div>
 
-                    <!-- Contact List -->
-                    <div>
+                    <!-- Submission List -->
+                    <div style="background:white; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 1px 8px rgba(0,0,0,0.06); overflow:hidden;">
                         <?php if (empty($contacts)): ?>
-                            <div style="text-align: center; padding: 3rem;">
-                                <i class="fas fa-inbox" style="font-size: 3rem; color: #d1d5db; margin-bottom: 1rem; display: block;"></i>
-                                <p class="text-muted">No contact submissions found.</p>
+                            <div style="padding:3.5rem 1rem; text-align:center;">
+                                <i class="fas fa-inbox" style="font-size:2.6rem; color:#d1d5db; display:block; margin-bottom:0.8rem;"></i>
+                                <p class="text-muted mb-0" style="font-size:0.9rem;">No contact submissions found.</p>
                             </div>
                         <?php else: ?>
-                            <?php foreach ($contacts as $contact): ?>
-                                <div class="contact-list-item <?php echo $contact['status']; ?>" onclick="window.location='contacts.php?id=<?php echo $contact['id']; ?>'">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div style="flex: 1;">
-                                            <h6 class="mb-1">
-                                                <?php echo escape($contact['name']); ?>
-                                                <?php if ($contact['status'] === 'new'): ?>
-                                                    <span class="badge bg-danger">NEW</span>
-                                                <?php endif; ?>
-                                            </h6>
-                                            <p class="text-muted mb-2 small">
-                                                <i class="fas fa-envelope me-2"></i><?php echo escape($contact['email']); ?>
-                                            </p>
-                                            <p class="mb-1">
-                                                <strong><?php echo escape($contact['subject']); ?></strong>
-                                            </p>
-                                            <p class="text-muted small mb-0">
-                                                <?php 
-                                                $preview = substr(strip_tags($contact['message']), 0, 100);
-                                                echo escape($preview) . (strlen($contact['message']) > 100 ? '...' : '');
-                                                ?>
-                                            </p>
-                                        </div>
-                                        <div style="text-align: right; margin-left: 1rem;">
-                                            <small class="text-muted d-block mb-2">
-                                                <?php 
-                                                $time_ago = timeAgo($contact['created_at']);
-                                                echo $time_ago;
-                                                ?>
-                                            </small>
-                                            <?php
-                                            $status_badge_class = 'warning';
-                                            $status_text = 'New';
-                                            if ($contact['status'] === 'replied') {
-                                                $status_badge_class = 'success';
-                                                $status_text = 'Replied';
-                                            } elseif ($contact['status'] === 'archived') {
-                                                $status_badge_class = 'secondary';
-                                                $status_text = 'Archived';
-                                            }
-                                            ?>
-                                            <span class="badge bg-<?php echo $status_badge_class; ?> status-badge">
-                                                <?php echo $status_text; ?>
-                                            </span>
+                            <!-- List header -->
+                            <div style="padding:0.65rem 1.2rem; background:#f8fafc; border-bottom:1px solid #e8edf5; display:flex; align-items:center; gap:1rem;">
+                                <div style="width:38px; flex-shrink:0;"></div>
+                                <div style="width:7px; flex-shrink:0;"></div>
+                                <div style="flex:0 0 180px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9ca3af;">From</div>
+                                <div style="flex:1; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9ca3af;">Subject &amp; Preview</div>
+                                <div style="flex:0 0 80px; text-align:center; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9ca3af;">Status</div>
+                                <div style="flex:0 0 70px; text-align:right; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9ca3af;">Time</div>
+                            </div>
+                            <div class="sub-list">
+                            <?php
+                            $avatarColors = ['#1e4d99','#0369a1','#0f766e','#7c3aed','#b45309','#0f2c5e','#065f46'];
+                            foreach ($contacts as $i => $contact):
+                                $isComplaint = str_starts_with($contact['subject'], '[Complaint]');
+                                $isNew       = $contact['status'] === 'new';
+                                $rowClass    = ($isNew ? 'is-new' : '') . ($isComplaint ? ' is-complaint' : '') . ($contact['status'] === 'archived' ? ' is-archived' : '');
+                                $badgeClass  = $contact['status'] === 'replied' ? 'success' : ($contact['status'] === 'archived' ? 'secondary' : 'primary');
+                                $badgeText   = $contact['status'] === 'replied' ? 'Replied' : ($contact['status'] === 'archived' ? 'Archived' : 'New');
+                                $avatarBg    = $isComplaint ? '#92400e' : $avatarColors[$i % count($avatarColors)];
+                                $initials    = strtoupper(substr($contact['name'], 0, 1));
+                                if (strpos($contact['name'], ' ') !== false) {
+                                    $parts = explode(' ', $contact['name']);
+                                    $initials = strtoupper(substr($parts[0],0,1) . substr(end($parts),0,1));
+                                }
+                                $displaySubject = $isComplaint
+                                    ? trim(substr($contact['subject'], strlen('[Complaint]')))
+                                    : $contact['subject'];
+                                $preview = substr(strip_tags($contact['message']), 0, 70);
+                            ?>
+                                <div class="sub-row <?php echo trim($rowClass); ?>" onclick="window.location='contacts.php?id=<?php echo $contact['id']; ?>'">
+                                    <!-- Avatar -->
+                                    <div class="sub-avatar" style="background:<?php echo $avatarBg; ?>;"><?php echo $initials; ?></div>
+                                    <!-- Unread indicator -->
+                                    <div class="sub-unread-dot <?php echo $isNew ? '' : 'hidden'; ?>" style="<?php echo $isComplaint && $isNew ? 'background:#B8860B;' : ''; ?>"></div>
+                                    <!-- From -->
+                                    <div style="flex:0 0 180px; min-width:0;">
+                                        <div class="sub-name"><?php echo escape($contact['name']); ?></div>
+                                        <div class="sub-email"><?php echo escape($contact['email']); ?></div>
+                                    </div>
+                                    <!-- Subject + preview -->
+                                    <div class="sub-body">
+                                        <div class="sub-subject-line">
+                                            <?php if ($isComplaint): ?>
+                                                <span class="complaint-pill me-1">COMPLAINT</span>
+                                            <?php endif; ?>
+                                            <span class="sub-subject"><?php echo escape($displaySubject); ?></span>
+                                            <span class="sub-preview"> — <?php echo escape($preview); ?><?php echo strlen($contact['message']) > 70 ? '…' : ''; ?></span>
                                         </div>
                                     </div>
+                                    <!-- Status -->
+                                    <div style="flex:0 0 80px; text-align:center;">
+                                        <span class="badge bg-<?php echo $badgeClass; ?> status-badge"><?php echo $badgeText; ?></span>
+                                    </div>
+                                    <!-- Time -->
+                                    <div class="sub-time" style="flex:0 0 70px; text-align:right;"><?php echo timeAgo($contact['created_at']); ?></div>
                                 </div>
                             <?php endforeach; ?>
+                            </div>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>

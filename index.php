@@ -14,7 +14,6 @@ include __DIR__ . '/includes/notices-fetcher.php';
 
 // Get data
 $offers = $data_fetcher->getOffers();
-$news = $data_fetcher->getNews();
 $branches = $data_fetcher->getBranches();
 $notices = getActiveNotices();
 ?>
@@ -23,20 +22,22 @@ $notices = getActiveNotices();
     <section class="hero-section">
         <div class="container-lg">
             <div class="row align-items-center">
-                <div class="col-lg-6 hero-content">
+                <div class="col-lg-6 hero-content text-center text-lg-start">
                     <p class="hero-subtitle mb-1" style="font-size:1rem; color: rgba(255,255,255,0.7); letter-spacing:1px; text-transform:uppercase;">65 Years of Banking</p>
-                    <h1 class="hero-title">A bank that understands you!</h1>
+                    <h1 class="hero-title">Shri Shantappanna Miraji Urban Co-op. Bank Ltd.</h1>
                     <p class="hero-subtitle">Keep Faith — Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi, serving the community since 1961.</p>
                     <div class="hero-buttons">
-                        <a href="<?php echo SITE_URL; ?>pages/deposits.php" class="btn btn-light me-3 mb-2">
-                            <i class="fas fa-piggy-bank me-2"></i>Deposits
-                        </a>
-                        <a href="<?php echo SITE_URL; ?>pages/loans.php" class="btn btn-outline-light mb-2">
-                            <i class="fas fa-handshake me-2"></i>Loans
-                        </a>
-                        <a href="<?php echo SITE_URL; ?>pages/about.php#the-bank" class="btn btn-outline-light mb-2 ms-2">
-                            <i class="fas fa-info-circle me-2"></i>Read More
-                        </a>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                            <a href="<?php echo SITE_URL; ?>pages/deposits.php" class="btn btn-light">
+                                <i class="fas fa-piggy-bank me-2"></i>Deposits
+                            </a>
+                            <a href="<?php echo SITE_URL; ?>pages/loans.php" class="btn btn-outline-light">
+                                <i class="fas fa-handshake me-2"></i>Loans
+                            </a>
+                            <a href="<?php echo SITE_URL; ?>pages/about.php#the-bank" class="btn btn-outline-light">
+                                <i class="fas fa-info-circle me-2"></i>Read More
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
@@ -203,26 +204,30 @@ $notices = getActiveNotices();
         </div>
     </section>
 
-    <!-- News Preview Section -->
+    <!-- Latest News & Updates Section (powered by admin notices) -->
     <section class="section">
         <div class="container-lg">
             <div class="section-title">
-                <h2>Latest News & Updates</h2>
+                <h2>Latest News &amp; Updates</h2>
                 <p class="section-subtitle">Stay informed with our latest announcements and bank news</p>
             </div>
-            
+
+            <?php if (!empty($notices)): ?>
             <div class="row g-4">
-                <?php foreach (array_slice($news, 0, 3) as $item): ?>
+                <?php foreach (array_slice($notices, 0, 3) as $notice): ?>
                     <div class="col-md-4">
-                        <div class="card h-100">
+                        <div class="card h-100" style="border-left: 4px solid var(--color-accent, #1e40af);">
                             <div class="card-body">
                                 <small class="text-muted">
                                     <i class="far fa-calendar me-1"></i>
-                                    <?php echo date('M d, Y', strtotime($item['date'])); ?>
+                                    <?php echo date('M d, Y', strtotime($notice['date_published'])); ?>
                                 </small>
-                                <h5 class="card-title mt-2"><?php echo htmlspecialchars($item['title']); ?></h5>
-                                <p class="card-text text-muted"><?php echo htmlspecialchars($item['excerpt']); ?></p>
-                                <a href="<?php echo htmlspecialchars($item['link']); ?>" class="btn btn-sm btn-outline-primary">
+                                <h5 class="card-title mt-2"><?php echo htmlspecialchars($notice['title']); ?></h5>
+                                <p class="card-text text-muted">
+                                    <?php echo htmlspecialchars(truncateNotice(stripHtmlTags($notice['content']), 150)); ?>
+                                </p>
+                                <a href="#noticeModal<?php echo $notice['id']; ?>" class="btn btn-sm btn-outline-primary"
+                                   data-bs-toggle="modal" data-bs-target="#noticeModal<?php echo $notice['id']; ?>">
                                     Read More <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -230,63 +235,19 @@ $notices = getActiveNotices();
                     </div>
                 <?php endforeach; ?>
             </div>
-            
-            <div class="text-center mt-4">
-                <a href="<?php echo SITE_URL; ?>pages/media.php" class="btn btn-primary">
-                    View All News <i class="fas fa-arrow-right ms-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
 
-    
-    <!-- Important Notices Section -->
-    <?php if (!empty($notices)): ?>
-    <section class="section" style="background: var(--color-bg-secondary);">
-        <div class="container-lg">
-            <div class="section-title">
-                <h2><i class="fas fa-bullhorn me-2" style="color: var(--color-accent);"></i>Important Notices</h2>
-                <p class="section-subtitle">Critical updates and regulatory information for our valued customers</p>
-            </div>
-            
-            <div class="row g-4">
-                <?php foreach (array_slice($notices, 0, 3) as $notice): ?>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card h-100" style="position: relative; overflow: hidden;">
-                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--color-accent), var(--color-accent-dark));"></div>
-                            <div class="card-body" style="padding-left: 1.5rem;">
-                                <div class="d-flex justify-content-between align-items-start mb-3">
-                                    <h5 class="card-title mb-0" style="flex: 1;">
-                                        <?php echo htmlspecialchars($notice['title']); ?>
-                                    </h5>
-                                    <span class="badge badge-primary">
-                                        <i class="fas fa-exclamation-circle me-1"></i>Notice
-                                    </span>
-                                </div>
-                                <small style="color: var(--color-text-tertiary);">
-                                    <i class="fas fa-calendar me-1" style="color: var(--color-accent);"></i>
-                                    <?php echo formatNoticeDate($notice['date_published']); ?>
-                                </small>
-                                <p class="card-text mt-2">
-                                    <?php echo htmlspecialchars(truncateNotice(stripHtmlTags($notice['content']), 150)); ?>
-                                </p>
-                                <a href="#noticeModal<?php echo $notice['id']; ?>" class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#noticeModal<?php echo $notice['id']; ?>">
-                                    Read More <i class="fas fa-arrow-right ms-1" style="font-size: 0.75rem;"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
-            <!-- View All Notices Link -->
             <?php if (count($notices) > 3): ?>
             <div class="text-center mt-4">
-                <a href="#allNotices" class="btn btn-outline-primary" data-bs-toggle="collapse">
+                <a href="<?php echo SITE_URL; ?>pages/media.php#notices" class="btn btn-outline-primary">
                     <i class="fas fa-list me-2"></i>View All Notices (<?php echo count($notices); ?>)
                 </a>
             </div>
             <?php endif; ?>
+
+            <?php else: ?>
+            <p class="text-center text-muted">No news or updates at the moment. Please check back soon.</p>
+            <?php endif; ?>
+
         </div>
     </section>
 
@@ -316,7 +277,6 @@ $notices = getActiveNotices();
         </div>
     </div>
     <?php endforeach; ?>
-    <?php endif; ?>
 
 
     <!-- Downloads Section -->
@@ -445,20 +405,6 @@ $notices = getActiveNotices();
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white;">
-        <div class="container-lg text-center">
-            <h2 class="mb-3">Keep Faith — 65 Years of Banking</h2>
-            <p class="lead mb-4">Join thousands of satisfied customers of Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi who trust us with their financial needs.</p>
-            <a href="<?php echo SITE_URL; ?>pages/deposits.php" class="btn btn-light btn-lg me-3">
-                <i class="fas fa-piggy-bank me-2"></i>Our Deposits
-            </a>
-            <a href="<?php echo SITE_URL; ?>pages/contact.php" class="btn btn-outline-light btn-lg">
-                <i class="fas fa-phone me-2"></i>Contact Us
-            </a>
         </div>
     </section>
 

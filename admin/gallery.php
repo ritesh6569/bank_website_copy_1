@@ -181,6 +181,11 @@ if ($action === 'list') {
                         <i class="fas fa-images me-2" style="color: #B8860B;"></i>Manage Gallery
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rates.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-percent me-2"></i>Interest Rates
+                    </a>
+                </li>
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php" style="color: rgba(255,255,255,0.65); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
@@ -220,7 +225,7 @@ if ($action === 'list') {
                     <div class="row" style="gap: 1.5rem;">
                         <?php foreach ($gallery_items as $item): ?>
                             <div class="col-md-4 mb-3">
-                                <div class="card">
+                                <div class="card" style="border: 2px solid #1e4d99; border-top: 4px solid #B8860B; border-radius: 10px; box-shadow: 0 2px 10px rgba(15,44,94,0.10); overflow: hidden;">
                                     <img src="<?php echo SITE_URL . '/' . $item['image_path']; ?>" class="card-img-top" alt="<?php echo escape($item['alt_text']); ?>" style="height: 200px; object-fit: cover;">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo escape($item['title']); ?></h5>

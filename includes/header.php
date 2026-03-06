@@ -36,8 +36,8 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <link href="<?php echo rtrim(SITE_URL,'/'); ?>/css/professional-theme.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Top Info Bar -->
-    <div class="top-info-bar" style="background: #0f2c5e; color: rgba(255,255,255,0.85); font-size: 0.8rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <!-- Top Info Bar (hidden on mobile, visible on md and above) -->
+    <div class="top-info-bar d-none d-md-block" style="background: #0f2c5e; color: rgba(255,255,255,0.85); font-size: 0.8rem; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div class="container-lg d-flex flex-wrap justify-content-between align-items-center gap-2">
             <span>
                 <i class="fas fa-map-marker-alt me-1"></i>944-945, Guruwar Peth Chikodi, Belagavi Karnataka, 591201
@@ -56,8 +56,8 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-lg">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold text-white" href="<?php echo SITE_URL; ?>index.php" style="color:#ffffff !important;">
-                <i class="fas fa-university me-2"></i>Miraji Bank
+            <a class="navbar-brand" href="<?php echo SITE_URL; ?>index.php">
+                <img src="<?php echo rtrim(SITE_URL,'/'); ?>/assets/images/logo.png" alt="Miraji Bank" style="height:50px; width:auto; object-fit:contain;">
             </a>
             
             <!-- Toggle Button for Mobile -->

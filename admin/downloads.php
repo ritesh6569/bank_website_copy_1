@@ -170,6 +170,11 @@ if ($action === 'list') {
                         <i class="fas fa-images me-2"></i>Manage Gallery
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rates.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
+                        <i class="fas fa-percent me-2"></i>Interest Rates
+                    </a>
+                </li>
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php" style="color: rgba(255,255,255,0.65); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">

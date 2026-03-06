@@ -49,3 +49,15 @@
 [05-Mar-2026 23:18:14 Asia/Kolkata] Attempting to insert: name=vinayak, email=vin@gmail.com, subject=abcd
 [05-Mar-2026 23:18:14 Asia/Kolkata] Contact submission inserted successfully with ID: 5
 [05-Mar-2026 23:19:16 Asia/Kolkata] Mailer error to vin@gmail.com: SMTP Error: Could not authenticate.
+[06-Mar-2026 23:24:03 Asia/Kolkata] Contact form submission received: {"timestamp":"2026-03-06 23:24:03","post_data":{"name":"CSE Student","email":"csestudent2026@gmail.com","phone":"9356907874","subject":"[Complaint] Loan Related","message":"Account No: asjkdb\r\n\r\nasdnkj","contact_form":"1"},"parsed_data":{"name":"CSE Student","email":"csestudent2026@gmail.com","phone":"9356907874","subject":"[Complaint] Loan Related","message":"Account No: asjkdb\r\n\r\nasdnkj"}}
+[06-Mar-2026 23:24:03 Asia/Kolkata] Attempting to insert: name=CSE Student, email=csestudent2026@gmail.com, subject=[Complaint] Loan Related
+[06-Mar-2026 23:24:03 Asia/Kolkata] Contact submission inserted successfully with ID: 6
+[06-Mar-2026 23:25:05 Asia/Kolkata] Contact form submission received: {"timestamp":"2026-03-06 23:25:05","post_data":{"name":"CSE Student","email":"csestudent2026@gmail.com","phone":"9356907874","subject":"ad","message":"sad","contact_form":"1"},"parsed_data":{"name":"CSE Student","email":"csestudent2026@gmail.com","phone":"9356907874","subject":"ad","message":"sad"}}
+[06-Mar-2026 23:25:05 Asia/Kolkata] Attempting to insert: name=CSE Student, email=csestudent2026@gmail.com, subject=ad
+[06-Mar-2026 23:25:05 Asia/Kolkata] Contact submission inserted successfully with ID: 7
+[06-Mar-2026 23:35:40 Asia/Kolkata] Contact form submission received: {"timestamp":"2026-03-06 23:35:40","post_data":{"contact_form":"1","name":"Vivek Katkar","email":"vivek@gmail.com","phone":"9356907874","subject":"Loan related query ","message":"Hello sir I have to ask some questions regarding loans"},"parsed_data":{"name":"Vivek Katkar","email":"vivek@gmail.com","phone":"9356907874","subject":"Loan related query","message":"Hello sir I have to ask some questions regarding loans"}}
+[06-Mar-2026 23:35:40 Asia/Kolkata] Attempting to insert: name=Vivek Katkar, email=vivek@gmail.com, subject=Loan related query
+[06-Mar-2026 23:35:40 Asia/Kolkata] Contact submission inserted successfully with ID: 11
+[06-Mar-2026 23:43:17 Asia/Kolkata] PHP Fatal error:  Cannot redeclare getDBConnection() (previously declared in C:\xampp\htdocs\bank-website-grok\includes\db.php:21) in C:\xampp\htdocs\bank-website-grok\includes\db.php on line 47
+[06-Mar-2026 23:43:26 Asia/Kolkata] PHP Fatal error:  Cannot redeclare getDBConnection() (previously declared in C:\xampp\htdocs\bank-website-grok\includes\db.php:21) in C:\xampp\htdocs\bank-website-grok\includes\db.php on line 47
+[06-Mar-2026 23:44:31 Asia/Kolkata] PHP Fatal error:  Cannot redeclare getDBConnection() (previously declared in C:\xampp\htdocs\bank-website-grok\includes\db.php:21) in C:\xampp\htdocs\bank-website-grok\includes\db.php on line 47

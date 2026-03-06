@@ -33,6 +33,26 @@ try {
         $db_downloads = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } catch (Exception $e) { /* silent */ }
+
+// Fetch interest rates from DB
+$deposit_rates_db = [];
+$loan_rates_db    = [];
+$loan_rates_grouped = [];
+try {
+    $pdo = getDBConnection();
+    if ($pdo) {
+        $stmt = $pdo->prepare("SELECT * FROM deposit_rates WHERE status = 'active' ORDER BY display_order, id");
+        $stmt->execute();
+        $deposit_rates_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = $pdo->prepare("SELECT * FROM loan_rates WHERE status = 'active' ORDER BY display_order, id");
+        $stmt->execute();
+        $loan_rates_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($loan_rates_db as $row) {
+            $loan_rates_grouped[$row['category']][] = $row;
+        }
+    }
+} catch (Exception $e) { /* silent */ }
 ?>
 
     <!-- Notices Alert Banner -->
@@ -116,24 +136,22 @@ try {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if (empty($deposit_rates_db)): ?>
+                                    <tr><td colspan="4" class="text-center text-muted py-4">Deposit rate information coming soon.</td></tr>
+                                    <?php else: ?>
+                                    <?php foreach ($deposit_rates_db as $r): ?>
+                                    <?php if (empty($r['general_rate']) && empty($r['period'])): ?>
+                                    <tr class="table-light"><td colspan="4"><strong><?php echo htmlspecialchars($r['deposit_type']); ?></strong></td></tr>
+                                    <?php else: ?>
                                     <tr>
-                                        <td rowspan="2"><strong>Saving Bank Deposit</strong></td>
-                                        <td class="text-center">—</td>
-                                        <td class="text-center"><strong>3.00%</strong></td>
-                                        <td class="text-center"><strong>3.50%</strong></td>
+                                        <td><?php echo htmlspecialchars($r['deposit_type']); ?></td>
+                                        <td class="text-center"><?php echo htmlspecialchars($r['period']); ?></td>
+                                        <td class="text-center"><strong><?php echo htmlspecialchars($r['general_rate']); ?></strong></td>
+                                        <td class="text-center"><strong><?php echo htmlspecialchars($r['senior_rate']); ?></strong></td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="3" class="small text-muted">Interest calculated on daily balance</td>
-                                    </tr>
-                                    <tr class="table-light">
-                                        <td colspan="4"><strong>Term Deposits (Fixed Deposit / Recurring Deposit / Kalyan Nidhi)</strong></td>
-                                    </tr>
-                                    <tr><td>Term Deposit</td><td class="text-center">46 Days to 90 Days</td><td class="text-center"><strong>5.00%</strong></td><td class="text-center"><strong>5.50%</strong></td></tr>
-                                    <tr><td>Term Deposit</td><td class="text-center">91 Days to 180 Days</td><td class="text-center"><strong>5.50%</strong></td><td class="text-center"><strong>6.00%</strong></td></tr>
-                                    <tr><td>Term Deposit</td><td class="text-center">181 Days to 364 Days</td><td class="text-center"><strong>7.00%</strong></td><td class="text-center"><strong>7.50%</strong></td></tr>
-                                    <tr class="table-success"><td>Term Deposit</td><td class="text-center">1 Year and above to &lt; 2 Years</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
-                                    <tr class="table-success"><td>Term Deposit</td><td class="text-center">2 Years and above to &lt; 5 Years</td><td class="text-center"><strong>8.00%</strong></td><td class="text-center"><strong>8.50%</strong></td></tr>
-                                    <tr><td>Term Deposit</td><td class="text-center">5 Years and above</td><td class="text-center"><strong>7.75%</strong></td><td class="text-center"><strong>8.25%</strong></td></tr>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -156,25 +174,20 @@ try {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="table-light"><td colspan="3"><strong>I. Industrial Loan / MSME</strong></td></tr>
-                                    <tr><td>1.</td><td>Working Capital</td><td class="text-center"><strong>10.00%</strong></td></tr>
-                                    <tr><td>2.</td><td>Term Loan</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                                    <tr><td>3.</td><td>Shade Construction (MSME)</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                                    <tr class="table-light"><td colspan="3"><strong>II. Housing Loan</strong></td></tr>
-                                    <tr><td>4.</td><td>Housing Loan – Residential Construction</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                                    <tr><td>5.</td><td>Housing Loan – Residential Purchase</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                                    <tr><td>6.</td><td>Housing Loan – Residential Repair</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                                    <tr><td>7.</td><td>Housing Loan – Commercial</td><td class="text-center"><strong>11.50%</strong></td></tr>
-                                    <tr class="table-light"><td colspan="3"><strong>III. Vehicle Loan</strong></td></tr>
-                                    <tr><td>8.</td><td>Two Wheeler Loan</td><td class="text-center"><strong>11.00%</strong></td></tr>
-                                    <tr><td>9.</td><td>Four Wheeler / Commercial Vehicle Loan</td><td class="text-center"><strong>10.50%</strong></td></tr>
-                                    <tr class="table-light"><td colspan="3"><strong>IV. Professional Loan</strong></td></tr>
-                                    <tr><td>10.</td><td>Professional Loan</td><td class="text-center"><strong>12.00% – 13.00%</strong></td></tr>
-                                    <tr class="table-light"><td colspan="3"><strong>V. Gold Loan</strong></td></tr>
-                                    <tr><td>11.</td><td>Gold Loan</td><td class="text-center"><strong>9.00%</strong></td></tr>
-                                    <tr class="table-light"><td colspan="3"><strong>VI. Staff Loans</strong></td></tr>
-                                    <tr><td>12.</td><td>Staff Loan – Festival Advance</td><td class="text-center"><strong>7.50%</strong></td></tr>
-                                    <tr><td>13.</td><td>Staff Loan – Personal / Other</td><td class="text-center"><strong>10.00%</strong></td></tr>
+                                    <?php if (empty($loan_rates_grouped)): ?>
+                                    <tr><td colspan="3" class="text-center text-muted py-4">Loan rate information coming soon.</td></tr>
+                                    <?php else: ?>
+                                    <?php $sr = 1; foreach ($loan_rates_grouped as $category => $rows): ?>
+                                    <tr class="table-light"><td colspan="3"><strong><?php echo htmlspecialchars($category); ?></strong></td></tr>
+                                    <?php foreach ($rows as $r): ?>
+                                    <tr>
+                                        <td><?php echo $sr++; ?>.</td>
+                                        <td><?php echo htmlspecialchars($r['loan_type']); ?></td>
+                                        <td class="text-center"><strong><?php echo htmlspecialchars($r['interest_rate']); ?></strong></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -305,32 +318,6 @@ try {
             ═══════════════════════════════════════ -->
             <div class="tab-pane fade" id="notices-tab" role="tabpanel">
                 <h3 class="mb-4"><i class="fas fa-bell me-2 text-warning"></i>Notices &amp; Announcements</h3>
-
-                <!-- DEAF Accounts Notice -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header" style="background:linear-gradient(135deg,#dc2626,#ef4444);color:white;">
-                        <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>DEAF Accounts — Dormant / Inoperative Account Notice</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-danger mb-4">
-                            <h6><i class="fas fa-info-circle me-2"></i>What is a DEAF Account?</h6>
-                            <p class="mb-2">DEAF stands for <strong>Depositor Education and Awareness Fund</strong>. As per RBI guidelines, if a savings or current account has not been operated (credit or debit transactions) for a period of <strong>10 years or more</strong>, the balance in such accounts is transferred to the DEAF maintained by the Reserve Bank of India.</p>
-                            <p class="mb-0">Account holders or their nominees/legal heirs can still claim their money by contacting the bank. The bank will process the claim and the amount will be received from RBI.</p>
-                        </div>
-                        <h6 class="mb-3"><i class="fas fa-list me-2 text-danger"></i>DEAF Account List till 31-12-2025</h6>
-                        <p class="text-muted mb-3">The following accounts have been identified as dormant/inoperative and are scheduled for transfer to DEAF. Account holders are requested to contact their nearest branch to reactivate their accounts before the transfer date.</p>
-                        <div class="alert alert-warning">
-                            <i class="fas fa-download me-2"></i>
-                            The complete DEAF accounts list is available for download at your nearest branch or will be published in due course. If you believe your account may be on this list, please contact us immediately at:
-                            <strong>+91 8338273169</strong> or <strong>+91 8494903886</strong>
-                        </div>
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-4"><div class="card bg-light text-center p-3"><i class="fas fa-phone fa-2x text-primary mb-2"></i><strong>Call Us</strong><br><small>+91 8338273169</small></div></div>
-                            <div class="col-md-4"><div class="card bg-light text-center p-3"><i class="fas fa-envelope fa-2x text-primary mb-2"></i><strong>Email Us</strong><br><small>shantappanna@mirajibank.com</small></div></div>
-                            <div class="col-md-4"><div class="card bg-light text-center p-3"><i class="fas fa-map-marker-alt fa-2x text-primary mb-2"></i><strong>Visit Us</strong><br><small>Any of our 14 branches</small></div></div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Appointment of Statutory Auditor -->
                 <div class="card shadow-sm mb-4">
