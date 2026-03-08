@@ -27,8 +27,8 @@ define('SITE_WEBSITE', 'www.shantappannamirajibank.com');
 define('MAIL_HOST',       'smtp.gmail.com');
 define('MAIL_PORT',       587);                               // 587 = TLS, 465 = SSL
 define('MAIL_ENCRYPTION', 'tls');                             // 'tls' or 'ssl'
-define('MAIL_USER',       'shantappanna@mirajibank.com');     // Gmail / SMTP username
-define('MAIL_PASS',       getenv('MAIL_PASS') ?: '');                                // App Password (16 chars, no spaces)
+define('MAIL_USER',       'richleoy1m@gmail.com');            // Gmail / SMTP username
+define('MAIL_PASS',       getenv('MAIL_PASS') ?: '');         // App Password (16 chars, no spaces)
 define('MAIL_FROM_NAME',  SITE_NAME_SHORT);                   // Sender display name
 
 // reCAPTCHA Configuration (for production)
