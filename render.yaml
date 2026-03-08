@@ -1,43 +1,27 @@
-databases:
-  - name: miraji-bank-db
-    plan: free            # Render managed MySQL (free tier)
-    databaseName: bank_db
-    user: bankuser
-
 services:
   - type: web
     name: miraji-bank-website
     runtime: docker
     dockerfilePath: ./Dockerfile
-    plan: free            # change to 'starter' for production
+    plan: free
     healthCheckPath: /
     envVars:
       - key: SITE_URL
-        value: https://miraji-bank-website.onrender.com/   # update after first deploy
+        value: https://miraji-bank-website.onrender.com/
 
-      # Auto-populated from the managed MySQL database above
+      # MySQL runs inside the same container — connect via localhost
       - key: DB_HOST
-        fromDatabase:
-          name: miraji-bank-db
-          property: host
+        value: "127.0.0.1"
       - key: DB_PORT
-        fromDatabase:
-          name: miraji-bank-db
-          property: port
-      - key: DB_USER
-        fromDatabase:
-          name: miraji-bank-db
-          property: user
-      - key: DB_PASS
-        fromDatabase:
-          name: miraji-bank-db
-          property: password
+        value: "3306"
       - key: DB_NAME
-        fromDatabase:
-          name: miraji-bank-db
-          property: database
+        value: "bank_db"
+      - key: DB_USER
+        value: "bankuser"
+      - key: DB_PASS
+        value: "bankpass"
       - key: DB_SSL
-        value: "false"    # Render internal MySQL does not require SSL
+        value: "false"
 
       - key: MAIL_PASS
         sync: false       # Gmail App Password — set in dashboard

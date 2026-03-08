@@ -1,8 +1,8 @@
-# PHP 8.2 with Apache
-# Cache-bust: 2026-03-08-v7
+# PHP 8.2 with Apache + bundled MySQL
+# Cache-bust: 2026-03-08-v8
 FROM php:8.2-apache
 
-# Install required PHP extensions + MySQL client (for DB readiness check in startup)
+# Install PHP extensions + MySQL server + supervisor
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    default-mysql-server \
     default-mysql-client \
+    supervisor \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd pdo pdo_mysql mysqli \
   && rm -rf /var/lib/apt/lists/*
@@ -47,6 +49,9 @@ RUN mkdir -p uploads/gallery uploads/downloads logs \
   && chmod -R 755 /var/www/html \
   && chmod -R 775 /var/www/html/uploads \
   && chmod -R 775 /var/www/html/logs
+
+# Supervisor config to run both MySQL and Apache
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 80
 

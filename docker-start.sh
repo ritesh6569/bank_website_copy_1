@@ -1,10 +1,9 @@
 ﻿#!/bin/bash
-# Render startup script
-# Force Apache to listen on 0.0.0.0 on the port Render assigns (default 80)
+set -e
 
 PORT="${PORT:-80}"
 
-# Overwrite ports.conf with the correct port
+# ── 1. Fix Apache port ──────────────────────────────────────────────
 cat > /etc/apache2/ports.conf <<EOF
 Listen 0.0.0.0:${PORT}
 
@@ -15,31 +14,53 @@ Listen 0.0.0.0:${PORT}
     Listen 443
 </IfModule>
 EOF
-
-# Update vhost to use correct port
 sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
 
-# ------------------------------------------------------------------
-# Wait for the Render managed MySQL to be reachable before starting
-# Apache (the PHP app runs db_setup.sql on first DB connection).
-# ------------------------------------------------------------------
-if [ -n "$DB_HOST" ] && [ -n "$DB_PORT" ]; then
-    echo "Waiting for MySQL at ${DB_HOST}:${DB_PORT} ..."
-    MAX_TRIES=30
-    TRIES=0
-    until mysqladmin ping -h"${DB_HOST}" -P"${DB_PORT}" -u"${DB_USER}" -p"${DB_PASS}" --silent 2>/dev/null; do
-        TRIES=$((TRIES + 1))
-        if [ "$TRIES" -ge "$MAX_TRIES" ]; then
-            echo "MySQL did not become ready in time — starting Apache anyway."
-            break
-        fi
-        echo "  MySQL not ready yet (attempt ${TRIES}/${MAX_TRIES}), retrying in 3s ..."
-        sleep 3
-    done
-    echo "MySQL is ready."
+# ── 2. Initialise local MySQL (only on first boot) ──────────────────
+MYSQL_DATA_DIR=/var/lib/mysql
+
+if [ ! -d "$MYSQL_DATA_DIR/mysql" ]; then
+    echo "Initialising MySQL data directory..."
+    mysqld --initialize-insecure --user=mysql --datadir=$MYSQL_DATA_DIR
 fi
 
-echo "Starting Apache on 0.0.0.0:${PORT}"
+# Start MySQL temporarily to set up DB and user
+echo "Starting MySQL for setup..."
+mysqld_safe --user=mysql --skip-networking &
+MYSQL_PID=$!
 
-# Start Apache in foreground
-apache2-foreground
+# Wait until MySQL socket is ready
+for i in $(seq 1 30); do
+    if mysqladmin ping --socket=/var/run/mysqld/mysqld.sock --silent 2>/dev/null; then
+        break
+    fi
+    echo "  Waiting for MySQL socket... ($i/30)"
+    sleep 2
+done
+
+DB_NAME_LOCAL="${DB_NAME:-bank_db}"
+DB_USER_LOCAL="${DB_USER:-bankuser}"
+DB_PASS_LOCAL="${DB_PASS:-bankpass}"
+
+echo "Creating database and user..."
+mysql --socket=/var/run/mysqld/mysqld.sock <<SQL
+CREATE DATABASE IF NOT EXISTS \`${DB_NAME_LOCAL}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS '${DB_USER_LOCAL}'@'localhost' IDENTIFIED BY '${DB_PASS_LOCAL}';
+GRANT ALL PRIVILEGES ON \`${DB_NAME_LOCAL}\`.* TO '${DB_USER_LOCAL}'@'localhost';
+FLUSH PRIVILEGES;
+SQL
+
+echo "Applying db_setup.sql..."
+mysql --socket=/var/run/mysqld/mysqld.sock \
+      -u"${DB_USER_LOCAL}" -p"${DB_PASS_LOCAL}" \
+      "${DB_NAME_LOCAL}" < /var/www/html/db_setup.sql && echo "db_setup.sql applied." || echo "db_setup.sql warnings (safe to ignore if tables already exist)."
+
+# Stop the temporary MySQL process — supervisor will restart it properly
+kill $MYSQL_PID
+wait $MYSQL_PID 2>/dev/null || true
+echo "MySQL setup complete."
+
+# ── 3. Hand off to supervisor (runs MySQL + Apache together) ─────────
+echo "Starting supervisor (MySQL + Apache) on port ${PORT}..."
+mkdir -p /var/log/supervisor
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
