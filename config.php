@@ -7,7 +7,22 @@
 // Define site constants
 define('SITE_NAME', 'Shri Shantappanna Miraji Urban Co-op. Bank Ltd., Chikodi');
 define('SITE_NAME_SHORT', 'Miraji Bank');
-define('SITE_URL', getenv('SITE_URL') ?: 'http://localhost/bank-website-grok-copied-1/');
+
+// Auto-detect SITE_URL: prefer env var, then detect from request, fallback to localhost
+function _detect_site_url() {
+    $env = getenv('SITE_URL');
+    if ($env) return rtrim($env, '/') . '/';
+    if (isset($_SERVER['HTTP_HOST'])) {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        // Trust X-Forwarded-Proto from Render's proxy
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+        }
+        return $scheme . '://' . $_SERVER['HTTP_HOST'] . '/';
+    }
+    return 'http://localhost/bank-website-grok-copied-1/';
+}
+define('SITE_URL', _detect_site_url());
 define('SITE_EMAIL', 'shantappanna@mirajibank.com');
 define('ADMIN_EMAIL', 'shantappanna@mirajibank.com');
 define('SITE_PHONE', '+918338273169');

@@ -45,8 +45,11 @@ function getDBConnection() {
             runSetupSQL($pdo);
 
         } catch (PDOException $e) {
-            // Log error securely and show generic message to users
-            error_log('Database connection failed: ' . $e->getMessage());
+            // Log the real error for debugging
+            $msg = 'Database connection failed: ' . $e->getMessage()
+                 . ' | DSN attempted: ' . (isset($dsn) ? $dsn : 'unknown')
+                 . ' | DB_HOST=' . DB_HOST . ' DB_NAME=' . DB_NAME . ' DB_USER=' . DB_USER;
+            error_log($msg);
             die('Database connection error. Please try again later.');
         }
     }
