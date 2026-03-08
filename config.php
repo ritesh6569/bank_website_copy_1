@@ -10,15 +10,23 @@ define('SITE_NAME_SHORT', 'Miraji Bank');
 
 // Auto-detect SITE_URL: prefer env var, then detect from request, fallback to localhost
 function _detect_site_url() {
+    // 1. Explicit env var always wins (set in Render dashboard / render.yaml)
     $env = getenv('SITE_URL');
     if ($env) return rtrim($env, '/') . '/';
+
     if (isset($_SERVER['HTTP_HOST'])) {
+        $host = $_SERVER['HTTP_HOST'];
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-        // Trust X-Forwarded-Proto from Render's proxy
+        // Trust X-Forwarded-Proto from Render's reverse proxy
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'];
         }
-        return $scheme . '://' . $_SERVER['HTTP_HOST'] . '/';
+        // On localhost (XAMPP), preserve the subdirectory path
+        if ($host === 'localhost' || $host === '127.0.0.1') {
+            return 'http://localhost/bank-website-grok-copied-1/';
+        }
+        // On any real domain / Render, use root
+        return $scheme . '://' . $host . '/';
     }
     return 'http://localhost/bank-website-grok-copied-1/';
 }
