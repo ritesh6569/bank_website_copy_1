@@ -1,8 +1,8 @@
 # PHP 8.2 with Apache
-# Cache-bust: 2026-03-06-v6
+# Cache-bust: 2026-03-08-v7
 FROM php:8.2-apache
 
-# Install required PHP extensions
+# Install required PHP extensions + MySQL client (for DB readiness check in startup)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    default-mysql-client \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd pdo pdo_mysql mysqli \
   && rm -rf /var/lib/apt/lists/*

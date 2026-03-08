@@ -1,3 +1,9 @@
+databases:
+  - name: miraji-bank-db
+    plan: free            # Render managed MySQL (free tier)
+    databaseName: bank_db
+    user: bankuser
+
 services:
   - type: web
     name: miraji-bank-website
@@ -8,13 +14,30 @@ services:
     envVars:
       - key: SITE_URL
         value: https://miraji-bank-website.onrender.com/   # update after first deploy
+
+      # Auto-populated from the managed MySQL database above
       - key: DB_HOST
-        sync: false       # set manually in Render dashboard
+        fromDatabase:
+          name: miraji-bank-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: miraji-bank-db
+          property: port
       - key: DB_USER
-        sync: false
+        fromDatabase:
+          name: miraji-bank-db
+          property: user
       - key: DB_PASS
-        sync: false
+        fromDatabase:
+          name: miraji-bank-db
+          property: password
       - key: DB_NAME
-        sync: false
+        fromDatabase:
+          name: miraji-bank-db
+          property: database
+      - key: DB_SSL
+        value: "false"    # Render internal MySQL does not require SSL
+
       - key: MAIL_PASS
         sync: false       # Gmail App Password — set in dashboard
