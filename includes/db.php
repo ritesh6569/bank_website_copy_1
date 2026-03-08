@@ -22,11 +22,10 @@ function getDBConnection() {
     
     if ($pdo === null) {
         try {
-            // When host is 'localhost', PHP PDO uses the Unix socket automatically.
-            // Explicitly add the socket path so it works when MySQL is bundled in
-            // the same container (Render deployment) and not listening on TCP.
+            // Use Unix socket when DB_HOST is localhost (bundled MySQL in container).
+            // Use TCP host:port for any external DB host.
             $socket = '/var/run/mysqld/mysqld.sock';
-            if (DB_HOST === 'localhost' && file_exists($socket)) {
+            if (DB_HOST === 'localhost' || DB_HOST === '127.0.0.1') {
                 $dsn = 'mysql:unix_socket=' . $socket . ';dbname=' . DB_NAME . ';charset=utf8mb4';
             } else {
                 $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
