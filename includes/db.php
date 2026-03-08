@@ -22,12 +22,20 @@ function getDBConnection() {
     
     if ($pdo === null) {
         try {
-            $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+            // When host is 'localhost', PHP PDO uses the Unix socket automatically.
+            // Explicitly add the socket path so it works when MySQL is bundled in
+            // the same container (Render deployment) and not listening on TCP.
+            $socket = '/var/run/mysqld/mysqld.sock';
+            if (DB_HOST === 'localhost' && file_exists($socket)) {
+                $dsn = 'mysql:unix_socket=' . $socket . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+            } else {
+                $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+            }
             $options = array(
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_EMULATE_PREPARES   => false,
             );
-            // Enable SSL for Aiven (and any host requiring it)
+            // Enable SSL when required (e.g. external cloud MySQL)
             if (DB_SSL === 'true') {
                 $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
                 $options[PDO::MYSQL_ATTR_SSL_CA] = '';
