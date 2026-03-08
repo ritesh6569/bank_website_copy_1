@@ -15,7 +15,7 @@ services:
       - key: DB_PORT
         value: "3306"
       - key: DB_NAME
-        value: "bank_db"
+        value: "bank_db_copy_1"
       - key: DB_USER
         value: "bankuser"
       - key: DB_PASS
