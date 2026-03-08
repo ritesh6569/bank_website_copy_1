@@ -1,377 +1,230 @@
-﻿<?php
-/**
- * Manage Gallery
- * CRUD operations for gallery images
- */
-
-// Start session BEFORE any output
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 
-// Require login - check for the correct session variable
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php", true, 302);
-    exit();
+    header("Location: login.php"); exit();
 }
 
-$page_title = 'Manage Gallery - Admin';
-$action = $_GET['action'] ?? 'list';
-$message = '';
-$message_type = '';
+$page_title   = 'Manage Gallery';
+$admin_active = 'gallery';
+$action       = $_GET['action'] ?? 'list';
+$message = ''; $message_type = '';
 
-// Create upload directory if it doesn't exist
-if (!is_dir(GALLERY_UPLOAD_DIR)) {
-    mkdir(GALLERY_UPLOAD_DIR, 0755, true);
-}
+if (!is_dir(GALLERY_UPLOAD_DIR)) mkdir(GALLERY_UPLOAD_DIR, 0755, true);
 
-// Handle form submissions
+// ── POST handler ─────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = sanitize($_POST['title'] ?? '');
+    $title       = sanitize($_POST['title']       ?? '');
     $description = sanitize($_POST['description'] ?? '');
-    $alt_text = sanitize($_POST['alt_text'] ?? '');
-    $category = sanitize($_POST['category'] ?? '');
-    $status = $_POST['status'] ?? 'active';
-    $admin_id = $_SESSION['admin_id'];
+    $alt_text    = sanitize($_POST['alt_text']    ?? '');
+    $category    = sanitize($_POST['category']    ?? '');
+    $status      = $_POST['status']               ?? 'active';
+    $admin_id    = $_SESSION['admin_id'];
 
     if (empty($title)) {
-        $message = 'Title is required.';
-        $message_type = 'danger';
+        $message = 'Title is required.'; $message_type = 'danger';
     } else {
         if ($action === 'add') {
             if (!isset($_FILES['image']) || $_FILES['image']['error'] === UPLOAD_ERR_NO_FILE) {
-                $message = 'Please upload an image.';
-                $message_type = 'danger';
+                $message = 'Please upload an image.'; $message_type = 'danger';
             } else {
                 $file = $_FILES['image'];
                 if (!isValidImage($file['name'], $file['type'])) {
-                    $message = 'Invalid image format. Accepted: JPG, PNG, GIF, WebP';
-                    $message_type = 'danger';
+                    $message = 'Invalid image format. Accepted: JPG, PNG, GIF, WebP'; $message_type = 'danger';
                 } else {
                     $filename = generateUniqueFilename($file['name']);
                     $filepath = GALLERY_UPLOAD_DIR . $filename;
-
                     if (move_uploaded_file($file['tmp_name'], $filepath)) {
-                        $query = "INSERT INTO gallery (title, description, image_path, alt_text, category, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        executeUpdate($query, [$title, $description, 'uploads/gallery/' . $filename, $alt_text, $category, $status, $admin_id]);
-                        $message = 'Gallery item added successfully!';
-                        $message_type = 'success';
-                        $action = 'list';
+                        executeUpdate(
+                            "INSERT INTO gallery (title,description,image_path,alt_text,category,status,created_by) VALUES (?,?,?,?,?,?,?)",
+                            [$title, $description, 'uploads/gallery/'.$filename, $alt_text, $category, $status, $admin_id]
+                        );
+                        $message = 'Gallery item added!'; $message_type = 'success'; $action = 'list';
                     } else {
-                        $message = 'Failed to upload image.';
-                        $message_type = 'danger';
+                        $message = 'Failed to upload image.'; $message_type = 'danger';
                     }
                 }
             }
         } elseif ($action === 'edit') {
-            $gallery_id = $_GET['id'] ?? 0;
+            $gal_id = intval($_GET['id'] ?? 0);
             if (!empty($_FILES['image']['name'])) {
                 $file = $_FILES['image'];
                 if (!isValidImage($file['name'], $file['type'])) {
-                    $message = 'Invalid image format.';
-                    $message_type = 'danger';
+                    $message = 'Invalid image format.'; $message_type = 'danger';
                 } else {
                     $filename = generateUniqueFilename($file['name']);
                     $filepath = GALLERY_UPLOAD_DIR . $filename;
-
                     if (move_uploaded_file($file['tmp_name'], $filepath)) {
-                        $query = "UPDATE gallery SET title = ?, description = ?, image_path = ?, alt_text = ?, category = ?, status = ? WHERE id = ?";
-                        executeUpdate($query, [$title, $description, 'uploads/gallery/' . $filename, $alt_text, $category, $status, $gallery_id]);
-                        $message = 'Gallery item updated successfully!';
-                        $message_type = 'success';
+                        executeUpdate(
+                            "UPDATE gallery SET title=?,description=?,image_path=?,alt_text=?,category=?,status=? WHERE id=?",
+                            [$title, $description, 'uploads/gallery/'.$filename, $alt_text, $category, $status, $gal_id]
+                        );
+                        $message = 'Gallery item updated!'; $message_type = 'success';
                     } else {
-                        $message = 'Failed to upload image.';
-                        $message_type = 'danger';
+                        $message = 'Failed to upload image.'; $message_type = 'danger';
                     }
                 }
             } else {
-                $query = "UPDATE gallery SET title = ?, description = ?, alt_text = ?, category = ?, status = ? WHERE id = ?";
-                executeUpdate($query, [$title, $description, $alt_text, $category, $status, $gallery_id]);
-                $message = 'Gallery item updated successfully!';
-                $message_type = 'success';
+                executeUpdate("UPDATE gallery SET title=?,description=?,alt_text=?,category=?,status=? WHERE id=?",
+                    [$title, $description, $alt_text, $category, $status, $gal_id]);
+                $message = 'Gallery item updated!'; $message_type = 'success';
             }
             $action = 'list';
         }
     }
 }
 
-// Handle delete
+// ── DELETE ───────────────────────────────────────────────────
 if ($action === 'delete' && isset($_GET['id'])) {
-    $gallery_id = $_GET['id'];
-    $item = fetchOne("SELECT image_path FROM gallery WHERE id = ?", [$gallery_id]);
+    $gal_id = intval($_GET['id']);
+    $item = fetchOne("SELECT image_path FROM gallery WHERE id=?", [$gal_id]);
     if (!empty($item)) {
-        $file_path = __DIR__ . '/../' . $item['image_path'];
-        if (file_exists($file_path)) {
-            unlink($file_path);
-        }
+        $fp = __DIR__ . '/../' . $item['image_path'];
+        if (file_exists($fp)) unlink($fp);
     }
-    executeUpdate("DELETE FROM gallery WHERE id = ?", [$gallery_id]);
-    $message = 'Gallery item deleted successfully!';
-    $message_type = 'success';
-    $action = 'list';
+    executeUpdate("DELETE FROM gallery WHERE id=?", [$gal_id]);
+    $message = 'Gallery item deleted.'; $message_type = 'success'; $action = 'list';
 }
 
-// Get gallery items
-$gallery_items = [];
-$current_item = null;
-
+// ── Fetch ────────────────────────────────────────────────────
+$gallery_items = []; $current_item = null;
 if ($action === 'list') {
     $gallery_items = fetchAll("SELECT * FROM gallery ORDER BY display_order ASC, created_at DESC");
 } elseif ($action === 'edit' && isset($_GET['id'])) {
-    $current_item = fetchOne("SELECT * FROM gallery WHERE id = ?", [$_GET['id']]);
-    if (empty($current_item)) {
-        $action = 'list';
-        $message = 'Gallery item not found.';
-        $message_type = 'danger';
-    }
+    $current_item = fetchOne("SELECT * FROM gallery WHERE id=?", [intval($_GET['id'])]);
+    if (empty($current_item)) { $action = 'list'; $message = 'Not found.'; $message_type = 'danger'; }
 }
 
+include __DIR__ . '/layout.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title; ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/professional-theme.css">
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/admin-responsive.css">
-</head>
-<body>
-    <!-- Hamburger Toggle (mobile) -->
-    <button class="hamburger-btn" id="sidebarToggle" aria-label="Toggle menu">
-        <i class="fas fa-bars"></i>
-    </button>
-    <!-- Overlay backdrop -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <div class="d-flex" style="min-height: 100vh;">
-        <!-- Sidebar -->
-        <nav class="sidebar" id="adminSidebar" style="width: 250px; background: #1A2533; padding: 2rem 0; position: fixed; height: 100vh; overflow-y: auto; box-shadow: 4px 0 12px rgba(15,31,53,0.15);">
-            <div class="sidebar-header mb-4 px-3">
-                <div style="font-size: 1.2rem; font-weight: 800; color: white; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <i class="fas fa-university me-2" style="color: #B87333;"></i>Admin Panel
-                </div>
-                <a href="<?php echo SITE_URL; ?>" class="d-block mt-3" style="color: rgba(255,255,255,0.65); font-size: 0.85rem; text-decoration: none;">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Site
-                </a>
-            </div>
-            <ul class="nav flex-column px-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-chart-line me-2"></i>Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacts.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-envelope me-2"></i>Contact Submissions
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="downloads.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-download me-2"></i>Manage Downloads
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="notices.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-bullhorn me-2"></i>Manage Notices
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="gallery.php" style="color: rgba(255,255,255,0.85); padding: 0.85rem 1.5rem; border-left: 3px solid #B87333; background: rgba(184,134,11,0.12); font-weight: 600;">
-                        <i class="fas fa-images me-2" style="color: #B87333;"></i>Manage Gallery
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="rates.php" style="color: rgba(255,255,255,0.75); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-percent me-2"></i>Interest Rates
-                    </a>
-                </li>
-                <hr style="border-color: rgba(255,255,255,0.1); margin: 0.75rem 0;">
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php" style="color: rgba(255,255,255,0.65); padding: 0.85rem 1.5rem; border-left: 3px solid transparent;">
-                        <i class="fas fa-sign-out-alt me-2"></i>Logout
-                    </a>
-                </li>
-            </ul>
-        </nav>
+<div class="adm-page-header">
+  <div>
+    <h1><i class="fas fa-images me-2" style="color:var(--b-copper);font-size:1.1rem;"></i>
+      <?= $action==='add' ? 'Add Gallery Item' : ($action==='edit' ? 'Edit Gallery Item' : 'Manage Gallery') ?>
+    </h1>
+    <p><?= $action==='list' ? count($gallery_items).' item(s) total' : 'Fill in the details below' ?></p>
+  </div>
+  <?php if ($action==='list'): ?>
+  <a href="gallery.php?action=add" class="btn-adm-copper"><i class="fas fa-plus"></i>Add Image</a>
+  <?php else: ?>
+  <a href="gallery.php" class="btn-adm-ghost"><i class="fas fa-arrow-left"></i>Back to Gallery</a>
+  <?php endif; ?>
+</div>
 
-        <!-- Main Content -->
-        <main style="margin-left: 250px; width: calc(100% - 250px);">
-            <div class="container-fluid p-4">
-                <!-- Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1><?php echo $action === 'add' ? 'Add Gallery Item' : ($action === 'edit' ? 'Edit Gallery Item' : 'Manage Gallery'); ?></h1>
-                    <?php if ($action === 'list'): ?>
-                        <a href="gallery.php?action=add" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add Item
-                        </a>
-                    <?php else: ?>
-                        <a href="gallery.php" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back
-                        </a>
-                    <?php endif; ?>
-                </div>
+<?php if ($message): ?>
+<div class="adm-alert adm-alert-<?= $message_type==='success'?'success':'danger' ?>">
+  <i class="fas fa-<?= $message_type==='success'?'circle-check':'circle-xmark' ?>"></i><?= htmlspecialchars($message) ?>
+</div>
+<?php endif; ?>
 
-                <!-- Messages -->
-                <?php if (!empty($message)): ?>
-                    <div class="alert alert-<?php echo $message_type; ?> alert-dismissible fade show" role="alert">
-                        <?php echo $message; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                <?php endif; ?>
-
-                <!-- List View -->
-                <?php if ($action === 'list'): ?>
-                    <div class="row" style="gap: 1.5rem;">
-                        <?php foreach ($gallery_items as $item): ?>
-                            <div class="col-md-4 mb-3">
-                                <div class="card" style="border: 2px solid #1A5C42; border-top: 4px solid #B87333; border-radius: 10px; box-shadow: 0 2px 10px rgba(15,44,94,0.10); overflow: hidden;">
-                                    <img src="<?php echo SITE_URL . '/' . $item['image_path']; ?>" class="card-img-top" alt="<?php echo escape($item['alt_text']); ?>" style="height: 200px; object-fit: cover;">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?php echo escape($item['title']); ?></h5>
-                                        <p class="card-text text-muted" style="font-size: 0.9rem;"><?php echo escape(substr($item['description'], 0, 100)); ?></p>
-                                        <div class="d-flex gap-2">
-                                            <a href="gallery.php?action=edit&id=<?php echo $item['id']; ?>" class="btn btn-sm btn-info flex-grow-1">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="gallery.php?action=delete&id=<?php echo $item['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php if (empty($gallery_items)): ?>
-                        <div class="card">
-                            <div class="card-body text-center py-5">
-                                <i class="fas fa-images" style="font-size: 3rem; color: #ccc;"></i>
-                                <p class="text-muted mt-3">No gallery items found.</p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                <!-- Add/Edit View -->
-                <?php else: ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <form method="POST" action="" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="title" class="form-label">Title *</label>
-                                            <input 
-                                                type="text" 
-                                                class="form-control" 
-                                                id="title" 
-                                                name="title" 
-                                                required
-                                                value="<?php echo escape($current_item['title'] ?? ''); ?>"
-                                            >
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="alt_text" class="form-label">Alt Text (for accessibility)</label>
-                                            <input 
-                                                type="text" 
-                                                class="form-control" 
-                                                id="alt_text" 
-                                                name="alt_text"
-                                                value="<?php echo escape($current_item['alt_text'] ?? ''); ?>"
-                                            >
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="category" class="form-label">Category</label>
-                                            <input 
-                                                type="text" 
-                                                class="form-control" 
-                                                id="category" 
-                                                name="category"
-                                                value="<?php echo escape($current_item['category'] ?? ''); ?>"
-                                                placeholder="e.g., Events, Branches, Team"
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="image" class="form-label">Image <?php echo $action === 'add' ? '*' : '(leave empty to keep current)'; ?></label>
-                                            <input 
-                                                type="file" 
-                                                class="form-control" 
-                                                id="image" 
-                                                name="image"
-                                                accept="image/*"
-                                                <?php echo $action === 'add' ? 'required' : ''; ?>
-                                            >
-                                            <small class="text-muted">Accepted: JPG, PNG, GIF, WebP (Max 5MB)</small>
-                                        </div>
-
-                                        <?php if ($action === 'edit' && !empty($current_item['image_path'])): ?>
-                                            <div class="mb-3">
-                                                <label class="form-label">Current Image</label>
-                                                <img src="<?php echo SITE_URL . '/' . $current_item['image_path']; ?>" alt="Current image" style="max-width: 100%; height: 150px; object-fit: cover; border-radius: 0.5rem;">
-                                            </div>
-                                        <?php endif; ?>
-
-                                        <div class="mb-3">
-                                            <label for="status" class="form-label">Status</label>
-                                            <select class="form-select" id="status" name="status">
-                                                <option value="active" <?php echo (($current_item['status'] ?? 'active') === 'active') ? 'selected' : ''; ?>>Active</option>
-                                                <option value="inactive" <?php echo (($current_item['status'] ?? '') === 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <textarea 
-                                        class="form-control" 
-                                        id="description" 
-                                        name="description" 
-                                        rows="4"
-                                    ><?php echo escape($current_item['description'] ?? ''); ?></textarea>
-                                </div>
-
-                                <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> Save Item
-                                    </button>
-                                    <a href="gallery.php" class="btn btn-secondary">
-                                        <i class="fas fa-times"></i> Cancel
-                                    </a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </main>
+<?php if ($action==='list'): ?>
+<!-- ===== GALLERY GRID ===== -->
+<?php if (empty($gallery_items)): ?>
+<div class="adm-card">
+  <div style="padding:3.5rem;text-align:center;color:var(--b-muted);">
+    <i class="fas fa-images fa-2x" style="display:block;color:var(--b-border);margin-bottom:.8rem;"></i>
+    No gallery items yet. <a href="gallery.php?action=add" style="color:var(--b-green);font-weight:600;">Add the first image.</a>
+  </div>
+</div>
+<?php else: ?>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
+  <?php foreach ($gallery_items as $item): ?>
+  <div style="background:#fff;border-radius:10px;border:1px solid var(--b-border);box-shadow:0 2px 8px rgba(0,0,0,.06);overflow:hidden;display:flex;flex-direction:column;">
+    <div style="height:180px;overflow:hidden;position:relative;">
+      <img src="<?= SITE_URL.'/'.$item['image_path'] ?>"
+           alt="<?= htmlspecialchars($item['alt_text'] ?: $item['title']) ?>"
+           style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;top:.6rem;right:.6rem;">
+        <?= $item['status']==='active'
+          ? '<span class="adm-badge adm-badge-green">Active</span>'
+          : '<span class="adm-badge adm-badge-muted">Inactive</span>' ?>
+      </div>
     </div>
+    <div style="padding:1rem;flex:1;display:flex;flex-direction:column;gap:.4rem;">
+      <div style="font-weight:700;font-size:.9rem;color:var(--b-dark);"><?= htmlspecialchars($item['title']) ?></div>
+      <?php if (!empty($item['category'])): ?>
+      <span class="adm-badge adm-badge-blue" style="width:fit-content;"><?= htmlspecialchars($item['category']) ?></span>
+      <?php endif; ?>
+      <?php if (!empty($item['description'])): ?>
+      <div style="font-size:.78rem;color:var(--b-muted);line-height:1.5;"><?= htmlspecialchars(substr($item['description'],0,80)) ?><?= strlen($item['description'])>80?'…':'' ?></div>
+      <?php endif; ?>
+      <div style="display:flex;gap:.5rem;margin-top:auto;padding-top:.6rem;">
+        <a href="gallery.php?action=edit&id=<?= $item['id'] ?>" class="btn-adm-ghost btn-adm-sm" style="flex:1;justify-content:center;"><i class="fas fa-pen"></i>Edit</a>
+        <a href="gallery.php?action=delete&id=<?= $item['id'] ?>" class="btn-adm-danger btn-adm-sm" onclick="return confirm('Delete this image?')"><i class="fas fa-trash"></i></a>
+      </div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    (function(){
-        var toggle  = document.getElementById('sidebarToggle');
-        var sidebar = document.getElementById('adminSidebar');
-        var overlay = document.getElementById('sidebarOverlay');
-        function openSidebar()  { sidebar.classList.add('sidebar-open');    overlay.classList.add('active'); }
-        function closeSidebar() { sidebar.classList.remove('sidebar-open'); overlay.classList.remove('active'); }
-        if (toggle)  toggle.addEventListener('click', function(){ sidebar.classList.contains('sidebar-open') ? closeSidebar() : openSidebar(); });
-        if (overlay) overlay.addEventListener('click', closeSidebar);
-    })();
-    </script>
-</body>
-</html>
+<?php else: ?>
+<!-- ===== ADD / EDIT FORM ===== -->
+<div class="adm-card" style="max-width:760px;">
+  <div class="adm-card-header"><i class="fas fa-image"></i><?= $action==='add'?'Upload New Image':'Edit Gallery Item' ?></div>
+  <div class="adm-card-body">
+    <form method="POST" action="" enctype="multipart/form-data">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+        <div>
+          <div class="adm-form-group">
+            <label>Title <span class="req">*</span></label>
+            <input class="adm-input" type="text" name="title" required
+                   value="<?= htmlspecialchars($current_item['title'] ?? '') ?>"
+                   placeholder="Image title">
+          </div>
+          <div class="adm-form-group">
+            <label>Alt Text <small style="color:var(--b-muted);font-weight:400;">(accessibility)</small></label>
+            <input class="adm-input" type="text" name="alt_text"
+                   value="<?= htmlspecialchars($current_item['alt_text'] ?? '') ?>"
+                   placeholder="Describe the image">
+          </div>
+          <div class="adm-form-group">
+            <label>Category</label>
+            <input class="adm-input" type="text" name="category"
+                   value="<?= htmlspecialchars($current_item['category'] ?? '') ?>"
+                   placeholder="e.g. Events, Branches, Team">
+          </div>
+          <div class="adm-form-group">
+            <label>Status</label>
+            <select class="adm-select" name="status">
+              <option value="active"   <?= (($current_item['status']??'active')==='active')?'selected':'' ?>>Active</option>
+              <option value="inactive" <?= (($current_item['status']??'')==='inactive')?'selected':'' ?>>Inactive</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="adm-form-group">
+            <label>Image <?= $action==='add' ? '<span class="req">*</span>' : '(leave blank to keep current)' ?></label>
+            <input class="adm-input" type="file" name="image" accept="image/*" <?= $action==='add'?'required':'' ?>>
+            <p style="font-size:.76rem;color:var(--b-muted);margin-top:.3rem;">Accepted: JPG, PNG, GIF, WebP · Max 5MB</p>
+          </div>
+          <?php if ($action==='edit' && !empty($current_item['image_path'])): ?>
+          <div style="margin-top:.5rem;">
+            <p style="font-size:.76rem;color:var(--b-muted);font-weight:600;margin-bottom:.4rem;">CURRENT IMAGE</p>
+            <img src="<?= SITE_URL.'/'.$current_item['image_path'] ?>"
+                 alt="Current"
+                 style="max-width:100%;height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--b-border);">
+          </div>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="adm-form-group">
+        <label>Description</label>
+        <textarea class="adm-textarea" name="description" rows="3"
+                  placeholder="Brief description (optional)"><?= htmlspecialchars($current_item['description'] ?? '') ?></textarea>
+      </div>
+      <div style="display:flex;gap:.6rem;margin-top:1.2rem;">
+        <button type="submit" class="btn-adm-primary"><i class="fas fa-floppy-disk"></i>Save Item</button>
+        <a href="gallery.php" class="btn-adm-ghost"><i class="fas fa-xmark"></i>Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+<?php endif; ?>
 
+<?php include __DIR__ . '/layout-end.php'; ?>
