@@ -7,7 +7,7 @@ services:
     healthCheckPath: /
     envVars:
       - key: SITE_URL
-        value: https://miraji-bank-website.onrender.com/
+        value: https://bank-website-copy-1.onrender.com/
 
       # MySQL runs inside the same container — connect via localhost
       - key: DB_HOST
