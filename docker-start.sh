@@ -41,7 +41,7 @@ echo "==> Starting MySQL for initial setup..."
 mysqld --user=mysql \
        --socket=$MYSQL_SOCKET \
        --skip-networking \
-       --daemonize
+       --background
 
 echo "==> Waiting for MySQL socket..."
 for i in $(seq 1 30); do
